@@ -17,7 +17,7 @@ public class UserDAO {
 	
 	// Return User information after trying to authenticate him
 	public User performUserLogin(String username, String password) throws SQLException {
-		String query = 	"SELECT id, username, name, surname FROM user "
+		String query = 	"SELECT id, username, name, surname FROM utente "
 						+ "WHERE name= ? AND password = ?";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setString(1, username);
