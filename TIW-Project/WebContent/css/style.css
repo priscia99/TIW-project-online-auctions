@@ -1,0 +1,83 @@
+@font-face {
+	font-family: Roboto;
+	src: url(../fonts/Roboto/Roboto-Regular.ttf);
+}
+
+body{
+	margin: 0px;
+	padding: 0px;
+	background-color: #99DDC8;
+	font-family: Roboto;
+}
+
+a{
+	text-decoration: none;
+	color: #808080;
+}
+
+a:hover{
+		text-decoration: underline;
+}
+
+.centered{
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+.full{
+	width:100%;
+	text-align: center;
+}
+
+.medium-logo{
+	width: 3em;
+	height: 3em;
+}
+
+.login-form{
+	width:400px;
+	margin: auto;
+	padding:20px;
+	background-color: #f4f9f4;
+	border-radius: 20px;
+}
+
+.dark-green{
+	filter: invert(16%) sepia(14%) saturate(1144%) hue-rotate(120deg) brightness(103%) contrast(84%);
+}
+
+.form-field{
+	margin-top: 20px;
+	width:80%;
+	height:2em;
+	border-radius:5px;
+	border: 1px solid #283f3b;
+}
+
+.form-field::placeholder{
+	padding-left: 10px;
+}
+
+.form-button{
+	width:80%;
+	height: 3em;
+	background-color: #283f3b;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	border: none;
+	color: #ffffff;
+	border-radius: 10px;
+}
+
+.form-button:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.small-link{
+	font-size: 14px;
+	color: #808080;
+}
