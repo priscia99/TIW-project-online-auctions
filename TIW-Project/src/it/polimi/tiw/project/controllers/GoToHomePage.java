@@ -20,6 +20,7 @@ public class GoToHomePage extends HttpServlet {
     public GoToHomePage() {
         super();
         // TODO Auto-generated constructor stub
+        // piero
     }
 
 	/**
