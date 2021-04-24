@@ -17,8 +17,8 @@ public class UserDAO {
 	
 	// Return User information after trying to authenticate him
 	public User performUserLogin(String username, String password) throws SQLException {
-		String query = 	"SELECT id, username, name, surname FROM utente "
-						+ "WHERE name= ? AND password = ?";
+		String query = 	"SELECT id, username, name, surname, address FROM utente "
+						+ "WHERE username = ? AND password = ?";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setString(1, username);
 			statement.setString(2, password);
@@ -30,11 +30,39 @@ public class UserDAO {
 					User user = new User(result.getInt("id"),
 								result.getString("username"),
 								result.getString("name"),
-								result.getString("surname"));
+								result.getString("surname"),
+								result.getString("address"));
 					return user;
 				}
 			}
 		}
 	}
+	
+	// Create a new user into database
+	public void createUser(String username, String password, String name, String surname, String address)
+	throws SQLException{
+		String query = "INSERT into utente (username, password, name, surname, address) VALUES(?, ?, ?, ?, ?)";
+		try (PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setString(1, username);
+			statement.setString(2, password);
+			statement.setString(3, name);
+			statement.setString(4, surname);
+			statement.setString(5, address);
+			statement.executeUpdate();
+		}
+	}
+	
+	// Check if another user exists with the same username given by user
+	public boolean userAlreadyExists(String username) throws SQLException{
+		String query = 	"SELECT id FROM utente WHERE username = ?";
+		try (PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setString(1, username);
+			try (ResultSet result = statement.executeQuery();) {
+				return result.isBeforeFirst();
+			}
+		}
+	}
+	
+	
 	
 }

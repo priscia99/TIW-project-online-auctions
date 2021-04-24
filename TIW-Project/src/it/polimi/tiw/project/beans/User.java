@@ -6,13 +6,15 @@ public class User {
 	private String username; 	// user's username
 	private String name; 		// user's name
 	private String surname;		// user's surname
+	private String address;		// user's home address
 	
 	// Main constructor
-	public User(int uId, String u, String n, String s) {
+	public User(int uId, String u, String n, String s, String a) {
 		this.userId = uId;
 		this.username = u;
 		this.name = n;
 		this.surname = s;
+		this.address = a;
 	}
 	
 	// Setters 
@@ -28,11 +30,15 @@ public class User {
 	public void setSurname(String s) {
 		this.surname = s;
 	}
+	public void setAddress(String a) {
+		this.address = a;
+	}
 	
 	// Getters
 	public int getUserId() { return userId; }
 	public String getUsername() { return username; }
 	public String getName() { return name; }
 	public String getSurname() { return surname; }
+	public String getAddress() { return address; }
 	
 }

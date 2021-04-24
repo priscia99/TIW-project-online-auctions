@@ -29,7 +29,8 @@ import java.sql.SQLException;
 public class PerformLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private Connection connection = null;
-    private TemplateEngine templateEngine;	// User for Thymeleaf
+    private TemplateEngine templateEngine;	// Used for Thymeleaf
+    
     public PerformLogin() {
         super();
         // TODO Auto-generated constructor stub
@@ -47,7 +48,7 @@ public class PerformLogin extends HttpServlet {
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	doPost(request, response);
+    	response.sendError(HttpServletResponse.SC_BAD_REQUEST, "GET is not allowed");
     }
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -84,7 +85,7 @@ public class PerformLogin extends HttpServlet {
 			// Username or password incorrect -> return to login page
 			ServletContext servletContext = getServletContext();
 			final WebContext webContext = new WebContext(request, response, servletContext, request.getLocale());
-			webContext.setVariable("loginErrorMsg", "Incorrect username or password. Try again.");
+			webContext.setVariable("loginInfoMsg", "Incorrect username or password. Try again.");
 			path = "/index.html";	//Re-direct to login page again
 			templateEngine.process(path, webContext, response.getWriter());
 		}

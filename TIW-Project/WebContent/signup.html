@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="all" href="css/style.css"/>
+    <title>Online Auctions - SignUp</title>
+    <style>
+        #signup-form {
+            width: 450px;
+            height: 500px;
+        }
+        #signup-button {
+            font-size: 20px;
+            color: white;
+            width: 60%;
+            height: 40px;
+        }
+        #signup-msg {
+            font-size: 12px;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="centered round container outer-shadow">
+        <form action="PerformSignup" method="post" id="signup-form" class="rows centered-flex">
+            <img class="medium-logo" src="img/logo.svg">
+            <p th:class="@{login-info-text}" th:text=${signupInfoMsg}> </p>
+            <input type="text" class="round text-field inner-shadow w75" name="username" placeholder="Username" required="required"/><br>
+            <input type="password" class="round text-field inner-shadow w75" name="password" placeholder="Password" required="required"/><br>
+            <input type="text" class="round text-field inner-shadow w75" name="name" placeholder="Name" required="required"/><br>
+            <input type="text" class="round text-field inner-shadow w75" name="surname" placeholder="Surname" required="required"/><br>
+            <input type="text" class="round text-field inner-shadow w75" name="address" placeholder="Address" required="required"/><br>
+            <button id="signup-button" class="round outer-shadow primary-accent" type="submit">Sign Up</button>
+            <p id="signup-msg">Already registered? <a class="text-primary-accent" href="index.html">Log In!</a></p>
+        </form>
+    </div>
+</body>
+</html>
