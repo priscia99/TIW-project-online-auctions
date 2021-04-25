@@ -1,9 +1,36 @@
-    /*
-    primary background: #99DDC8
-    primary background accent: #324741
-    secondary background: ivory
-    secondary background accent: #fafaf5
-     */
+    /*ANDREA-IVORY*/
+    /*:root {*/
+    /*    --text-lighter: #99DDC8;*/
+    /*    --detail: #324741;*/
+    /*    --solid-lighter: #fafaf5;*/
+    /*    --solid: ivory;*/
+    /*    --background: #99DDC8;*/
+    /*    --accent: #DD1C1A;*/
+    /*}*/
+    /* BLUE-ORANGE */
+    :root {
+        --detail: hsla(218, 23%, 21%, 1);
+        --solid: hsla(200, 35%, 60%, 1);
+        --solid-lighter: hsla(161, 28%, 78%, 1);
+        --background: hsla(74, 97%, 89%, 1);
+        --accent: hsla(7, 100%, 56%, 1);
+    }
+    /* GREEN-RANGE */
+    /*:root {*/
+    /*    --detail: hsla(71, 45%, 15%, 1);*/
+    /*    --accent: hsla(24, 83%, 45%, 1);*/
+    /*    --solid: hsla(71, 27%, 49%, 1);*/
+    /*    --solid-lighter: hsla(77, 41%, 67%, 1);*/
+    /*    --background: hsla(81, 84%, 85%, 1);*/
+    /*}*/
+    /* HEAVY */
+    /*:root {*/
+    /*    --detail: hsla(231, 76%, 3%, 1);*/
+    /*    --accent: hsla(337, 100%, 26%, 1);*/
+    /*    --solid: hsla(205, 100%, 30%, 1);*/
+    /*    --solid-lighter: hsla(39, 100%, 45%, 1);*/
+    /*    --background: hsla(0, 17%, 88%, 1);*/
+    /*}*/
 
     @font-face {
         font-family: Roboto;
@@ -16,11 +43,12 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
-        background-color: #99DDC8;
+        background-color: var(--background);
+        color: var(--detail);
     }
-
+	
     input.text-field{
-        background-color: #fafaf5;
+        background-color: var(--solid-lighter);
         height: 40px;
         border: none;
         outline: none;
@@ -29,41 +57,41 @@
     }
 
     button{
+        background-color: var(--accent);
+        color: var(--background);
         border: none;
         outline: none;
         cursor: pointer;
     }
-
     button:hover{
         filter:brightness(85%);
     }
-
     button:active{
         box-shadow: 0 0 #666;
         transform: translateY(2px);
     }
 
     a {
+        color: var(--detail);
         font-weight: bold;
         text-decoration: none;
     }
-
     a:hover {
         text-decoration: underline;
     }
 
     .container {
-        background-color: ivory;
+        background-color: var(--solid);
         text-align: center;
     }
 
     .small-logo {
-        filter: invert(16%) sepia(14%) saturate(1144%) hue-rotate(120deg) brightness(103%) contrast(84%);
+        filter: invert(18%) sepia(11%) saturate(1360%) hue-rotate(179deg) brightness(92%) contrast(93%);
         width: 2em;
         height: 2em;
     }
     .medium-logo {
-        filter: invert(16%) sepia(14%) saturate(1144%) hue-rotate(120deg) brightness(103%) contrast(84%);
+        filter: invert(18%) sepia(11%) saturate(1360%) hue-rotate(179deg) brightness(92%) contrast(93%);
         width: 3em;
         height: 3em;
     }
@@ -148,7 +176,6 @@
     .outer-shadow{
         box-shadow: 2px 2px 3px #999;
     }
-
     .inner-shadow{
         box-shadow: inset 2px 2px 3px #999;
     }
@@ -205,33 +232,41 @@
         height: 20%;
     }
 
-
     /* colors */
-    .primary {
-        background-color: #99DDC8;
+    .text-color-detail {
+        color: var(--detail);
     }
-    .primary-accent {
-        background-color: #324741;
+    .text-color-solid {
+        color: var(--solid);
     }
-    .secondary {
-        background-color: ivory;
+    .text-color-solid-l {
+        color: var(--solid-lighter);
     }
-    .secondary-accent {
-        background-color: #fafaf5;
+    .text-color-background {
+        color: var(--background);
+    }
+    .text-color-accent {
+        color: var(--accent)
     }
 
-    .text-primary {
-        color: #99DDC8;
+    .color-detail {
+        background-color: var(--detail);
     }
-    .text-primary-accent {
-        color: #324741;
+    .color-solid {
+        background-color: var(--solid);
     }
-    .text-secondary {
-        color: ivory;
+    .color-solid-l {
+        background-color: var(--solid-lighter);
     }
-    .text-secondary-accent {
-        color: #fafaf5;
+    .color-background {
+        background-color: var(--background);
     }
+    .color-accent {
+        background-color: var(--accent)
+    }
+
+
+
 
     /* FLEX */
     .columns {
@@ -290,6 +325,9 @@
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 
+
+
+
     /* NAVIGATION */
     div.navbar {
         position: fixed;
@@ -300,12 +338,13 @@
     .nav-links > a {
         text-decoration: none;
         font-weight: normal;
+        font-size: 20px;
     }
     .nav-links > a:hover {
         text-decoration: overline;
-        color: #99DDC8;
     }
     .nav-links > a.active {
+        color: var(--solid-lighter);
         font-weight: bold;
     }
 
