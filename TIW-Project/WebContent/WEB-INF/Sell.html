@@ -11,6 +11,20 @@
       font-size: 12px;
       padding: 5px 10px;
     }
+
+    #create-popup {
+      display: none;
+      height: 70vh;
+    }
+    #create-popup:target {
+      display: block;
+      /*position: absolute;*/
+      width: 30vw;
+    }
+
+    #description {
+      height: 40%;
+    }
   </style>
 </head>
 <body>
@@ -18,13 +32,45 @@
   <div class="container navbar outer-shadow columns centered-flex">
     <div class="nav-logo"><img src="../img/logo.svg" alt="" class="small-logo"></div>
     <div class="nav-links">
-      <a href="#" class="text-primary-accent">Home</a>
-      <a href="#" class="text-primary-accent">Buy</a>
-      <a href="#" class="active text-primary-accent">Sell</a>
+      <a href="Home.html" class="text-primary-accent">Home</a>
+      <a href="Buy.html" class="text-primary-accent">Buy</a>
+      <a href="Sell.html" class="active text-primary-accent">Sell</a>
     </div>
     <div class="nav-opt">
       <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
     </div>
+  </div>
+
+
+  <div class="rows spaced-flex">
+    <div class="m-nav">
+      <a href="#create-popup"><button class="round ph10 pv10 mv20 caps-lock">CREATE NEW AUCTION</button></a>
+    </div>
+  </div>
+  <div class="columns spaced-flex">
+    <div class="container round outer-shadow w50 centered" id="create-popup">
+      <a href=""><button class="round ph20 pv10 mv10 color-background text-color-accent">Back</button></a> <br>
+      <input type="text" class="round inner-shadow text-field mv10 w80" placeholder="Title">
+      <input type="text" class="round inner-shadow text-field mv10 w80" placeholder="Description" id="description">
+      <div class="columns centered-flex mv10">
+        <input type="text" class="round inner-shadow text-field mh10 w30" placeholder="Starting price">
+        <input type="text" class="round inner-shadow text-field mh10 w30" placeholder="Minimum rise">
+      </div>
+      <div class="columns centered-flex mv10">
+        <input type="text" class="round inner-shadow text-field mh10 w30" placeholder="Expire date">
+        <input type="text" class="round inner-shadow text-field mh10 w30" placeholder="Expire time">
+      </div>
+      <div class="mv10">
+        <input type="text" class="round inner-shadow text-field w30" placeholder="Image">
+        <button class="round ph10 pv10 mh10 color-solid-l text-color-detail">Load</button>
+      </div>
+      <div class="mv20">
+        <button class="round outer-shadow ph20 pv10 mh30">Confirm</button>
+        <button class="round outer-shadow ph20 pv10 color-background text-color-accent mh30">Cancel</button>
+      </div>
+    </div>
+    <div class="color-solid-l" style="height: 80vh; width: 40vw;"> List 1</div>
+    <div class="color-solid-l" style="height: 80vh; width: 40vw;"> List 2</div>
   </div>
 
 </body>
