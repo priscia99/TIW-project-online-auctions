@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"/>
+<html>
+<head>
+  <meta charset="ISO-8859-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" media="all" href="../css/style.css"/>
+  <title>Online Auction - Buy</title>
+  <style>
+    #logoff-btn {
+      font-size: 12px;
+      padding: 5px 10px;
+    }
+
+    #search-bar {
+      max-width: 550px;
+    }
+    #search-button {
+      height: 40px;
+      width: 40px;
+      font-size: 10px;
+    }
+    #search-field {
+      width: calc(100% - 50px);
+      margin-right: 10px;
+    }
+
+    .auction-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 80%;
+    }
+    .auction {
+      border-top: 1px solid var(--detail);
+      display: grid;
+      grid-template-columns: 200px 1fr 200px;
+      grid-template-rows: 200px;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      grid-gap: 20px;
+      padding: 20px;
+    }
+    .auction-img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+    }
+    .auction-title {
+      height: 20px;
+    }
+    .auction-desc {
+      font-size: 14px;
+      height: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container navbar outer-shadow columns centered-flex">
+    <div class="nav-logo"><img src="../img/logo.svg" alt="" class="small-logo"></div>
+    <div class="nav-links">
+      <a href="#" class="text-primary-accent">Home</a>
+      <a href="#" class="active text-primary-accent">Buy</a>
+      <a href="#" class="text-primary-accent">Sell</a>
+    </div>
+    <div class="nav-opt">
+      <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
+    </div>
+  </div>
+
+  <div class="rows centered-flex w100 nav-rest">
+    <div class="rows centered-flex w100 mv50">
+      <h1>Search Auctions</h1>
+      <div class="columns spaced-flex w80" id="search-bar">
+        <input type="text" placeholder="Enter keywords to search" class="round text-field inner-shadow" id="search-field">
+        <button class="round outer-shadow" id="search-button">
+          <img src="../img/search-solid.svg" alt="#search-result" class="small-logo">
+        </button>
+      </div>
+    </div>
+
+    <!-- the main div is set to put the search bar in center when there are no result to display -->
+    <div class="w100 rows centered-flex">
+      <ul class="auction-list">
+        <li class="auction">
+          <img src="../img/sample.jfif" alt="" class="auction-img">
+          <div>
+            <h3 class="auction-title">Sample Auction</h3>
+            <p class="auction-desc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet est aliquet, pellentesque est a, scelerisque ex. Suspendisse quis porta lacus. Aenean venenatis scelerisque augue sit amet malesuada. Donec non faucibus lorem. Praesent ornare interdum mauris et convallis. Mauris tincidunt lorem non ante commodo, eu malesuada nibh feugiat. Mauris accumsan odio dolor, vitae molestie dui pulvinar vel. Etiam libero nisl, tincidunt at risus id, condimentum sagittis leo. Integer vel posuere felis, id eleifend nibh. Aenean varius mauris in eleifend fermentum. Duis accumsan in est id scelerisque. Morbi tempor euismod tellus eget congue. Mauris in ex dapibus, hendrerit risus vitae, dignissim ante. Aliquam metus eros, rhoncus et tortor varius, molestie tempor nisi. Etiam velit arcu, posuere ut ligula quis, pellentesque auctor ex.
+              Aenean sollicitudin mattis nulla quis ultrices. Duis vehicula ornare urna at dignissim. Donec quis lacinia ex, quis dignissim augue. Vestibulum mollis augue sem, id sollicitudin lorem consectetur vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Pellentesque semper neque ut sapien maximus placerat. Praesent mauris dui, posuere in lorem sed, bibendum venenatis arcu. Integer consectetur molestie dui at consectetur. Integer lacinia sapien eu nibh maximus viverra. Phasellus venenatis enim et iaculis congue. Suspendisse luctus rhoncus nulla, ac semper est ullamcorper a.
+              Sed et dui at sem ornare aliquet. Pellentesque vehicula fringilla mattis. Quisque semper dapibus nunc, vulputate dictum metus porta at. Aenean at elit quis orci vehicula dapibus quis vitae felis. Proin elementum sodales turpis, ut pulvinar diam fringilla vel. Quisque in mollis nisi. Phasellus at vulputate metus, sagittis placerat metus. Morbi dolor risus, imperdiet sit amet erat quis, placerat eleifend dui. Donec eget mi a tortor aliquam porttitor sed eu arcu. Cras faucibus felis id lorem maximus, sit amet interdum neque tempor. Nam eu ornare sapien. Vestibulum ante lectus, aliquet id felis quis, condimentum bibendum lectus. In pharetra eget mauris imperdiet semper. Duis congue vestibulum libero, venenatis tempor lorem dapibus laoreet. Sed eu diam id odio tincidunt ullamcorper.
+              Sed non tempus nibh, ut sagittis felis. Fusce ligula eros, facilisis id erat eget, rutrum varius libero. Proin rutrum, eros ut tincidunt scelerisque, ipsum eros viverra sem, non bibendum mauris nibh id sem. Donec feugiat aliquet ornare. Integer et aliquet enim, a aliquam elit. Cras tempor dui nunc, at elementum nulla commodo non. Sed maximus imperdiet neque, ac condimentum lorem eleifend nec. Quisque mollis nulla quis vulputate blandit. Praesent lacinia tortor nec posuere consectetur. Maecenas iaculis dolor in ligula porttitor vulputate. Duis ultricies faucibus nisl nec sollicitudin. Proin quis arcu tincidunt, feugiat sapien dapibus, eleifend libero. Phasellus molestie felis sit amet neque fringilla vehicula. Nunc aliquam congue dui id consequat. Fusce tempus augue eros, vitae faucibus eros vehicula vel.
+              Aenean id egestas turpis. Nullam tempus dolor sit amet elit condimentum, non lobortis risus lobortis. Ut et feugiat augue. Aliquam nisi orci, tincidunt at cursus non, consectetur sit amet ipsum. Maecenas tristique placerat malesuada. Ut consectetur metus eu purus dapibus convallis. Integer interdum nulla facilisis risus lacinia tempor. Aliquam viverra facilisis luctus. Donec.
+            </p>
+          </div>
+          <ul>
+            <li>[PRICE]</li>
+            <li>[RISE]</li>
+            <li>[EXPIRE]</li>
+            <li>[SELLER]</li>
+          </ul>
+        </li>
+        <!-- ecc. -->
+        <li class="auction">
+          <img src="../img/sample.jfif" alt="" class="auction-img">
+          <div>
+            <h3 class="auction-title">Sample Auction</h3>
+            <p class="auction-desc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet est aliquet, pellentesque est a, scelerisque ex. Suspendisse quis porta lacus. Aenean venenatis scelerisque augue sit amet malesuada. Donec non faucibus lorem. Praesent ornare interdum mauris et convallis. Mauris tincidunt lorem non ante commodo, eu malesuada nibh feugiat. Mauris accumsan odio dolor, vitae molestie dui pulvinar vel. Etiam libero nisl, tincidunt at risus id, condimentum sagittis leo. Integer vel posuere felis, id eleifend nibh. Aenean varius mauris in eleifend fermentum. Duis accumsan in est id scelerisque. Morbi tempor euismod tellus eget congue. Mauris in ex dapibus, hendrerit risus vitae, dignissim ante. Aliquam metus eros, rhoncus et tortor varius, molestie tempor nisi. Etiam velit arcu, posuere ut ligula quis, pellentesque auctor ex.
+              Aenean sollicitudin mattis nulla quis ultrices. Duis vehicula ornare urna at dignissim. Donec quis lacinia ex, quis dignissim augue. Vestibulum mollis augue sem, id sollicitudin lorem consectetur vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Pellentesque semper neque ut sapien maximus placerat. Praesent mauris dui, posuere in lorem sed, bibendum venenatis arcu. Integer consectetur molestie dui at consectetur. Integer lacinia sapien eu nibh maximus viverra. Phasellus venenatis enim et iaculis congue. Suspendisse luctus rhoncus nulla, ac semper est ullamcorper a.
+              Sed et dui at sem ornare aliquet. Pellentesque vehicula fringilla mattis. Quisque semper dapibus nunc, vulputate dictum metus porta at. Aenean at elit quis orci vehicula dapibus quis vitae felis. Proin elementum sodales turpis, ut pulvinar diam fringilla vel. Quisque in mollis nisi. Phasellus at vulputate metus, sagittis placerat metus. Morbi dolor risus, imperdiet sit amet erat quis, placerat eleifend dui. Donec eget mi a tortor aliquam porttitor sed eu arcu. Cras faucibus felis id lorem maximus, sit amet interdum neque tempor. Nam eu ornare sapien. Vestibulum ante lectus, aliquet id felis quis, condimentum bibendum lectus. In pharetra eget mauris imperdiet semper. Duis congue vestibulum libero, venenatis tempor lorem dapibus laoreet. Sed eu diam id odio tincidunt ullamcorper.
+              Sed non tempus nibh, ut sagittis felis. Fusce ligula eros, facilisis id erat eget, rutrum varius libero. Proin rutrum, eros ut tincidunt scelerisque, ipsum eros viverra sem, non bibendum mauris nibh id sem. Donec feugiat aliquet ornare. Integer et aliquet enim, a aliquam elit. Cras tempor dui nunc, at elementum nulla commodo non. Sed maximus imperdiet neque, ac condimentum lorem eleifend nec. Quisque mollis nulla quis vulputate blandit. Praesent lacinia tortor nec posuere consectetur. Maecenas iaculis dolor in ligula porttitor vulputate. Duis ultricies faucibus nisl nec sollicitudin. Proin quis arcu tincidunt, feugiat sapien dapibus, eleifend libero. Phasellus molestie felis sit amet neque fringilla vehicula. Nunc aliquam congue dui id consequat. Fusce tempus augue eros, vitae faucibus eros vehicula vel.
+              Aenean id egestas turpis. Nullam tempus dolor sit amet elit condimentum, non lobortis risus lobortis. Ut et feugiat augue. Aliquam nisi orci, tincidunt at cursus non, consectetur sit amet ipsum. Maecenas tristique placerat malesuada. Ut consectetur metus eu purus dapibus convallis. Integer interdum nulla facilisis risus lacinia tempor. Aliquam viverra facilisis luctus. Donec.
+            </p>
+          </div>
+          <ul>
+            <li>[PRICE]</li>
+            <li>[RISE]</li>
+            <li>[EXPIRE]</li>
+            <li>[SELLER]</li>
+          </ul>
+        </li>
+        <li class="auction">
+          <img src="../img/sample.jfif" alt="" class="auction-img">
+          <div>
+            <h3 class="auction-title">Sample Auction</h3>
+            <p class="auction-desc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet est aliquet, pellentesque est a, scelerisque ex. Suspendisse quis porta lacus. Aenean venenatis scelerisque augue sit amet malesuada. Donec non faucibus lorem. Praesent ornare interdum mauris et convallis. Mauris tincidunt lorem non ante commodo, eu malesuada nibh feugiat. Mauris accumsan odio dolor, vitae molestie dui pulvinar vel. Etiam libero nisl, tincidunt at risus id, condimentum sagittis leo. Integer vel posuere felis, id eleifend nibh. Aenean varius mauris in eleifend fermentum. Duis accumsan in est id scelerisque. Morbi tempor euismod tellus eget congue. Mauris in ex dapibus, hendrerit risus vitae, dignissim ante. Aliquam metus eros, rhoncus et tortor varius, molestie tempor nisi. Etiam velit arcu, posuere ut ligula quis, pellentesque auctor ex.
+              Aenean sollicitudin mattis nulla quis ultrices. Duis vehicula ornare urna at dignissim. Donec quis lacinia ex, quis dignissim augue. Vestibulum mollis augue sem, id sollicitudin lorem consectetur vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Pellentesque semper neque ut sapien maximus placerat. Praesent mauris dui, posuere in lorem sed, bibendum venenatis arcu. Integer consectetur molestie dui at consectetur. Integer lacinia sapien eu nibh maximus viverra. Phasellus venenatis enim et iaculis congue. Suspendisse luctus rhoncus nulla, ac semper est ullamcorper a.
+              Sed et dui at sem ornare aliquet. Pellentesque vehicula fringilla mattis. Quisque semper dapibus nunc, vulputate dictum metus porta at. Aenean at elit quis orci vehicula dapibus quis vitae felis. Proin elementum sodales turpis, ut pulvinar diam fringilla vel. Quisque in mollis nisi. Phasellus at vulputate metus, sagittis placerat metus. Morbi dolor risus, imperdiet sit amet erat quis, placerat eleifend dui. Donec eget mi a tortor aliquam porttitor sed eu arcu. Cras faucibus felis id lorem maximus, sit amet interdum neque tempor. Nam eu ornare sapien. Vestibulum ante lectus, aliquet id felis quis, condimentum bibendum lectus. In pharetra eget mauris imperdiet semper. Duis congue vestibulum libero, venenatis tempor lorem dapibus laoreet. Sed eu diam id odio tincidunt ullamcorper.
+              Sed non tempus nibh, ut sagittis felis. Fusce ligula eros, facilisis id erat eget, rutrum varius libero. Proin rutrum, eros ut tincidunt scelerisque, ipsum eros viverra sem, non bibendum mauris nibh id sem. Donec feugiat aliquet ornare. Integer et aliquet enim, a aliquam elit. Cras tempor dui nunc, at elementum nulla commodo non. Sed maximus imperdiet neque, ac condimentum lorem eleifend nec. Quisque mollis nulla quis vulputate blandit. Praesent lacinia tortor nec posuere consectetur. Maecenas iaculis dolor in ligula porttitor vulputate. Duis ultricies faucibus nisl nec sollicitudin. Proin quis arcu tincidunt, feugiat sapien dapibus, eleifend libero. Phasellus molestie felis sit amet neque fringilla vehicula. Nunc aliquam congue dui id consequat. Fusce tempus augue eros, vitae faucibus eros vehicula vel.
+              Aenean id egestas turpis. Nullam tempus dolor sit amet elit condimentum, non lobortis risus lobortis. Ut et feugiat augue. Aliquam nisi orci, tincidunt at cursus non, consectetur sit amet ipsum. Maecenas tristique placerat malesuada. Ut consectetur metus eu purus dapibus convallis. Integer interdum nulla facilisis risus lacinia tempor. Aliquam viverra facilisis luctus. Donec.
+            </p>
+          </div>
+          <ul>
+            <li>[PRICE]</li>
+            <li>[RISE]</li>
+            <li>[EXPIRE]</li>
+            <li>[SELLER]</li>
+          </ul>
+        </li>
+        <li class="auction">
+          <img src="../img/sample.jfif" alt="" class="auction-img">
+          <div>
+            <h3 class="auction-title">Sample Auction</h3>
+            <p class="auction-desc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet est aliquet, pellentesque est a, scelerisque ex. Suspendisse quis porta lacus. Aenean venenatis scelerisque augue sit amet malesuada. Donec non faucibus lorem. Praesent ornare interdum mauris et convallis. Mauris tincidunt lorem non ante commodo, eu malesuada nibh feugiat. Mauris accumsan odio dolor, vitae molestie dui pulvinar vel. Etiam libero nisl, tincidunt at risus id, condimentum sagittis leo. Integer vel posuere felis, id eleifend nibh. Aenean varius mauris in eleifend fermentum. Duis accumsan in est id scelerisque. Morbi tempor euismod tellus eget congue. Mauris in ex dapibus, hendrerit risus vitae, dignissim ante. Aliquam metus eros, rhoncus et tortor varius, molestie tempor nisi. Etiam velit arcu, posuere ut ligula quis, pellentesque auctor ex.
+              Aenean sollicitudin mattis nulla quis ultrices. Duis vehicula ornare urna at dignissim. Donec quis lacinia ex, quis dignissim augue. Vestibulum mollis augue sem, id sollicitudin lorem consectetur vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Pellentesque semper neque ut sapien maximus placerat. Praesent mauris dui, posuere in lorem sed, bibendum venenatis arcu. Integer consectetur molestie dui at consectetur. Integer lacinia sapien eu nibh maximus viverra. Phasellus venenatis enim et iaculis congue. Suspendisse luctus rhoncus nulla, ac semper est ullamcorper a.
+              Sed et dui at sem ornare aliquet. Pellentesque vehicula fringilla mattis. Quisque semper dapibus nunc, vulputate dictum metus porta at. Aenean at elit quis orci vehicula dapibus quis vitae felis. Proin elementum sodales turpis, ut pulvinar diam fringilla vel. Quisque in mollis nisi. Phasellus at vulputate metus, sagittis placerat metus. Morbi dolor risus, imperdiet sit amet erat quis, placerat eleifend dui. Donec eget mi a tortor aliquam porttitor sed eu arcu. Cras faucibus felis id lorem maximus, sit amet interdum neque tempor. Nam eu ornare sapien. Vestibulum ante lectus, aliquet id felis quis, condimentum bibendum lectus. In pharetra eget mauris imperdiet semper. Duis congue vestibulum libero, venenatis tempor lorem dapibus laoreet. Sed eu diam id odio tincidunt ullamcorper.
+              Sed non tempus nibh, ut sagittis felis. Fusce ligula eros, facilisis id erat eget, rutrum varius libero. Proin rutrum, eros ut tincidunt scelerisque, ipsum eros viverra sem, non bibendum mauris nibh id sem. Donec feugiat aliquet ornare. Integer et aliquet enim, a aliquam elit. Cras tempor dui nunc, at elementum nulla commodo non. Sed maximus imperdiet neque, ac condimentum lorem eleifend nec. Quisque mollis nulla quis vulputate blandit. Praesent lacinia tortor nec posuere consectetur. Maecenas iaculis dolor in ligula porttitor vulputate. Duis ultricies faucibus nisl nec sollicitudin. Proin quis arcu tincidunt, feugiat sapien dapibus, eleifend libero. Phasellus molestie felis sit amet neque fringilla vehicula. Nunc aliquam congue dui id consequat. Fusce tempus augue eros, vitae faucibus eros vehicula vel.
+              Aenean id egestas turpis. Nullam tempus dolor sit amet elit condimentum, non lobortis risus lobortis. Ut et feugiat augue. Aliquam nisi orci, tincidunt at cursus non, consectetur sit amet ipsum. Maecenas tristique placerat malesuada. Ut consectetur metus eu purus dapibus convallis. Integer interdum nulla facilisis risus lacinia tempor. Aliquam viverra facilisis luctus. Donec.
+            </p>
+          </div>
+          <ul>
+            <li>[PRICE]</li>
+            <li>[RISE]</li>
+            <li>[EXPIRE]</li>
+            <li>[SELLER]</li>
+          </ul>
+        </li>
+        <li class="auction">
+          <img src="../img/sample.jfif" alt="" class="auction-img">
+          <div>
+            <h3 class="auction-title">Sample Auction</h3>
+            <p class="auction-desc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet est aliquet, pellentesque est a, scelerisque ex. Suspendisse quis porta lacus. Aenean venenatis scelerisque augue sit amet malesuada. Donec non faucibus lorem. Praesent ornare interdum mauris et convallis. Mauris tincidunt lorem non ante commodo, eu malesuada nibh feugiat. Mauris accumsan odio dolor, vitae molestie dui pulvinar vel. Etiam libero nisl, tincidunt at risus id, condimentum sagittis leo. Integer vel posuere felis, id eleifend nibh. Aenean varius mauris in eleifend fermentum. Duis accumsan in est id scelerisque. Morbi tempor euismod tellus eget congue. Mauris in ex dapibus, hendrerit risus vitae, dignissim ante. Aliquam metus eros, rhoncus et tortor varius, molestie tempor nisi. Etiam velit arcu, posuere ut ligula quis, pellentesque auctor ex.
+              Aenean sollicitudin mattis nulla quis ultrices. Duis vehicula ornare urna at dignissim. Donec quis lacinia ex, quis dignissim augue. Vestibulum mollis augue sem, id sollicitudin lorem consectetur vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Pellentesque semper neque ut sapien maximus placerat. Praesent mauris dui, posuere in lorem sed, bibendum venenatis arcu. Integer consectetur molestie dui at consectetur. Integer lacinia sapien eu nibh maximus viverra. Phasellus venenatis enim et iaculis congue. Suspendisse luctus rhoncus nulla, ac semper est ullamcorper a.
+              Sed et dui at sem ornare aliquet. Pellentesque vehicula fringilla mattis. Quisque semper dapibus nunc, vulputate dictum metus porta at. Aenean at elit quis orci vehicula dapibus quis vitae felis. Proin elementum sodales turpis, ut pulvinar diam fringilla vel. Quisque in mollis nisi. Phasellus at vulputate metus, sagittis placerat metus. Morbi dolor risus, imperdiet sit amet erat quis, placerat eleifend dui. Donec eget mi a tortor aliquam porttitor sed eu arcu. Cras faucibus felis id lorem maximus, sit amet interdum neque tempor. Nam eu ornare sapien. Vestibulum ante lectus, aliquet id felis quis, condimentum bibendum lectus. In pharetra eget mauris imperdiet semper. Duis congue vestibulum libero, venenatis tempor lorem dapibus laoreet. Sed eu diam id odio tincidunt ullamcorper.
+              Sed non tempus nibh, ut sagittis felis. Fusce ligula eros, facilisis id erat eget, rutrum varius libero. Proin rutrum, eros ut tincidunt scelerisque, ipsum eros viverra sem, non bibendum mauris nibh id sem. Donec feugiat aliquet ornare. Integer et aliquet enim, a aliquam elit. Cras tempor dui nunc, at elementum nulla commodo non. Sed maximus imperdiet neque, ac condimentum lorem eleifend nec. Quisque mollis nulla quis vulputate blandit. Praesent lacinia tortor nec posuere consectetur. Maecenas iaculis dolor in ligula porttitor vulputate. Duis ultricies faucibus nisl nec sollicitudin. Proin quis arcu tincidunt, feugiat sapien dapibus, eleifend libero. Phasellus molestie felis sit amet neque fringilla vehicula. Nunc aliquam congue dui id consequat. Fusce tempus augue eros, vitae faucibus eros vehicula vel.
+              Aenean id egestas turpis. Nullam tempus dolor sit amet elit condimentum, non lobortis risus lobortis. Ut et feugiat augue. Aliquam nisi orci, tincidunt at cursus non, consectetur sit amet ipsum. Maecenas tristique placerat malesuada. Ut consectetur metus eu purus dapibus convallis. Integer interdum nulla facilisis risus lacinia tempor. Aliquam viverra facilisis luctus. Donec.
+            </p>
+          </div>
+          <ul>
+            <li>[PRICE]</li>
+            <li>[RISE]</li>
+            <li>[EXPIRE]</li>
+            <li>[SELLER]</li>
+          </ul>
+        </li>
+        <li class="auction">
+          <img src="../img/sample.jfif" alt="" class="auction-img">
+          <div>
+            <h3 class="auction-title">Sample Auction</h3>
+            <p class="auction-desc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet est aliquet, pellentesque est a, scelerisque ex. Suspendisse quis porta lacus. Aenean venenatis scelerisque augue sit amet malesuada. Donec non faucibus lorem. Praesent ornare interdum mauris et convallis. Mauris tincidunt lorem non ante commodo, eu malesuada nibh feugiat. Mauris accumsan odio dolor, vitae molestie dui pulvinar vel. Etiam libero nisl, tincidunt at risus id, condimentum sagittis leo. Integer vel posuere felis, id eleifend nibh. Aenean varius mauris in eleifend fermentum. Duis accumsan in est id scelerisque. Morbi tempor euismod tellus eget congue. Mauris in ex dapibus, hendrerit risus vitae, dignissim ante. Aliquam metus eros, rhoncus et tortor varius, molestie tempor nisi. Etiam velit arcu, posuere ut ligula quis, pellentesque auctor ex.
+              Aenean sollicitudin mattis nulla quis ultrices. Duis vehicula ornare urna at dignissim. Donec quis lacinia ex, quis dignissim augue. Vestibulum mollis augue sem, id sollicitudin lorem consectetur vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Pellentesque semper neque ut sapien maximus placerat. Praesent mauris dui, posuere in lorem sed, bibendum venenatis arcu. Integer consectetur molestie dui at consectetur. Integer lacinia sapien eu nibh maximus viverra. Phasellus venenatis enim et iaculis congue. Suspendisse luctus rhoncus nulla, ac semper est ullamcorper a.
+              Sed et dui at sem ornare aliquet. Pellentesque vehicula fringilla mattis. Quisque semper dapibus nunc, vulputate dictum metus porta at. Aenean at elit quis orci vehicula dapibus quis vitae felis. Proin elementum sodales turpis, ut pulvinar diam fringilla vel. Quisque in mollis nisi. Phasellus at vulputate metus, sagittis placerat metus. Morbi dolor risus, imperdiet sit amet erat quis, placerat eleifend dui. Donec eget mi a tortor aliquam porttitor sed eu arcu. Cras faucibus felis id lorem maximus, sit amet interdum neque tempor. Nam eu ornare sapien. Vestibulum ante lectus, aliquet id felis quis, condimentum bibendum lectus. In pharetra eget mauris imperdiet semper. Duis congue vestibulum libero, venenatis tempor lorem dapibus laoreet. Sed eu diam id odio tincidunt ullamcorper.
+              Sed non tempus nibh, ut sagittis felis. Fusce ligula eros, facilisis id erat eget, rutrum varius libero. Proin rutrum, eros ut tincidunt scelerisque, ipsum eros viverra sem, non bibendum mauris nibh id sem. Donec feugiat aliquet ornare. Integer et aliquet enim, a aliquam elit. Cras tempor dui nunc, at elementum nulla commodo non. Sed maximus imperdiet neque, ac condimentum lorem eleifend nec. Quisque mollis nulla quis vulputate blandit. Praesent lacinia tortor nec posuere consectetur. Maecenas iaculis dolor in ligula porttitor vulputate. Duis ultricies faucibus nisl nec sollicitudin. Proin quis arcu tincidunt, feugiat sapien dapibus, eleifend libero. Phasellus molestie felis sit amet neque fringilla vehicula. Nunc aliquam congue dui id consequat. Fusce tempus augue eros, vitae faucibus eros vehicula vel.
+              Aenean id egestas turpis. Nullam tempus dolor sit amet elit condimentum, non lobortis risus lobortis. Ut et feugiat augue. Aliquam nisi orci, tincidunt at cursus non, consectetur sit amet ipsum. Maecenas tristique placerat malesuada. Ut consectetur metus eu purus dapibus convallis. Integer interdum nulla facilisis risus lacinia tempor. Aliquam viverra facilisis luctus. Donec.
+            </p>
+          </div>
+          <ul>
+            <li>[PRICE]</li>
+            <li>[RISE]</li>
+            <li>[EXPIRE]</li>
+            <li>[SELLER]</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
