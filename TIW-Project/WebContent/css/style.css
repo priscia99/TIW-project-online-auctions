@@ -31,6 +31,14 @@
     /*    --solid-lighter: hsla(39, 100%, 45%, 1);*/
     /*    --background: hsla(0, 17%, 88%, 1);*/
     /*}*/
+    /* WHITE-BLUE*/
+    /*:root {*/
+    /*    --detail: dimgrey;*/
+    /*    --solid: whitesmoke;*/
+    /*    --solid-lighter: dodgerblue;*/
+    /*    --background: white;*/
+    /*    --accent: dodgerblue;*/
+    /*}*/
 
     @font-face {
         font-family: Roboto;
@@ -54,6 +62,20 @@
         padding: 0 13px;
         font-size: 16px;
     }
+    textarea.multiline-text-field {
+        background-color: var(--solid-lighter);
+        font-size: 16px;
+        border: none;
+        outline: none;
+        padding: 13px 13px;
+        resize: none;
+        overflow-y:scroll;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;  /* IE 10+ */
+    }
+    textarea.multiline-text-field::-webkit-scrollbar {
+        display: none; /* Chromium */
+    }
 
     button{
         background-color: var(--accent);
@@ -61,6 +83,7 @@
         border: none;
         outline: none;
         cursor: pointer;
+        font-weight: bold;
     }
     button:hover{
         filter:brightness(85%);
@@ -77,6 +100,19 @@
     }
     a:hover {
         text-decoration: underline;
+    }
+
+    a.button {
+        font-size: 13px;
+        text-decoration: none;
+    }
+    a.button:hover{
+        text-decoration: none;
+        filter:brightness(85%);
+    }
+    a.button:active{
+        box-shadow: 0 0 #666;
+        transform: translateY(2px);
     }
 
     .container {
@@ -97,13 +133,13 @@
 
     /* PROPERTIES */
     /* position */
-	.centered {
+    .centered {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
-	
+
     .nav-rest {
         min-height: calc(100vh - 50px);
     }
@@ -221,6 +257,12 @@
         padding-top: 50px;
     }
 
+    .scrollable {
+        padding: 4px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
     /* effect */
     .outer-shadow{
         box-shadow: 2px 2px 3px #999;
@@ -281,6 +323,11 @@
         height: 20%;
     }
 
+    /* text */
+    .caps-lock {
+        text-transform: uppercase;
+    }
+
     /* colors */
     .text-color-detail {
         color: var(--detail);
@@ -331,7 +378,6 @@
         align-items: center;
         align-content: center;
     }
-
     .spaced-flex {
         justify-content: space-evenly;
         align-items: center;

@@ -13,17 +13,66 @@
     }
 
     #create-popup {
+      padding: 20px;
       display: none;
-      height: 70vh;
     }
     #create-popup:target {
       display: block;
-      /*position: absolute;*/
-      width: 30vw;
+    }
+    #create-form {
+      width: 320px;
+    }
+    #create-form:target {
+      display: none;
+    }
+    #price, #rise {
+      width: 2em;
     }
 
-    #description {
-      height: 40%;
+    .auction-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 80%;
+    }
+    .auction {
+      border-top: 1px solid var(--detail);
+      display: grid;
+      grid-template-columns: 100px 1fr 100px;
+      grid-template-rows: 100px;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      grid-gap: 20px;
+      padding: 20px;
+    }
+    .auction-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
+    .auction-title {
+      height: 20px;
+    }
+
+    .filter {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .filter>li {
+      width: 100px;
+    }
+    .filter-menu {
+      position: absolute;
+      display: none;
+    }
+    .filter:hover .filter-menu {
+      display: block;
+    }
+
+    input.text-field {
+      height: 30px;
     }
   </style>
 </head>
@@ -42,35 +91,265 @@
   </div>
 
 
-  <div class="rows spaced-flex">
+  <div class="rows spaced-flex" id="header">
     <div class="m-nav">
       <a href="#create-popup"><button class="round ph10 pv10 mv20 caps-lock">CREATE NEW AUCTION</button></a>
     </div>
   </div>
+
   <div class="columns spaced-flex">
-    <div class="container round outer-shadow w50 centered" id="create-popup">
-      <a href=""><button class="round ph20 pv10 mv10 color-background text-color-accent">Back</button></a> <br>
-      <input type="text" class="round inner-shadow text-field mv10 w80" placeholder="Title">
-      <input type="text" class="round inner-shadow text-field mv10 w80" placeholder="Description" id="description">
-      <div class="columns centered-flex mv10">
-        <input type="text" class="round inner-shadow text-field mh10 w30" placeholder="Starting price">
-        <input type="text" class="round inner-shadow text-field mh10 w30" placeholder="Minimum rise">
+    <div class="rows centered-flex w40">
+      <div class="columns w80 color-solid"  style="height: 30px; align-items: center;">
+        <ul class="filter">
+          <li class="color-solid text-color-background ph10" style="border-right: 1px solid var(--background); height: 30px;">Order</li>
+          <li class="filter-menu color-solid-l ph10">
+            <div class="rows">
+              <div>Price</div>
+              <div>Name</div>
+            </div>
+          </li>
+        </ul>
+        <div class="ph20">Active Auctions</div>
       </div>
-      <div class="columns centered-flex mv10">
-        <input type="text" class="round inner-shadow text-field mh10 w30" placeholder="Expire date">
-        <input type="text" class="round inner-shadow text-field mh10 w30" placeholder="Expire time">
-      </div>
-      <div class="mv10">
-        <input type="text" class="round inner-shadow text-field w30" placeholder="Image">
-        <button class="round ph10 pv10 mh10 color-solid-l text-color-detail">Load</button>
-      </div>
-      <div class="mv20">
-        <button class="round outer-shadow ph20 pv10 mh30">Confirm</button>
-        <button class="round outer-shadow ph20 pv10 color-background text-color-accent mh30">Cancel</button>
+      <div class="rows centered-flex w100 scrollable" style="height: calc(100vh - 200px);">
+        <ul class="auction-list">
+          <li class="auction color-solid-l">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+          <!-- ecc. -->
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
-    <div class="color-solid-l" style="height: 80vh; width: 40vw;"> List 1</div>
-    <div class="color-solid-l" style="height: 80vh; width: 40vw;"> List 2</div>
+    <div class="rows centered-flex w40">
+      <div class="columns w80 color-solid"  style="height: 30px; align-items: center;">
+        <ul class="filter">
+          <li class="color-solid text-color-background ph10" style="border-right: 1px solid var(--background); height: 30px;">Order</li>
+          <li class="filter-menu color-solid-l ph10">
+            <div class="rows">
+              <div>Price</div>
+              <div>Name</div>
+            </div>
+          </li>
+        </ul>
+        <div class="ph20">Closed Auctions</div>
+      </div>
+      <div class="rows centered-flex w100 scrollable" style="height: calc(100vh - 200px);">
+        <ul class="auction-list">
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+          <!-- ecc. -->
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+          <li class="auction">
+            <img src="../img/sample.jfif" alt="" class="auction-img">
+            <div>
+              <h3 class="auction-title">Sample Auction</h3>
+            </div>
+            <ul>
+              <li>[PRICE]</li>
+              <li>[RISE]</li>
+              <li>[EXPIRE]</li>
+              <li>[SELLER]</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="create-popup centered container round outer-shadow " id="create-popup">
+    <div class="columns">
+      <a href="#create-form">
+        <button class="round ph10 pv10 color-detail">close</button>
+      </a>
+    </div>
+    <form action="CreateAuction" class="create-form" id="create-form">
+      <h3 class="caps-lock">Create new auction</h3>
+      <div class="mv10">
+        <label>
+          Title:
+          <input type="text" class="round inner-shadow text-field">
+        </label>
+      </div>
+      <div class="mv10">
+        <label>
+          Description (max 2000 characters):
+          <textarea style="margin-top: 5px;" name="description" class="multiline-text-field round inner-shadow" cols="30" rows="10"></textarea>
+        </label>
+      </div>
+      <div class="mv10">
+        <label>
+          Starting price:
+          <input type="number" class="round inner-shadow text-field" id="price" min="1" value="1">
+        </label>
+      </div>
+      <div class="mv10">
+        <label>
+          Minimum rise:
+          <input type="number" class="round inner-shadow text-field" id="rise" min="1" value="1">
+        </label>
+      </div>
+      <div class="mv10">
+        <label>
+          Expires on:
+          <!-- TODO: set default value today -->
+          <input style="margin-top: 5px;" type="datetime-local" class="text-field round inner-shadow">
+        </label>
+      </div>
+      <div class="mv10 columns spaced-flex">
+        <a href="" class="button ph20 pv10 round color-accent text-color-background outer-shadow caps-lock" type="submit"> Confirm</a>
+        <a href="" class="button ph20 pv10 round color-background text-color-accent outer-shadow caps-lock" type="reset"> Cancel </a>
+      </div>
+    </form>
   </div>
 
 </body>
