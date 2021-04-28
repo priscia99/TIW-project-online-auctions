@@ -5,6 +5,7 @@
   <meta charset="ISO-8859-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" media="all" href="../css/style.css"/>
+  <link rel="stylesheet" type="text/css" media="all" href="../css/auction.css"/>
   <title>Online Auction - Buy</title>
   <style>
     #logoff-btn {
@@ -29,32 +30,64 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      width: 80%;
+      min-width: 650px;
+
+      /*background-color: red;*/
     }
+
+
     .auction {
-      border-top: 1px solid var(--detail);
-      display: grid;
-      grid-template-columns: 200px 1fr 200px;
-      grid-template-rows: 200px;
-      align-items: center;
-      align-content: center;
-      justify-content: center;
-      grid-gap: 20px;
-      padding: 20px;
+      /*background-color: green;*/
+      border-bottom: 1px solid var(--detail);
+      display: flex;
+      flex-direction: row;
+      padding: 5px;
+      max-width: 1080px;
+    }
+    .auction:last-child {
+      border: none;
     }
     .auction-img {
       width: 200px;
       height: 200px;
       object-fit: cover;
     }
-    .auction-title {
-      height: 20px;
+    .auction-details {
+      /*background-color: yellow;*/
+      padding: 10px 10px 10px 30px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
     }
-    .auction-desc {
-      font-size: 14px;
-      height: 150px;
+    .auction-details a {
+      text-decoration: none;
+    }
+    .auction-details h3 {
+      /*background-color: red;*/
+      max-height: 90px;
       overflow: hidden;
-      text-overflow: ellipsis;
+      margin: 0 0 10px 0;
+    }
+    .auction-details p {
+      margin: 5px 0;
+    }
+    .auction-details .auction-price {
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      /*margin: 20px 0;*/
+    }
+    .auction-details>div {
+      /*background-color: cyan;*/
+      display: flex;
+      flex-direction: row;
+    }
+    .auction-details>div>div {
+      /*background-color: gray;*/
+      display: flex;
+      flex-direction: column;
+      padding-right: 50px;
+      flex-grow: 1;
     }
   </style>
 </head>
@@ -63,9 +96,9 @@
   <div class="container navbar outer-shadow columns centered-flex">
     <div class="nav-logo"><img src="../img/logo.svg" alt="" class="small-logo"></div>
     <div class="nav-links">
-      <a href="#" class="text-primary-accent">Home</a>
-      <a href="#" class="active text-primary-accent">Buy</a>
-      <a href="#" class="text-primary-accent">Sell</a>
+      <a href="Home.html" class="text-primary-accent">Home</a>
+      <a href="Buy.html" class="active text-primary-accent">Buy</a>
+      <a href="Sell.html" class="text-primary-accent">Sell</a>
     </div>
     <div class="nav-opt">
       <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
@@ -75,10 +108,10 @@
   <div class="rows centered-flex w100 nav-rest">
     <div class="rows centered-flex w100 mv50">
       <h1>Search Auctions</h1>
-      <div class="columns spaced-flex w80" id="search-bar">
+      <div class="columns spaced-evenly-flex w80" id="search-bar">
         <input type="text" placeholder="Enter keywords to search" class="round text-field inner-shadow" id="search-field">
-        <button class="round outer-shadow" id="search-button">
-          <img src="../img/search-solid.svg" alt="#search-result" class="small-logo">
+        <button class="round outer-shadow" id="search-button" style="z-index: -3;">
+          <img src="../img/search-solid.svg" alt="#search-result" class="small-logo" style="z-index: -2;">
         </button>
       </div>
     </div>
@@ -87,119 +120,113 @@
     <div class="w100 rows centered-flex">
       <ul class="auction-list">
         <li class="auction">
-          <img src="../img/sample.jfif" alt="" class="auction-img">
-          <div>
-            <h3 class="auction-title">Sample Auction</h3>
-            <p class="auction-desc">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet est aliquet, pellentesque est a, scelerisque ex. Suspendisse quis porta lacus. Aenean venenatis scelerisque augue sit amet malesuada. Donec non faucibus lorem. Praesent ornare interdum mauris et convallis. Mauris tincidunt lorem non ante commodo, eu malesuada nibh feugiat. Mauris accumsan odio dolor, vitae molestie dui pulvinar vel. Etiam libero nisl, tincidunt at risus id, condimentum sagittis leo. Integer vel posuere felis, id eleifend nibh. Aenean varius mauris in eleifend fermentum. Duis accumsan in est id scelerisque. Morbi tempor euismod tellus eget congue. Mauris in ex dapibus, hendrerit risus vitae, dignissim ante. Aliquam metus eros, rhoncus et tortor varius, molestie tempor nisi. Etiam velit arcu, posuere ut ligula quis, pellentesque auctor ex.
-              Aenean sollicitudin mattis nulla quis ultrices. Duis vehicula ornare urna at dignissim. Donec quis lacinia ex, quis dignissim augue. Vestibulum mollis augue sem, id sollicitudin lorem consectetur vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Pellentesque semper neque ut sapien maximus placerat. Praesent mauris dui, posuere in lorem sed, bibendum venenatis arcu. Integer consectetur molestie dui at consectetur. Integer lacinia sapien eu nibh maximus viverra. Phasellus venenatis enim et iaculis congue. Suspendisse luctus rhoncus nulla, ac semper est ullamcorper a.
-              Sed et dui at sem ornare aliquet. Pellentesque vehicula fringilla mattis. Quisque semper dapibus nunc, vulputate dictum metus porta at. Aenean at elit quis orci vehicula dapibus quis vitae felis. Proin elementum sodales turpis, ut pulvinar diam fringilla vel. Quisque in mollis nisi. Phasellus at vulputate metus, sagittis placerat metus. Morbi dolor risus, imperdiet sit amet erat quis, placerat eleifend dui. Donec eget mi a tortor aliquam porttitor sed eu arcu. Cras faucibus felis id lorem maximus, sit amet interdum neque tempor. Nam eu ornare sapien. Vestibulum ante lectus, aliquet id felis quis, condimentum bibendum lectus. In pharetra eget mauris imperdiet semper. Duis congue vestibulum libero, venenatis tempor lorem dapibus laoreet. Sed eu diam id odio tincidunt ullamcorper.
-              Sed non tempus nibh, ut sagittis felis. Fusce ligula eros, facilisis id erat eget, rutrum varius libero. Proin rutrum, eros ut tincidunt scelerisque, ipsum eros viverra sem, non bibendum mauris nibh id sem. Donec feugiat aliquet ornare. Integer et aliquet enim, a aliquam elit. Cras tempor dui nunc, at elementum nulla commodo non. Sed maximus imperdiet neque, ac condimentum lorem eleifend nec. Quisque mollis nulla quis vulputate blandit. Praesent lacinia tortor nec posuere consectetur. Maecenas iaculis dolor in ligula porttitor vulputate. Duis ultricies faucibus nisl nec sollicitudin. Proin quis arcu tincidunt, feugiat sapien dapibus, eleifend libero. Phasellus molestie felis sit amet neque fringilla vehicula. Nunc aliquam congue dui id consequat. Fusce tempus augue eros, vitae faucibus eros vehicula vel.
-              Aenean id egestas turpis. Nullam tempus dolor sit amet elit condimentum, non lobortis risus lobortis. Ut et feugiat augue. Aliquam nisi orci, tincidunt at cursus non, consectetur sit amet ipsum. Maecenas tristique placerat malesuada. Ut consectetur metus eu purus dapibus convallis. Integer interdum nulla facilisis risus lacinia tempor. Aliquam viverra facilisis luctus. Donec.
-            </p>
+          <img src="../img/sample.gif" alt="" class="auction-img">
+          <div class="auction-details">
+            <a href="">
+              <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+            </a>
+            <div>
+              <div>
+                <p>Status: <span style="font-weight: bold;">Open</span></p>
+                <p>Expires on <span style="font-weight: bold;">16/05/2023</span> at <span style="font-weight: bold;">08:00 PM</span></p>
+              </div>
+              <div class="auction-price-wrap">
+                <p>Minimum rise: <span style="font-weight: bold;">EUR 5,00</span></p>
+                <p class="auction-price">EUR 52,70</p>
+              </div>
+            </div>
           </div>
-          <ul>
-            <li>[PRICE]</li>
-            <li>[RISE]</li>
-            <li>[EXPIRE]</li>
-            <li>[SELLER]</li>
-          </ul>
         </li>
         <!-- ecc. -->
         <li class="auction">
-          <img src="../img/sample.jfif" alt="" class="auction-img">
-          <div>
-            <h3 class="auction-title">Sample Auction</h3>
-            <p class="auction-desc">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet est aliquet, pellentesque est a, scelerisque ex. Suspendisse quis porta lacus. Aenean venenatis scelerisque augue sit amet malesuada. Donec non faucibus lorem. Praesent ornare interdum mauris et convallis. Mauris tincidunt lorem non ante commodo, eu malesuada nibh feugiat. Mauris accumsan odio dolor, vitae molestie dui pulvinar vel. Etiam libero nisl, tincidunt at risus id, condimentum sagittis leo. Integer vel posuere felis, id eleifend nibh. Aenean varius mauris in eleifend fermentum. Duis accumsan in est id scelerisque. Morbi tempor euismod tellus eget congue. Mauris in ex dapibus, hendrerit risus vitae, dignissim ante. Aliquam metus eros, rhoncus et tortor varius, molestie tempor nisi. Etiam velit arcu, posuere ut ligula quis, pellentesque auctor ex.
-              Aenean sollicitudin mattis nulla quis ultrices. Duis vehicula ornare urna at dignissim. Donec quis lacinia ex, quis dignissim augue. Vestibulum mollis augue sem, id sollicitudin lorem consectetur vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Pellentesque semper neque ut sapien maximus placerat. Praesent mauris dui, posuere in lorem sed, bibendum venenatis arcu. Integer consectetur molestie dui at consectetur. Integer lacinia sapien eu nibh maximus viverra. Phasellus venenatis enim et iaculis congue. Suspendisse luctus rhoncus nulla, ac semper est ullamcorper a.
-              Sed et dui at sem ornare aliquet. Pellentesque vehicula fringilla mattis. Quisque semper dapibus nunc, vulputate dictum metus porta at. Aenean at elit quis orci vehicula dapibus quis vitae felis. Proin elementum sodales turpis, ut pulvinar diam fringilla vel. Quisque in mollis nisi. Phasellus at vulputate metus, sagittis placerat metus. Morbi dolor risus, imperdiet sit amet erat quis, placerat eleifend dui. Donec eget mi a tortor aliquam porttitor sed eu arcu. Cras faucibus felis id lorem maximus, sit amet interdum neque tempor. Nam eu ornare sapien. Vestibulum ante lectus, aliquet id felis quis, condimentum bibendum lectus. In pharetra eget mauris imperdiet semper. Duis congue vestibulum libero, venenatis tempor lorem dapibus laoreet. Sed eu diam id odio tincidunt ullamcorper.
-              Sed non tempus nibh, ut sagittis felis. Fusce ligula eros, facilisis id erat eget, rutrum varius libero. Proin rutrum, eros ut tincidunt scelerisque, ipsum eros viverra sem, non bibendum mauris nibh id sem. Donec feugiat aliquet ornare. Integer et aliquet enim, a aliquam elit. Cras tempor dui nunc, at elementum nulla commodo non. Sed maximus imperdiet neque, ac condimentum lorem eleifend nec. Quisque mollis nulla quis vulputate blandit. Praesent lacinia tortor nec posuere consectetur. Maecenas iaculis dolor in ligula porttitor vulputate. Duis ultricies faucibus nisl nec sollicitudin. Proin quis arcu tincidunt, feugiat sapien dapibus, eleifend libero. Phasellus molestie felis sit amet neque fringilla vehicula. Nunc aliquam congue dui id consequat. Fusce tempus augue eros, vitae faucibus eros vehicula vel.
-              Aenean id egestas turpis. Nullam tempus dolor sit amet elit condimentum, non lobortis risus lobortis. Ut et feugiat augue. Aliquam nisi orci, tincidunt at cursus non, consectetur sit amet ipsum. Maecenas tristique placerat malesuada. Ut consectetur metus eu purus dapibus convallis. Integer interdum nulla facilisis risus lacinia tempor. Aliquam viverra facilisis luctus. Donec.
-            </p>
+          <img src="../img/sample.gif" alt="" class="auction-img">
+          <div class="auction-details">
+            <a href="">
+              <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+            </a>
+            <div>
+              <div>
+                <p>Status: <span style="font-weight: bold;">Open</span></p>
+                <p>Expires on <span style="font-weight: bold;">16/05/2023</span> at <span style="font-weight: bold;">08:00 PM</span></p>
+              </div>
+              <div class="auction-price-wrap">
+                <p>Minimum rise: <span style="font-weight: bold;">EUR 5,00</span></p>
+                <p class="auction-price">EUR 52,70</p>
+              </div>
+            </div>
           </div>
-          <ul>
-            <li>[PRICE]</li>
-            <li>[RISE]</li>
-            <li>[EXPIRE]</li>
-            <li>[SELLER]</li>
-          </ul>
         </li>
         <li class="auction">
-          <img src="../img/sample.jfif" alt="" class="auction-img">
-          <div>
-            <h3 class="auction-title">Sample Auction</h3>
-            <p class="auction-desc">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet est aliquet, pellentesque est a, scelerisque ex. Suspendisse quis porta lacus. Aenean venenatis scelerisque augue sit amet malesuada. Donec non faucibus lorem. Praesent ornare interdum mauris et convallis. Mauris tincidunt lorem non ante commodo, eu malesuada nibh feugiat. Mauris accumsan odio dolor, vitae molestie dui pulvinar vel. Etiam libero nisl, tincidunt at risus id, condimentum sagittis leo. Integer vel posuere felis, id eleifend nibh. Aenean varius mauris in eleifend fermentum. Duis accumsan in est id scelerisque. Morbi tempor euismod tellus eget congue. Mauris in ex dapibus, hendrerit risus vitae, dignissim ante. Aliquam metus eros, rhoncus et tortor varius, molestie tempor nisi. Etiam velit arcu, posuere ut ligula quis, pellentesque auctor ex.
-              Aenean sollicitudin mattis nulla quis ultrices. Duis vehicula ornare urna at dignissim. Donec quis lacinia ex, quis dignissim augue. Vestibulum mollis augue sem, id sollicitudin lorem consectetur vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Pellentesque semper neque ut sapien maximus placerat. Praesent mauris dui, posuere in lorem sed, bibendum venenatis arcu. Integer consectetur molestie dui at consectetur. Integer lacinia sapien eu nibh maximus viverra. Phasellus venenatis enim et iaculis congue. Suspendisse luctus rhoncus nulla, ac semper est ullamcorper a.
-              Sed et dui at sem ornare aliquet. Pellentesque vehicula fringilla mattis. Quisque semper dapibus nunc, vulputate dictum metus porta at. Aenean at elit quis orci vehicula dapibus quis vitae felis. Proin elementum sodales turpis, ut pulvinar diam fringilla vel. Quisque in mollis nisi. Phasellus at vulputate metus, sagittis placerat metus. Morbi dolor risus, imperdiet sit amet erat quis, placerat eleifend dui. Donec eget mi a tortor aliquam porttitor sed eu arcu. Cras faucibus felis id lorem maximus, sit amet interdum neque tempor. Nam eu ornare sapien. Vestibulum ante lectus, aliquet id felis quis, condimentum bibendum lectus. In pharetra eget mauris imperdiet semper. Duis congue vestibulum libero, venenatis tempor lorem dapibus laoreet. Sed eu diam id odio tincidunt ullamcorper.
-              Sed non tempus nibh, ut sagittis felis. Fusce ligula eros, facilisis id erat eget, rutrum varius libero. Proin rutrum, eros ut tincidunt scelerisque, ipsum eros viverra sem, non bibendum mauris nibh id sem. Donec feugiat aliquet ornare. Integer et aliquet enim, a aliquam elit. Cras tempor dui nunc, at elementum nulla commodo non. Sed maximus imperdiet neque, ac condimentum lorem eleifend nec. Quisque mollis nulla quis vulputate blandit. Praesent lacinia tortor nec posuere consectetur. Maecenas iaculis dolor in ligula porttitor vulputate. Duis ultricies faucibus nisl nec sollicitudin. Proin quis arcu tincidunt, feugiat sapien dapibus, eleifend libero. Phasellus molestie felis sit amet neque fringilla vehicula. Nunc aliquam congue dui id consequat. Fusce tempus augue eros, vitae faucibus eros vehicula vel.
-              Aenean id egestas turpis. Nullam tempus dolor sit amet elit condimentum, non lobortis risus lobortis. Ut et feugiat augue. Aliquam nisi orci, tincidunt at cursus non, consectetur sit amet ipsum. Maecenas tristique placerat malesuada. Ut consectetur metus eu purus dapibus convallis. Integer interdum nulla facilisis risus lacinia tempor. Aliquam viverra facilisis luctus. Donec.
-            </p>
+          <img src="../img/sample.gif" alt="" class="auction-img">
+          <div class="auction-details">
+            <a href="">
+              <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+            </a>
+            <div>
+              <div>
+                <p>Status: <span style="font-weight: bold;">Open</span></p>
+                <p>Expires on <span style="font-weight: bold;">16/05/2023</span> at <span style="font-weight: bold;">08:00 PM</span></p>
+              </div>
+              <div class="auction-price-wrap">
+                <p>Minimum rise: <span style="font-weight: bold;">EUR 5,00</span></p>
+                <p class="auction-price">EUR 52,70</p>
+              </div>
+            </div>
           </div>
-          <ul>
-            <li>[PRICE]</li>
-            <li>[RISE]</li>
-            <li>[EXPIRE]</li>
-            <li>[SELLER]</li>
-          </ul>
         </li>
         <li class="auction">
-          <img src="../img/sample.jfif" alt="" class="auction-img">
-          <div>
-            <h3 class="auction-title">Sample Auction</h3>
-            <p class="auction-desc">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet est aliquet, pellentesque est a, scelerisque ex. Suspendisse quis porta lacus. Aenean venenatis scelerisque augue sit amet malesuada. Donec non faucibus lorem. Praesent ornare interdum mauris et convallis. Mauris tincidunt lorem non ante commodo, eu malesuada nibh feugiat. Mauris accumsan odio dolor, vitae molestie dui pulvinar vel. Etiam libero nisl, tincidunt at risus id, condimentum sagittis leo. Integer vel posuere felis, id eleifend nibh. Aenean varius mauris in eleifend fermentum. Duis accumsan in est id scelerisque. Morbi tempor euismod tellus eget congue. Mauris in ex dapibus, hendrerit risus vitae, dignissim ante. Aliquam metus eros, rhoncus et tortor varius, molestie tempor nisi. Etiam velit arcu, posuere ut ligula quis, pellentesque auctor ex.
-              Aenean sollicitudin mattis nulla quis ultrices. Duis vehicula ornare urna at dignissim. Donec quis lacinia ex, quis dignissim augue. Vestibulum mollis augue sem, id sollicitudin lorem consectetur vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Pellentesque semper neque ut sapien maximus placerat. Praesent mauris dui, posuere in lorem sed, bibendum venenatis arcu. Integer consectetur molestie dui at consectetur. Integer lacinia sapien eu nibh maximus viverra. Phasellus venenatis enim et iaculis congue. Suspendisse luctus rhoncus nulla, ac semper est ullamcorper a.
-              Sed et dui at sem ornare aliquet. Pellentesque vehicula fringilla mattis. Quisque semper dapibus nunc, vulputate dictum metus porta at. Aenean at elit quis orci vehicula dapibus quis vitae felis. Proin elementum sodales turpis, ut pulvinar diam fringilla vel. Quisque in mollis nisi. Phasellus at vulputate metus, sagittis placerat metus. Morbi dolor risus, imperdiet sit amet erat quis, placerat eleifend dui. Donec eget mi a tortor aliquam porttitor sed eu arcu. Cras faucibus felis id lorem maximus, sit amet interdum neque tempor. Nam eu ornare sapien. Vestibulum ante lectus, aliquet id felis quis, condimentum bibendum lectus. In pharetra eget mauris imperdiet semper. Duis congue vestibulum libero, venenatis tempor lorem dapibus laoreet. Sed eu diam id odio tincidunt ullamcorper.
-              Sed non tempus nibh, ut sagittis felis. Fusce ligula eros, facilisis id erat eget, rutrum varius libero. Proin rutrum, eros ut tincidunt scelerisque, ipsum eros viverra sem, non bibendum mauris nibh id sem. Donec feugiat aliquet ornare. Integer et aliquet enim, a aliquam elit. Cras tempor dui nunc, at elementum nulla commodo non. Sed maximus imperdiet neque, ac condimentum lorem eleifend nec. Quisque mollis nulla quis vulputate blandit. Praesent lacinia tortor nec posuere consectetur. Maecenas iaculis dolor in ligula porttitor vulputate. Duis ultricies faucibus nisl nec sollicitudin. Proin quis arcu tincidunt, feugiat sapien dapibus, eleifend libero. Phasellus molestie felis sit amet neque fringilla vehicula. Nunc aliquam congue dui id consequat. Fusce tempus augue eros, vitae faucibus eros vehicula vel.
-              Aenean id egestas turpis. Nullam tempus dolor sit amet elit condimentum, non lobortis risus lobortis. Ut et feugiat augue. Aliquam nisi orci, tincidunt at cursus non, consectetur sit amet ipsum. Maecenas tristique placerat malesuada. Ut consectetur metus eu purus dapibus convallis. Integer interdum nulla facilisis risus lacinia tempor. Aliquam viverra facilisis luctus. Donec.
-            </p>
+          <img src="../img/sample.gif" alt="" class="auction-img">
+          <div class="auction-details">
+            <a href="">
+              <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+            </a>
+            <div>
+              <div>
+                <p>Status: <span style="font-weight: bold;">Open</span></p>
+                <p>Expires on <span style="font-weight: bold;">16/05/2023</span> at <span style="font-weight: bold;">08:00 PM</span></p>
+              </div>
+              <div class="auction-price-wrap">
+                <p>Minimum rise: <span style="font-weight: bold;">EUR 5,00</span></p>
+                <p class="auction-price">EUR 52,70</p>
+              </div>
+            </div>
           </div>
-          <ul>
-            <li>[PRICE]</li>
-            <li>[RISE]</li>
-            <li>[EXPIRE]</li>
-            <li>[SELLER]</li>
-          </ul>
         </li>
         <li class="auction">
-          <img src="../img/sample.jfif" alt="" class="auction-img">
-          <div>
-            <h3 class="auction-title">Sample Auction</h3>
-            <p class="auction-desc">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet est aliquet, pellentesque est a, scelerisque ex. Suspendisse quis porta lacus. Aenean venenatis scelerisque augue sit amet malesuada. Donec non faucibus lorem. Praesent ornare interdum mauris et convallis. Mauris tincidunt lorem non ante commodo, eu malesuada nibh feugiat. Mauris accumsan odio dolor, vitae molestie dui pulvinar vel. Etiam libero nisl, tincidunt at risus id, condimentum sagittis leo. Integer vel posuere felis, id eleifend nibh. Aenean varius mauris in eleifend fermentum. Duis accumsan in est id scelerisque. Morbi tempor euismod tellus eget congue. Mauris in ex dapibus, hendrerit risus vitae, dignissim ante. Aliquam metus eros, rhoncus et tortor varius, molestie tempor nisi. Etiam velit arcu, posuere ut ligula quis, pellentesque auctor ex.
-              Aenean sollicitudin mattis nulla quis ultrices. Duis vehicula ornare urna at dignissim. Donec quis lacinia ex, quis dignissim augue. Vestibulum mollis augue sem, id sollicitudin lorem consectetur vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Pellentesque semper neque ut sapien maximus placerat. Praesent mauris dui, posuere in lorem sed, bibendum venenatis arcu. Integer consectetur molestie dui at consectetur. Integer lacinia sapien eu nibh maximus viverra. Phasellus venenatis enim et iaculis congue. Suspendisse luctus rhoncus nulla, ac semper est ullamcorper a.
-              Sed et dui at sem ornare aliquet. Pellentesque vehicula fringilla mattis. Quisque semper dapibus nunc, vulputate dictum metus porta at. Aenean at elit quis orci vehicula dapibus quis vitae felis. Proin elementum sodales turpis, ut pulvinar diam fringilla vel. Quisque in mollis nisi. Phasellus at vulputate metus, sagittis placerat metus. Morbi dolor risus, imperdiet sit amet erat quis, placerat eleifend dui. Donec eget mi a tortor aliquam porttitor sed eu arcu. Cras faucibus felis id lorem maximus, sit amet interdum neque tempor. Nam eu ornare sapien. Vestibulum ante lectus, aliquet id felis quis, condimentum bibendum lectus. In pharetra eget mauris imperdiet semper. Duis congue vestibulum libero, venenatis tempor lorem dapibus laoreet. Sed eu diam id odio tincidunt ullamcorper.
-              Sed non tempus nibh, ut sagittis felis. Fusce ligula eros, facilisis id erat eget, rutrum varius libero. Proin rutrum, eros ut tincidunt scelerisque, ipsum eros viverra sem, non bibendum mauris nibh id sem. Donec feugiat aliquet ornare. Integer et aliquet enim, a aliquam elit. Cras tempor dui nunc, at elementum nulla commodo non. Sed maximus imperdiet neque, ac condimentum lorem eleifend nec. Quisque mollis nulla quis vulputate blandit. Praesent lacinia tortor nec posuere consectetur. Maecenas iaculis dolor in ligula porttitor vulputate. Duis ultricies faucibus nisl nec sollicitudin. Proin quis arcu tincidunt, feugiat sapien dapibus, eleifend libero. Phasellus molestie felis sit amet neque fringilla vehicula. Nunc aliquam congue dui id consequat. Fusce tempus augue eros, vitae faucibus eros vehicula vel.
-              Aenean id egestas turpis. Nullam tempus dolor sit amet elit condimentum, non lobortis risus lobortis. Ut et feugiat augue. Aliquam nisi orci, tincidunt at cursus non, consectetur sit amet ipsum. Maecenas tristique placerat malesuada. Ut consectetur metus eu purus dapibus convallis. Integer interdum nulla facilisis risus lacinia tempor. Aliquam viverra facilisis luctus. Donec.
-            </p>
+          <img src="../img/sample.gif" alt="" class="auction-img">
+          <div class="auction-details">
+            <a href="">
+              <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+            </a>
+            <div>
+              <div>
+                <p>Status: <span style="font-weight: bold;">Open</span></p>
+                <p>Expires on <span style="font-weight: bold;">16/05/2023</span> at <span style="font-weight: bold;">08:00 PM</span></p>
+              </div>
+              <div class="auction-price-wrap">
+                <p>Minimum rise: <span style="font-weight: bold;">EUR 5,00</span></p>
+                <p class="auction-price">EUR 52,70</p>
+              </div>
+            </div>
           </div>
-          <ul>
-            <li>[PRICE]</li>
-            <li>[RISE]</li>
-            <li>[EXPIRE]</li>
-            <li>[SELLER]</li>
-          </ul>
         </li>
         <li class="auction">
-          <img src="../img/sample.jfif" alt="" class="auction-img">
-          <div>
-            <h3 class="auction-title">Sample Auction</h3>
-            <p class="auction-desc">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet est aliquet, pellentesque est a, scelerisque ex. Suspendisse quis porta lacus. Aenean venenatis scelerisque augue sit amet malesuada. Donec non faucibus lorem. Praesent ornare interdum mauris et convallis. Mauris tincidunt lorem non ante commodo, eu malesuada nibh feugiat. Mauris accumsan odio dolor, vitae molestie dui pulvinar vel. Etiam libero nisl, tincidunt at risus id, condimentum sagittis leo. Integer vel posuere felis, id eleifend nibh. Aenean varius mauris in eleifend fermentum. Duis accumsan in est id scelerisque. Morbi tempor euismod tellus eget congue. Mauris in ex dapibus, hendrerit risus vitae, dignissim ante. Aliquam metus eros, rhoncus et tortor varius, molestie tempor nisi. Etiam velit arcu, posuere ut ligula quis, pellentesque auctor ex.
-              Aenean sollicitudin mattis nulla quis ultrices. Duis vehicula ornare urna at dignissim. Donec quis lacinia ex, quis dignissim augue. Vestibulum mollis augue sem, id sollicitudin lorem consectetur vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Pellentesque semper neque ut sapien maximus placerat. Praesent mauris dui, posuere in lorem sed, bibendum venenatis arcu. Integer consectetur molestie dui at consectetur. Integer lacinia sapien eu nibh maximus viverra. Phasellus venenatis enim et iaculis congue. Suspendisse luctus rhoncus nulla, ac semper est ullamcorper a.
-              Sed et dui at sem ornare aliquet. Pellentesque vehicula fringilla mattis. Quisque semper dapibus nunc, vulputate dictum metus porta at. Aenean at elit quis orci vehicula dapibus quis vitae felis. Proin elementum sodales turpis, ut pulvinar diam fringilla vel. Quisque in mollis nisi. Phasellus at vulputate metus, sagittis placerat metus. Morbi dolor risus, imperdiet sit amet erat quis, placerat eleifend dui. Donec eget mi a tortor aliquam porttitor sed eu arcu. Cras faucibus felis id lorem maximus, sit amet interdum neque tempor. Nam eu ornare sapien. Vestibulum ante lectus, aliquet id felis quis, condimentum bibendum lectus. In pharetra eget mauris imperdiet semper. Duis congue vestibulum libero, venenatis tempor lorem dapibus laoreet. Sed eu diam id odio tincidunt ullamcorper.
-              Sed non tempus nibh, ut sagittis felis. Fusce ligula eros, facilisis id erat eget, rutrum varius libero. Proin rutrum, eros ut tincidunt scelerisque, ipsum eros viverra sem, non bibendum mauris nibh id sem. Donec feugiat aliquet ornare. Integer et aliquet enim, a aliquam elit. Cras tempor dui nunc, at elementum nulla commodo non. Sed maximus imperdiet neque, ac condimentum lorem eleifend nec. Quisque mollis nulla quis vulputate blandit. Praesent lacinia tortor nec posuere consectetur. Maecenas iaculis dolor in ligula porttitor vulputate. Duis ultricies faucibus nisl nec sollicitudin. Proin quis arcu tincidunt, feugiat sapien dapibus, eleifend libero. Phasellus molestie felis sit amet neque fringilla vehicula. Nunc aliquam congue dui id consequat. Fusce tempus augue eros, vitae faucibus eros vehicula vel.
-              Aenean id egestas turpis. Nullam tempus dolor sit amet elit condimentum, non lobortis risus lobortis. Ut et feugiat augue. Aliquam nisi orci, tincidunt at cursus non, consectetur sit amet ipsum. Maecenas tristique placerat malesuada. Ut consectetur metus eu purus dapibus convallis. Integer interdum nulla facilisis risus lacinia tempor. Aliquam viverra facilisis luctus. Donec.
-            </p>
+          <img src="../img/sample.gif" alt="" class="auction-img">
+          <div class="auction-details">
+            <a href="">
+              <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+            </a>
+            <div>
+              <div>
+                <p>Status: <span style="font-weight: bold;">Open</span></p>
+                <p>Expires on <span style="font-weight: bold;">16/05/2023</span> at <span style="font-weight: bold;">08:00 PM</span></p>
+              </div>
+              <div class="auction-price-wrap">
+                <p>Minimum rise: <span style="font-weight: bold;">EUR 5,00</span></p>
+                <p class="auction-price">EUR 52,70</p>
+              </div>
+            </div>
           </div>
-          <ul>
-            <li>[PRICE]</li>
-            <li>[RISE]</li>
-            <li>[EXPIRE]</li>
-            <li>[SELLER]</li>
-          </ul>
         </li>
       </ul>
     </div>
