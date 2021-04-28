@@ -61,7 +61,7 @@ public class GoToHomePage extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "POST is not allowed");
 	}
 
 	public void destroy() {
