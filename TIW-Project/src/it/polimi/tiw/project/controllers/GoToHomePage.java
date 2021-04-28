@@ -22,19 +22,20 @@ import it.polimi.tiw.project.utils.ConnectionHandler;
 
 @WebServlet("/Home")
 public class GoToHomePage extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private TemplateEngine templateEngine;
-	private Connection connection = null;
+	
+	private static final long serialVersionUID = 1L;	// session id
+	private TemplateEngine templateEngine;				// engine to display page
+	private Connection connection = null;				// connection to DB
 
 	public GoToHomePage() {
 		super();
 	}
 
 	public void init() throws ServletException {
-		ServletContext servletContext = getServletContext();
-		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
+		ServletContext servletContext = getServletContext();													// get servlet context
+		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);	// get template resolver
 		templateResolver.setTemplateMode(TemplateMode.HTML);
-		this.templateEngine = new TemplateEngine();
+		this.templateEngine = new TemplateEngine();																// get template engine
 		this.templateEngine.setTemplateResolver(templateResolver);
 		templateResolver.setSuffix(".html");
 		connection = ConnectionHandler.getConnection(getServletContext());

@@ -33,7 +33,7 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      width: 80%;
+      width: 100%;
     }
     .auction {
       border-top: 1px solid var(--detail);
@@ -51,10 +51,24 @@
       height: 100px;
       object-fit: cover;
     }
-    .auction-title {
-      height: 20px;
+    .auction-list-wrapper {
+      height: calc(100vh - 250px);
+      align-items: center;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;  /* IE 10+ */
+    }
+    .auction-list-wrapper::-webkit-scrollbar {
+      display: none; /* Chromium */
+    }
+    #active-list, #closed-list {
+      min-width: 400px;
+      margin:10px 10px;
     }
 
+    .filter-bar {
+      height: 30px;
+      align-items: center;
+    }
     .filter {
       list-style: none;
       padding: 0;
@@ -90,16 +104,19 @@
     </div>
   </div>
 
-
-  <div class="rows spaced-flex" id="header">
-    <div class="m-nav">
-      <a href="#create-popup"><button class="round ph10 pv10 mv20 caps-lock">CREATE NEW AUCTION</button></a>
+  <div class="rows centered-flex w100" id="header">
+    <div class="columns m-nav spaced-between-flex w80">
+      <div>
+        <h2>[USERNAME]</h2>
+        <p>Manage your auctions</p>
+      </div>
+      <a href="#create-popup"><button class="round ph20 pv10 mv50 caps-lock outer-shadow">CREATE NEW</button></a>
     </div>
   </div>
 
-  <div class="columns spaced-flex">
-    <div class="rows centered-flex w40">
-      <div class="columns w80 color-solid"  style="height: 30px; align-items: center;">
+  <div class="columns spaced-evenly-flex" style="flex-flow: row wrap;">
+    <div class="rows w40" id="active-list">
+      <div class="columns w100 color-solid filter-bar" style="z-index: 0">
         <ul class="filter">
           <li class="color-solid text-color-background ph10" style="border-right: 1px solid var(--background); height: 30px;">Order</li>
           <li class="filter-menu color-solid-l ph10">
@@ -109,100 +126,90 @@
             </div>
           </li>
         </ul>
-        <div class="ph20">Active Auctions</div>
+        <div class="ph20">Open Auctions</div>
       </div>
-      <div class="rows centered-flex w100 scrollable" style="height: calc(100vh - 200px);">
-        <ul class="auction-list">
-          <li class="auction color-solid-l">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-          <!-- ecc. -->
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-        </ul>
+      <div class="rows w100 scrollable auction-list-wrapper inner-shadow">
+        <div class="color-solid w100 h100" style="z-index: -1;">
+          <ul class="auction-list color-solid-l" style="z-index: -1;">
+            <li class="auction color-solid-l">
+              <img src="../img/sample.gif" alt="" class="auction-img">
+              <a href="">
+                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+              </a>
+              <ul>
+                <li>[PRICE]</li>
+                <li>[RISE]</li>
+                <li>[EXPIRE]</li>
+                <li>[SELLER]</li>
+              </ul>
+            </li>
+            <!-- ecc. -->
+            <li class="auction color-solid-l">
+              <img src="../img/sample.gif" alt="" class="auction-img">
+              <a href="">
+                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+              </a>
+              <ul>
+                <li>[PRICE]</li>
+                <li>[RISE]</li>
+                <li>[EXPIRE]</li>
+                <li>[SELLER]</li>
+              </ul>
+            </li>
+            <li class="auction color-solid-l">
+              <img src="../img/sample.gif" alt="" class="auction-img">
+              <a href="">
+                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+              </a>
+              <ul>
+                <li>[PRICE]</li>
+                <li>[RISE]</li>
+                <li>[EXPIRE]</li>
+                <li>[SELLER]</li>
+              </ul>
+            </li>
+            <li class="auction color-solid-l">
+              <img src="../img/sample.gif" alt="" class="auction-img">
+              <a href="">
+                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+              </a>
+              <ul>
+                <li>[PRICE]</li>
+                <li>[RISE]</li>
+                <li>[EXPIRE]</li>
+                <li>[SELLER]</li>
+              </ul>
+            </li>
+            <li class="auction color-solid-l">
+              <img src="../img/sample.gif" alt="" class="auction-img">
+              <a href="">
+                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+              </a>
+              <ul>
+                <li>[PRICE]</li>
+                <li>[RISE]</li>
+                <li>[EXPIRE]</li>
+                <li>[SELLER]</li>
+              </ul>
+            </li>
+            <li class="auction color-solid-l">
+              <img src="../img/sample.gif" alt="" class="auction-img">
+              <a href="">
+                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+              </a>
+              <ul>
+                <li>[PRICE]</li>
+                <li>[RISE]</li>
+                <li>[EXPIRE]</li>
+                <li>[SELLER]</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="rows centered-flex w40">
-      <div class="columns w80 color-solid"  style="height: 30px; align-items: center;">
+    <div class="rows w40" id="closed-list">
+      <div class="columns w100 color-solid filter-bar" style="z-index: 0">
         <ul class="filter">
           <li class="color-solid text-color-background ph10" style="border-right: 1px solid var(--background); height: 30px;">Order</li>
           <li class="filter-menu color-solid-l ph10">
@@ -214,101 +221,91 @@
         </ul>
         <div class="ph20">Closed Auctions</div>
       </div>
-      <div class="rows centered-flex w100 scrollable" style="height: calc(100vh - 200px);">
-        <ul class="auction-list">
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-          <!-- ecc. -->
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-          <li class="auction">
-            <img src="../img/sample.jfif" alt="" class="auction-img">
-            <div>
-              <h3 class="auction-title">Sample Auction</h3>
-            </div>
-            <ul>
-              <li>[PRICE]</li>
-              <li>[RISE]</li>
-              <li>[EXPIRE]</li>
-              <li>[SELLER]</li>
-            </ul>
-          </li>
-        </ul>
+      <div class="rows w100 scrollable auction-list-wrapper inner-shadow">
+        <div class="color-solid w100 h100" style="z-index: -1;">
+          <ul class="auction-list color-solid-l" style="z-index: -1;">
+            <li class="auction color-solid-l">
+              <img src="../img/sample.gif" alt="" class="auction-img">
+              <a href="">
+                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+              </a>
+              <ul>
+                <li>[PRICE]</li>
+                <li>[RISE]</li>
+                <li>[EXPIRE]</li>
+                <li>[SELLER]</li>
+              </ul>
+            </li>
+            <!-- ecc. -->
+            <li class="auction color-solid-l">
+              <img src="../img/sample.gif" alt="" class="auction-img">
+              <a href="">
+                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+              </a>
+              <ul>
+                <li>[PRICE]</li>
+                <li>[RISE]</li>
+                <li>[EXPIRE]</li>
+                <li>[SELLER]</li>
+              </ul>
+            </li>
+            <li class="auction color-solid-l">
+              <img src="../img/sample.gif" alt="" class="auction-img">
+              <a href="">
+                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+              </a>
+              <ul>
+                <li>[PRICE]</li>
+                <li>[RISE]</li>
+                <li>[EXPIRE]</li>
+                <li>[SELLER]</li>
+              </ul>
+            </li>
+            <li class="auction color-solid-l">
+              <img src="../img/sample.gif" alt="" class="auction-img">
+              <a href="">
+                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+              </a>
+              <ul>
+                <li>[PRICE]</li>
+                <li>[RISE]</li>
+                <li>[EXPIRE]</li>
+                <li>[SELLER]</li>
+              </ul>
+            </li>
+            <li class="auction color-solid-l">
+              <img src="../img/sample.gif" alt="" class="auction-img">
+              <a href="">
+                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+              </a>
+              <ul>
+                <li>[PRICE]</li>
+                <li>[RISE]</li>
+                <li>[EXPIRE]</li>
+                <li>[SELLER]</li>
+              </ul>
+            </li>
+            <li class="auction color-solid-l">
+              <img src="../img/sample.gif" alt="" class="auction-img">
+              <a href="">
+                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+              </a>
+              <ul>
+                <li>[PRICE]</li>
+                <li>[RISE]</li>
+                <li>[EXPIRE]</li>
+                <li>[SELLER]</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="create-popup centered container round outer-shadow " id="create-popup">
     <div class="columns">
-      <a href="#create-form">
+      <a href="">
         <button class="round ph10 pv10 color-detail">close</button>
       </a>
     </div>
@@ -345,7 +342,7 @@
           <input style="margin-top: 5px;" type="datetime-local" class="text-field round inner-shadow">
         </label>
       </div>
-      <div class="mv10 columns spaced-flex">
+      <div class="mv10 columns spaced-evenly-flex">
         <a href="" class="button ph20 pv10 round color-accent text-color-background outer-shadow caps-lock" type="submit"> Confirm</a>
         <a href="" class="button ph20 pv10 round color-background text-color-accent outer-shadow caps-lock" type="reset"> Cancel </a>
       </div>
