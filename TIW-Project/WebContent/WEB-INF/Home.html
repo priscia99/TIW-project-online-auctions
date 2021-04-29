@@ -34,7 +34,7 @@
 
     <div class="centered rows centered-flex">
         <h1 id="title"><span class="text-color-accent">AuctiOn</span><span class="text-secondary">line</span></h1>
-        <p class="mv0">Welcome back, [USERNAME]</p>
+        <p class="mv0" th:text="${'Welcome back, ' + session.user.name + ' ' + session.user.surname + '!'}"></p>
         <div class="columns spaced-flex mv10" style="flex-flow: row wrap;">
             <button id="buy-btn" class="round outer-shadow rows centered-flex color-solid-l text-color-detail">
                 <p class="full-width text-primary-accent" style="font-size: 24px; font-weight: bold;">BUY</p>
