@@ -53,4 +53,8 @@ public class User extends DBObject{
     public void setAddressTown(String addressTown) {
         this.addressTown = addressTown;
     }
+
+    public String getCompleteAddress() {
+        return this.addressStreet + ',' + this.addressTown;
+    }
 }
