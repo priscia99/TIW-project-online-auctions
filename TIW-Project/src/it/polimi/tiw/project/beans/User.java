@@ -1,44 +1,56 @@
-package it.polimi.tiw.project.beans;
+public class User extends DBObject{
 
-public class User {
-	
-	private int userId; 		// user's identifier
-	private String username; 	// user's username
-	private String name; 		// user's name
-	private String surname;		// user's surname
-	private String address;		// user's home address
-	
-	// Main constructor
-	public User(int uId, String u, String n, String s, String a) {
-		this.userId = uId;
-		this.username = u;
-		this.name = n;
-		this.surname = s;
-		this.address = a;
-	}
-	
-	// Setters 
-	public void setUserId(int uId) {
-		this.userId = uId;
-	}
-	public void setUsername(String u) {
-		this.username = u;
-	}
-	public void setName(String n) {
-		this.name = n;
-	}
-	public void setSurname(String s) {
-		this.surname = s;
-	}
-	public void setAddress(String a) {
-		this.address = a;
-	}
-	
-	// Getters
-	public int getUserId() { return userId; }
-	public String getUsername() { return username; }
-	public String getName() { return name; }
-	public String getSurname() { return surname; }
-	public String getAddress() { return address; }
-	
+    private String username;
+    private String name;
+    private String surname;
+    private String addressStreet;
+    private String addressTown;
+
+    public User(String username, String name, String surname, String addressStreet, String addressTown) {
+        this.username = username;
+        this.name = name;
+        this.surname = surname;
+        this.addressStreet = addressStreet;
+        this.addressTown = addressTown;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getAddressStreet() {
+        return addressStreet;
+    }
+
+    public void setAddressStreet(String addressStreet) {
+        this.addressStreet = addressStreet;
+    }
+
+    public String getAddressTown() {
+        return addressTown;
+    }
+
+    public void setAddressTown(String addressTown) {
+        this.addressTown = addressTown;
+    }
 }
