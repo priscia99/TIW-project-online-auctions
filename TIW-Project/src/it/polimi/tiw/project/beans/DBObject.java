@@ -1,3 +1,5 @@
+package it.polimi.tiw.project.beans;
+
 public abstract class DBObject {
 
     private int id;

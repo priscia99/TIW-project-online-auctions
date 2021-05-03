@@ -1,3 +1,5 @@
+package it.polimi.tiw.project.beans;
+
 import java.sql.Timestamp;
 
 public class Bid {

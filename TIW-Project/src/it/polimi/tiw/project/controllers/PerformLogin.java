@@ -29,7 +29,7 @@ import java.sql.SQLException;
 public class PerformLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private Connection connection = null;
-    private TemplateEngine templateEngine;	// Used for Thymeleaf
+    private TemplateEngine templateEngine;
     
     public PerformLogin() {
         super();

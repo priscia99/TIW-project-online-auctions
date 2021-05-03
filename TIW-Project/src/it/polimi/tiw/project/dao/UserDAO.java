@@ -27,11 +27,13 @@ public class UserDAO {
 					return null;
 				else {
 					result.next();
-					User user = new User(result.getInt("id"),
+					User user = new User(
 								result.getString("username"),
 								result.getString("name"),
 								result.getString("surname"),
-								result.getString("address"));
+								result.getString("address_street"),
+								result.getString("address_town")
+							);
 					return user;
 				}
 			}

@@ -1,3 +1,5 @@
+package it.polimi.tiw.project.beans;
+
 public class User extends DBObject{
 
     private String username;

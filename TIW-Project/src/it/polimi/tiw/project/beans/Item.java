@@ -1,3 +1,5 @@
+package it.polimi.tiw.project.beans;
+
 public class Item extends DBObject {
 
     private String name;
