@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import it.polimi.tiw.project.beans.*;
 
 public class UserDAO {
-	Connection connection;
+	
+	private Connection connection;
 	
 	// Create a new UserDAO object given the current connection to the DB
 	public UserDAO(Connection connection) {

@@ -1,0 +1,34 @@
+--------------------------------------------
+                    USER
+--------------------------------------------
+id, username, password, name, surname, email, address_street, address_town
+
+INSERT INTO `user` (`username`, `password`, `name`, `surname`, `email`, `address_street`, `address_town`) 
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+-------------------------------------------
+                    BID
+-------------------------------------------
+id, id_auction, id_bidder, price, bid_time
+
+INSERT INTO `bid` (`id_auction`, `id_bidder`, `price`, `bid_time`) 
+VALUES (?, ?, ?, ?);
+
+
+
+-----------------------------------------------
+                    AUCTION
+-----------------------------------------------
+id, id_item, id_seller, minimum_rise, starting_price, end, creation, open
+
+INSERT INTO `auction` (`id`, `id_item`, `id_seller`, `minimum_rise`, `starting_price`, `end`, `creation`, `open`) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+
+--------------------------------------------
+                    ITEM
+--------------------------------------------
+id, name, description, image_filename
+
+INSERT INTO `item` (`name`, `description`, `image_filename`) 
+VALUES (?, ?, ?);

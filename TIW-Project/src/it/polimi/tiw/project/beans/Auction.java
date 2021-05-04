@@ -1,6 +1,5 @@
 package it.polimi.tiw.project.beans;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Auction extends  DBObject {
@@ -37,13 +36,21 @@ public class Auction extends  DBObject {
     public void setMinimumRise(float minimumRise) {
         this.minimumRise = minimumRise;
     }
+    
+    public Timestamp getCreationTimestamp() {
+    	return this.creationTimestamp;
+    }
+    
+    public void setCreaetionTimestamp(Timestamp creationTimestamp) {
+    	this.creationTimestamp = creationTimestamp;
+    }
 
-    public Timestamp getEndDateTime() {
+    public Timestamp getEndTimestamp() {
         return endTimestamp;
     }
 
-    public void setEndDateTime(Timestamp endDateTime) {
-        this.endTimestamp = endDateTime;
+    public void setEndTimestamp(Timestamp endTimestamp) {
+        this.endTimestamp = endTimestamp;
     }
 
     public boolean isOpen() {

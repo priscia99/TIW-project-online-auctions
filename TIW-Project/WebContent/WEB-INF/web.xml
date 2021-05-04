@@ -7,11 +7,11 @@
 	</context-param>
 	<context-param>
 		<param-name>dbUser</param-name>
-		<param-value>root</param-value>
+		<param-value>workbench</param-value>
 	</context-param>
 	<context-param>
 		<param-name>dbPassword</param-name>
-		<param-value>atadata</param-value>
+		<param-value>pzzgcm190199</param-value>
 	</context-param>
 	<context-param>
 		<param-name>dbDriver</param-name>
