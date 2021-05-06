@@ -2,18 +2,17 @@ package it.polimi.tiw.project.beans;
 
 import java.sql.Timestamp;
 
-public class Bid {
+public class Bid extends DBObject{
 
     private float price;
     private Timestamp timestamp;
     private int bidderId;
-    private int auctionId;
 
-    public Bid(float price, Timestamp timestamp, int bidderId, int auctionId) {
-        this.price = price;
+    public Bid(int id, float price, Timestamp timestamp, int bidderId) {
+        super(id);
+    	this.price = price;
         this.timestamp = timestamp;
         this.bidderId = bidderId;
-        this.auctionId = auctionId;
     }
 
     public float getPrice() {
@@ -38,13 +37,5 @@ public class Bid {
 
     public void setBidderId(int bidderId) {
         this.bidderId = bidderId;
-    }
-
-    public int getAuctionId() {
-        return auctionId;
-    }
-
-    public void setAuctionId(int auctionId) {
-        this.auctionId = auctionId;
     }
 }

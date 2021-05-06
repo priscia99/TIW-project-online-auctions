@@ -44,10 +44,10 @@ public class UserDAO {
 	}
 
 	
-	// Create a new user into database --- NEW ---
+	// Create a new user into database 
 	public void createUser(String username, String password, String name, String surname, String email, String addressTown, String addressStreet)  throws SQLException {
-		String query = "INSERT INTO user (username, password, name, surname, email, address_town, address_street) VALUES (?, sha2(?, 256), ?, ?, ?, ?, ?);"; // HANDMADE
-		// String query = "CALL signup (?, ?, ?, ?, ?, ?, ?);"; // PROCEDURE
+		// String query = "INSERT INTO user (username, password, name, surname, email, address_town, address_street) VALUES (?, sha2(?, 256), ?, ?, ?, ?, ?);";
+		String query = "CALL signup(?, ?, ?, ?, ?, ?, ?);";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setString(1, username);
 			statement.setString(2, password);
@@ -56,7 +56,7 @@ public class UserDAO {
 			statement.setString(5, email);
 			statement.setString(6, addressTown);
 			statement.setString(7, addressStreet);
-			statement.execute();
+			statement.executeQuery();
 		}
 	}
 	

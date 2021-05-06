@@ -1,6 +1,7 @@
 package it.polimi.tiw.project.beans;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class Auction extends  DBObject {
 
@@ -9,16 +10,42 @@ public class Auction extends  DBObject {
     private Timestamp creationTimestamp;
     private Timestamp endTimestamp;
     private boolean open;
-    private int itemId;
+    private Item item;
     private int sellerId;
+    private ArrayList<Bid> bids = new ArrayList<>();
 
-    public Auction(int id, float startingPrice, float minimumRise, Timestamp endDateTime, boolean open, int itemId, int sellerId) {
+    public Auction(int id, float startingPrice, float minimumRise, Timestamp endTimestamp, Timestamp creationTimestamp, boolean open, Item item, int sellerId, ArrayList<Bid> bids) {
     	super(id);
         this.startingPrice = startingPrice;
         this.minimumRise = minimumRise;
-        this.endTimestamp = endDateTime;
+        this.endTimestamp = endTimestamp;
+        this.creationTimestamp = creationTimestamp;
         this.open = open;
-        this.itemId = itemId;
+        this.item = item;
+        this.sellerId = sellerId;
+        this.bids = bids;
+    }
+    
+    public Auction(int id, float startingPrice, float minimumRise, Timestamp endTimestamp, Timestamp creationTimestamp, boolean open, Item item, int sellerId, Bid bid) {
+    	super(id);
+        this.startingPrice = startingPrice;
+        this.minimumRise = minimumRise;
+        this.endTimestamp = endTimestamp;
+        this.creationTimestamp = creationTimestamp;
+        this.open = open;
+        this.item = item;
+        this.sellerId = sellerId;
+        this.bids.add(bid);
+    }
+    
+    public Auction(int id, float startingPrice, float minimumRise, Timestamp endTimestamp, Timestamp creationTimestamp, boolean open, Item item, int sellerId) {
+    	super(id);
+        this.startingPrice = startingPrice;
+        this.minimumRise = minimumRise;
+        this.endTimestamp = endTimestamp;
+        this.creationTimestamp = creationTimestamp;
+        this.open = open;
+        this.item = item;
         this.sellerId = sellerId;
     }
 
@@ -62,12 +89,12 @@ public class Auction extends  DBObject {
         this.open = open;
     }
 
-    public int getItemId() {
-        return itemId;
+    public Item getItem() {
+        return item;
     }
 
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public int getSellerId() {
@@ -76,5 +103,13 @@ public class Auction extends  DBObject {
 
     public void setSellerId(int sellerId) {
         this.sellerId = sellerId;
+    }
+    
+    public ArrayList<Bid> getBids() {
+    	return this.bids;
+    }
+    
+    public void setBids(ArrayList<Bid> bids) {
+    	this.bids = bids;
     }
 }

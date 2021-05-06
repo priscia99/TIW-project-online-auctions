@@ -3,6 +3,7 @@ package it.polimi.tiw.project.controllers;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 
@@ -42,7 +44,10 @@ public class GoToSellPage extends HttpServlet {
 			return;
 		}
 		User user = (User) session.getAttribute("user");
-
+		
+		// Get lists of open auctions and close auctions from DB
+		
+		
 		// Redirect to the Sell page and add missions to the parameters
 		String path = "/WEB-INF/Sell.html";
 		ServletContext servletContext = getServletContext();
