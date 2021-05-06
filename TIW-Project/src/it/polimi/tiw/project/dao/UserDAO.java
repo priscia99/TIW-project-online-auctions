@@ -71,7 +71,7 @@ public class UserDAO {
 			statement.setString(5, email);
 			statement.setString(6, addressTown);
 			statement.setString(7, addressStreet);
-			statement.executeQuery();
+			statement.execute();
 		}
 	}
 	
