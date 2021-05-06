@@ -66,8 +66,8 @@ public class PerformSignup extends HttpServlet {
 			username = StringEscapeUtils.escapeJava(request.getParameter("username"));
 			password = StringEscapeUtils.escapeJava(request.getParameter("password"));
 			name = StringEscapeUtils.escapeJava(request.getParameter("name"));
-			email = StringEscapeUtils.escapeJava(request.getParameter("email"));			
 			surname = StringEscapeUtils.escapeJava(request.getParameter("surname"));
+			email = StringEscapeUtils.escapeJava(request.getParameter("email"));		
 			addressTown = StringEscapeUtils.escapeJava(request.getParameter("address-town"));
 			addressStreet = StringEscapeUtils.escapeJava(request.getParameter("address-street"));
 			
@@ -100,6 +100,7 @@ public class PerformSignup extends HttpServlet {
 				return;
 			}
 		}catch(SQLException e) {
+			// for further details : "Internal error while trying to create a new user: " + e.getMessage()
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to create a new user");
 		}
 		

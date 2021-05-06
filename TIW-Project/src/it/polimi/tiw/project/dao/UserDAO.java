@@ -18,8 +18,8 @@ public class UserDAO {
 	
 	// Return User information after trying to authenticate him
 	public User performUserLogin(String username, String password) throws SQLException {
-		String query = 	"SELECT id_user, username, name, surname FROM user "
-						+ "WHERE username = ? AND password = ?";
+		String query = 	"SELECT id_user, username, name, surname, email, address_street, address_town FROM user "
+						+ "WHERE username = ? AND password = sha2(?, 256)";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setString(1, username);
 			statement.setBytes(2, password.getBytes());
@@ -29,9 +29,11 @@ public class UserDAO {
 				else {
 					result.next();
 					User user = new User(
+								result.getInt("id_user"),
 								result.getString("username"),
 								result.getString("name"),
 								result.getString("surname"),
+								result.getString("email"),
 								result.getString("address_street"),
 								result.getString("address_town")
 							);
@@ -59,8 +61,8 @@ public class UserDAO {
 	
 	// Create a new user into database --- NEW ---
 	public void createUser(String username, String password, String name, String surname, String email, String addressTown, String addressStreet)  throws SQLException {
-		String query = "INSERT INTO user (username, password, name, surname, email, address_town, address_street), VALUES (?, sha2(?, 256), ?, ?, ?, ?, ?);"; // HANDMADE
-		// String query = "CALL signup (?, sha2(?, 256), ?, ?, ?, ?, ?);"; // PROCEDURE
+		String query = "INSERT INTO user (username, password, name, surname, email, address_town, address_street) VALUES (?, sha2(?, 256), ?, ?, ?, ?, ?);"; // HANDMADE
+		// String query = "CALL signup (?, ?, ?, ?, ?, ?, ?);"; // PROCEDURE
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setString(1, username);
 			statement.setString(2, password);
@@ -69,6 +71,7 @@ public class UserDAO {
 			statement.setString(5, email);
 			statement.setString(6, addressTown);
 			statement.setString(7, addressStreet);
+			statement.executeQuery();
 		}
 	}
 	

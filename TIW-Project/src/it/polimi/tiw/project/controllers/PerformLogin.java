@@ -52,6 +52,7 @@ public class PerformLogin extends HttpServlet {
     }
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// Parameters declaration before reading them from the request
 		String username = null;
 		String password = null;
@@ -74,7 +75,7 @@ public class PerformLogin extends HttpServlet {
 		try {
 			user = userDao.performUserLogin(username, password);
 		}catch (SQLException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Not Possible to check credentials");
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Not Possible to check credentials : " + e.getMessage());
 			return;
 		}
 		

@@ -3,7 +3,7 @@
 	<display-name>TIW-Project</display-name>
 	<context-param>
 		<param-name>dbUrl</param-name>
-		<param-value>jdbc:mysql://localhost:3306/tiw_project?serverTimezone=UTC</param-value>
+		<param-value>jdbc:mysql://localhost:3306/tiw-project?serverTimezone=UTC</param-value>
 	</context-param>
 	<context-param>
 		<param-name>dbUser</param-name>

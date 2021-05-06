@@ -12,7 +12,8 @@ public class Auction extends  DBObject {
     private int itemId;
     private int sellerId;
 
-    public Auction(float startingPrice, float minimumRise, Timestamp endDateTime, boolean open, int itemId, int sellerId) {
+    public Auction(int id, float startingPrice, float minimumRise, Timestamp endDateTime, boolean open, int itemId, int sellerId) {
+    	super(id);
         this.startingPrice = startingPrice;
         this.minimumRise = minimumRise;
         this.endTimestamp = endDateTime;

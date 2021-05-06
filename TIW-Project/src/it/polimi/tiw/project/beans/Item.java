@@ -6,7 +6,8 @@ public class Item extends DBObject {
     private String description;
     private String imageFilename;
 
-    public Item(String name, String description, String imageFilename) {
+    public Item(int id, String name, String description, String imageFilename) {
+    	super(id);
         this.name = name;
         this.description = description;
         this.imageFilename = imageFilename;

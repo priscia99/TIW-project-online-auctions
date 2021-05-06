@@ -5,15 +5,18 @@ public class User extends DBObject{
     private String username;
     private String name;
     private String surname;
-    private String addressStreet;
-    private String addressTown;
+    private String email;
+    private String address_street;
+    private String address_town;
 
-    public User(String username, String name, String surname, String addressStreet, String addressTown) {
+    public User(int id, String username, String name, String surname, String email, String address_street, String address_town) {
+    	super(id);
         this.username = username;
         this.name = name;
         this.surname = surname;
-        this.addressStreet = addressStreet;
-        this.addressTown = addressTown;
+        this.email = email;
+        this.address_street = address_street;
+        this.address_town = address_town;
     }
 
     public String getUsername() {
@@ -40,23 +43,27 @@ public class User extends DBObject{
         this.surname = surname;
     }
 
-    public String getAddressStreet() {
-        return addressStreet;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddressStreet(String addressStreet) {
-        this.addressStreet = addressStreet;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getAddressTown() {
-        return addressTown;
+    public String getAddress_street() {
+        return address_street;
     }
 
-    public void setAddressTown(String addressTown) {
-        this.addressTown = addressTown;
+    public void setAddress_street(String address_street) {
+        this.address_street = address_street;
     }
 
-    public String getCompleteAddress() {
-        return this.addressStreet + ',' + this.addressTown;
+    public String getAddress_town() {
+        return address_town;
+    }
+
+    public void setAddress_town(String address_town) {
+        this.address_town = address_town;
     }
 }
