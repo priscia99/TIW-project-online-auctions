@@ -4,8 +4,8 @@
 <head>
   <meta charset="ISO-8859-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" media="all" href="../css/style.css"/>
-  <link rel="stylesheet" type="text/css" media="all" href="../css/auction.css"/>
+  <link rel="stylesheet" type="text/css" media="all" href="/TIW-Project/css/style.css"/>
+  <link rel="stylesheet" type="text/css" media="all" href="/TIW-Project/css/auction.css"/>
   <title>Online Auction - Buy</title>
   <style>
     #logoff-btn {
@@ -94,7 +94,7 @@
 <body>
 
   <div class="container navbar outer-shadow columns centered-flex">
-    <div class="nav-logo"><img src="../img/logo.svg" alt="" class="small-logo"></div>
+    <div class="nav-logo"><img src="/TIW-Project/img/logo.svg" alt="" class="small-logo"></div>
     <div class="nav-links">
       <a href="Home.html" class="text-primary-accent">Home</a>
       <a href="Buy.html" class="active text-primary-accent">Buy</a>
@@ -109,18 +109,21 @@
     <div class="rows centered-flex w100 mv50">
       <h1>Search Auctions</h1>
       <div class="columns spaced-evenly-flex w80" id="search-bar">
-        <input type="text" placeholder="Enter keywords to search" class="round text-field inner-shadow" id="search-field">
-        <button class="round outer-shadow" id="search-button" style="z-index: -3;">
-          <img src="../img/search-solid.svg" alt="#search-result" class="small-logo" style="z-index: -2;">
+      	<form action="buy" method="POST">
+        <input type="text" name="query" placeholder="Enter keywords to search" class="round text-field inner-shadow" id="search-field">
+        <button type="submit" class="round outer-shadow" id="search-button" style="z-index: -3;">
+        	<img src="/TIW-Project/img/search-solid.svg" alt="#search-result" class="small-logo" style="z-index: -2;">
         </button>
+        </form>
       </div>
     </div>
-
+	<div th:if="${query != null}" th:text=${query}>
+	</div>
     <!-- the main div is set to put the search bar in center when there are no result to display -->
     <div class="w100 rows centered-flex">
       <ul class="auction-list">
         <li class="auction">
-          <img src="../img/sample.gif" alt="" class="auction-img">
+          <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
           <div class="auction-details">
             <a href="">
               <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
@@ -139,7 +142,7 @@
         </li>
         <!-- ecc. -->
         <li class="auction">
-          <img src="../img/sample.gif" alt="" class="auction-img">
+          <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
           <div class="auction-details">
             <a href="">
               <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
@@ -157,7 +160,7 @@
           </div>
         </li>
         <li class="auction">
-          <img src="../img/sample.gif" alt="" class="auction-img">
+          <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
           <div class="auction-details">
             <a href="">
               <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
@@ -175,7 +178,7 @@
           </div>
         </li>
         <li class="auction">
-          <img src="../img/sample.gif" alt="" class="auction-img">
+          <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
           <div class="auction-details">
             <a href="">
               <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
@@ -193,7 +196,7 @@
           </div>
         </li>
         <li class="auction">
-          <img src="../img/sample.gif" alt="" class="auction-img">
+          <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
           <div class="auction-details">
             <a href="">
               <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
@@ -211,7 +214,7 @@
           </div>
         </li>
         <li class="auction">
-          <img src="../img/sample.gif" alt="" class="auction-img">
+          <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
           <div class="auction-details">
             <a href="">
               <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
