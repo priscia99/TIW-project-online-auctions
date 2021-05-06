@@ -2,6 +2,7 @@ package it.polimi.tiw.project.controllers;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import it.polimi.tiw.project.beans.User;
+import it.polimi.tiw.project.utils.ConnectionHandler;
 
 /**
  * Servlet implementation class GoToSellPage
@@ -41,8 +43,8 @@ public class GoToSellPage extends HttpServlet {
 		}
 		User user = (User) session.getAttribute("user");
 
-		// Redirect to the Home page and add missions to the parameters
-		String path = "/WEB-INF/Home.html";
+		// Redirect to the Sell page and add missions to the parameters
+		String path = "/WEB-INF/Sell.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 		context.setVariable("user", user);
@@ -50,8 +52,16 @@ public class GoToSellPage extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "POST is not allowed");
 	}
+	
+	public void destroy() {
+		try {
+			ConnectionHandler.closeConnection(connection);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 }
