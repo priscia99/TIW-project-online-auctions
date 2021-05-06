@@ -42,22 +42,7 @@ public class UserDAO {
 			}
 		}
 	}
-	
-	// Create a new user into database --- OLD ---
-	//public void createUser(String username, String password, String name, String surname, String email, String addressTown, String addressStreet)
-	//throws SQLException{
-		//String query = "INSERT into user (username, password, name, surname, email, address_town, address_street) VALUES(?, ?, ?, ?, ?, ?, ?)";
-		//try (PreparedStatement statement = connection.prepareStatement(query);) {
-			//statement.setString(1, username);
-			//statement.setBytes(2, password.getBytes());
-			//statement.setString(3, name);
-			//statement.setString(4, surname);
-			//statement.setString(5, email);
-			//statement.setString(6, addressTown);
-			//statement.setString(7, addressStreet);
-			//statement.executeUpdate();
-		//}
-	//}
+
 	
 	// Create a new user into database --- NEW ---
 	public void createUser(String username, String password, String name, String surname, String email, String addressTown, String addressStreet)  throws SQLException {
