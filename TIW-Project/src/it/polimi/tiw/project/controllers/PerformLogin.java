@@ -75,7 +75,8 @@ public class PerformLogin extends HttpServlet {
 		try {
 			user = userDao.performUserLogin(username, password);
 		}catch (SQLException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Not Possible to check credentials : " + e.getMessage());
+			//  "Not Possible to check credentials : " + e.getMessage()
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Not Possible to check credentials");
 			return;
 		}
 		
