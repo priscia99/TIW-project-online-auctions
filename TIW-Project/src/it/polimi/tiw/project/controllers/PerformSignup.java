@@ -56,18 +56,22 @@ public class PerformSignup extends HttpServlet {
 		String username = null;
 		String password = null;
 		String name = null;
+		String email = null;
 		String surname = null;
-		String address = null;
+		String addressTown = null;
+		String addressStreet = null;
 
 		try {
 			// Parsing parameters from user request
 			username = StringEscapeUtils.escapeJava(request.getParameter("username"));
 			password = StringEscapeUtils.escapeJava(request.getParameter("password"));
 			name = StringEscapeUtils.escapeJava(request.getParameter("name"));
+			email = StringEscapeUtils.escapeJava(request.getParameter("email"));			
 			surname = StringEscapeUtils.escapeJava(request.getParameter("surname"));
-			address = StringEscapeUtils.escapeJava(request.getParameter("address"));
+			addressTown = StringEscapeUtils.escapeJava(request.getParameter("address-town"));
+			addressStreet = StringEscapeUtils.escapeJava(request.getParameter("address-street"));
 			
-			badRequest = username.isEmpty() || password.isEmpty() || name.isEmpty() || surname.isEmpty() || address.isEmpty();			
+			badRequest = username.isEmpty() || password.isEmpty() || name.isEmpty() || surname.isEmpty() || email.isEmpty() || addressTown.isEmpty() || addressStreet.isEmpty();			
 		}
 		catch(Exception e){
 			badRequest = true;
@@ -101,7 +105,7 @@ public class PerformSignup extends HttpServlet {
 		
 		// Create user in DB using UserDAO
 		try {
-			dao.createUser(username, password, name, surname, address);
+			dao.createUser(username, password, name,  surname, email, addressTown, addressStreet);
 		}catch(SQLException e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to create a new user");
 			return;
