@@ -96,9 +96,9 @@
   <div class="container navbar outer-shadow columns centered-flex">
     <div class="nav-logo"><img src="/TIW-Project/img/logo.svg" alt="" class="small-logo"></div>
     <div class="nav-links">
-      <a href="Home.html" class="text-primary-accent">Home</a>
-      <a href="Buy.html" class="active text-primary-accent">Buy</a>
-      <a href="Sell.html" class="text-primary-accent">Sell</a>
+      <a href="home" class="text-primary-accent">Home</a>
+      <a href="buy" class="active text-primary-accent">Buy</a>
+      <a href="sell" class="text-primary-accent">Sell</a>
     </div>
     <div class="nav-opt">
       <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
@@ -108,14 +108,12 @@
   <div class="rows centered-flex w100 nav-rest">
     <div class="rows centered-flex w100 mv50">
       <h1>Search Auctions</h1>
-      <div class="columns spaced-evenly-flex w80" id="search-bar">
-      	<form action="buy" method="POST">
-        <input type="text" name="query" placeholder="Enter keywords to search" class="round text-field inner-shadow" id="search-field">
-        <button type="submit" class="round outer-shadow" id="search-button" style="z-index: -3;">
-        	<img src="/TIW-Project/img/search-solid.svg" alt="#search-result" class="small-logo" style="z-index: -2;">
-        </button>
+      	<form action="buy" method="POST" class="columns spaced-evenly-flex w80" id="search-bar">
+	        <input type="text" name="query" placeholder="Enter keywords to search" class="round text-field inner-shadow" id="search-field">
+	        <button type="submit" class="round outer-shadow" id="search-button" style="z-index: -3;">
+	        	<img src="/TIW-Project/img/search-solid.svg" alt="#search-result" class="small-logo" style="z-index: -2;">
+	        </button>
         </form>
-      </div>
     </div>
 	<div th:if="${query != null}" th:text=${query}>
 	</div>

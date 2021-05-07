@@ -26,7 +26,7 @@
 
 <body>
     <div class="centered round container outer-shadow">
-        <form action="PerformLogin" method="post" id="login-form" class="rows centered-flex">
+        <form action="login" method="post" id="login-form" class="rows centered-flex">
             <img class="medium-logo" src="img/logo.svg" alt="logo">
             <p th:class="@{login-info-text}" th:text=${loginInfoMsg}> </p>
             <input type="text" class="round text-field inner-shadow w75" name="username" placeholder="Enter username" required="required"/><br>

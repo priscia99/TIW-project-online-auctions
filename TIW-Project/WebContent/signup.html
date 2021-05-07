@@ -26,9 +26,9 @@
 
 <body>
     <div class="centered round container outer-shadow">
-        <form action="PerformSignup" method="post" id="signup-form" class="rows centered-flex">
+        <form action="signup" method="post" id="signup-form" class="rows centered-flex">
             <img class="medium-logo" src="img/logo.svg">
-            <p th:class="@{login-info-text}" th:text=${signupInfoMsg}> </p>
+            <p th:class="@{login-info-text}" th:text=${signupInfoMsg}>Info message</p>
             <input type="text" class="round text-field inner-shadow w75" name="username" placeholder="Username" required="required"/><br>
             <input type="password" class="round text-field inner-shadow w75" name="password" placeholder="Password" required="required"/><br>
             <input type="text" class="round text-field inner-shadow w75" name="name" placeholder="Name" required="required"/><br>

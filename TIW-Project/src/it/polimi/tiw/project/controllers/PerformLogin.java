@@ -25,7 +25,7 @@ import java.sql.SQLException;
 /**
  * Servlet implementation class PerformLogin
  */
-@WebServlet("/PerformLogin")
+@WebServlet("/login")
 public class PerformLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private Connection connection = null;
@@ -94,7 +94,7 @@ public class PerformLogin extends HttpServlet {
 		else{
 			// User is an actual object -> user authenticated successfully
 			request.getSession().setAttribute("user", user);	// Create a new session giving the user object as an attribute
-			path = getServletContext().getContextPath() + "/Home";	// Re-direct to home page
+			path = getServletContext().getContextPath() + "/home";	// Re-direct to home page
 			response.sendRedirect(path);
 		}
 	}

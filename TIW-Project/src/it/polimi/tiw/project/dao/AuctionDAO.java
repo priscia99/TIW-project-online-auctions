@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import it.polimi.tiw.project.beans.Item;
@@ -22,19 +21,22 @@ public class AuctionDAO {
 	}
 	
 	// Create a new item into database
-	public ResultSet createItem(Item item) throws SQLException{
+	public Item createItem(Item item) throws SQLException{
 		String query = "INSERT INTO `item` (`name`, `description`, `image_filename`) "
 				+ "VALUES (?, ?, ?);";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setString(1, item.getName());
 			statement.setString(2, item.getDescription());
 			statement.setString(3, item.getImageFilename());
-			ResultSet rs = statement.executeQuery();
-			return rs;
+			statement.execute();
+			
+			item.setId(statement.getGeneratedKeys().getInt(1));
+			return item;
 		}
 	}
 
 	public ResultSet filterByArticleName(String query) throws SQLException {
+		// C'E' UNA VIEW AD HOC
 		String sqlStatement = "SELECT * FROM auction INNER JOIN item WHERE item.name LIKE CONCAT( '%',?,'%')";
 		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);){
 			statement.setString(1, query);
@@ -66,6 +68,7 @@ public class AuctionDAO {
 			statement.setString(1, item.getName());
 			statement.setString(2, item.getDescription());
 			statement.setString(3, item.getImageFilename());
+			statement.execute();
 			ResultSet generatedKeys = statement.getGeneratedKeys();
 			item.setId(generatedKeys.getInt(1));
 		}
@@ -77,13 +80,14 @@ public class AuctionDAO {
 			statement.setFloat(4, auction.getStartingPrice());
 			statement.setTimestamp(5, auction.getEndTimestamp());
 			statement.setTimestamp(6, auction.getCreationTimestamp());
+			statement.execute();
 		}
 		auction.setItem(item);
 		return auction;
 	}
 	
 	// Query list of open auction for a specific username
-	public ArrayList<Auction> getUserOpenAuction(User user) throws SQLException {
+	public ArrayList<Auction> getUserOpenAuctions(User user) throws SQLException {
 		String query = "SELECT * FROM open_auctions WHERE id_seller = ?;";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setInt(1, user.getId());
@@ -127,8 +131,9 @@ public class AuctionDAO {
 	}
 	
 	// Query list of close auction for a specific username
-	public ArrayList<Auction> getUserCloseAuction(User user) throws SQLException {
+	public ArrayList<Auction> getUserCloseAuctions(User user) throws SQLException {
 		String query = "SELECT * FROM close_auctions WHERE id_seller = ?;";
+		
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setInt(1, user.getId());
 			

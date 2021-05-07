@@ -15,24 +15,38 @@ import javax.servlet.http.HttpSession;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.beans.User;
+import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 
 /**
  * Servlet implementation class GoToSellPage
  */
-@WebServlet("/GoToSellPage")
-public class GoToSellPage extends HttpServlet {
+@WebServlet("/sell")
+public class SellController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;	// session id
 	private TemplateEngine templateEngine;				// engine to display page
 	private Connection connection = null;				// connection to DB
 
        
-    public GoToSellPage() {
+    public SellController() {
         super();
+    }
+    
+
+    public void init() throws ServletException{
+    	connection = ConnectionHandler.getConnection(getServletContext());
+    	ServletContext servletContext = getServletContext();
+    	ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
+    	templateResolver.setTemplateMode(TemplateMode.HTML);
+		this.templateEngine = new TemplateEngine();
+		this.templateEngine.setTemplateResolver(templateResolver);
+		templateResolver.setSuffix(".html");
     }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,13 +60,29 @@ public class GoToSellPage extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		
 		// Get lists of open auctions and close auctions from DB
-		
+		AuctionDAO dao = new AuctionDAO(connection);
+		ArrayList<Auction> openAuctions = new ArrayList<>();
+		ArrayList<Auction> closeAuctions = new ArrayList<>();
+		try {
+			openAuctions = dao.getUserOpenAuctions(user);
+		} catch (SQLException e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to retrieve user's open auctions");
+			e.printStackTrace();
+		}
+		try {
+			closeAuctions = dao.getUserCloseAuctions(user);
+		} catch (SQLException e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to retrieve user's closed auctions");
+			e.printStackTrace();
+		}
 		
 		// Redirect to the Sell page and add missions to the parameters
 		String path = "/WEB-INF/Sell.html";
-		ServletContext servletContext = getServletContext();
+		ServletContext servletContext = getServletContext(); // REMOVED
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 		context.setVariable("user", user);
+		context.setVariable("openAuctions", openAuctions);
+		context.setVariable("closeAuctions", closeAuctions);
 		templateEngine.process(path, context, response.getWriter());
 	}
 

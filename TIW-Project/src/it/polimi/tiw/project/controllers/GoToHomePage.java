@@ -20,7 +20,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 
-@WebServlet("/Home")
+@WebServlet("/home")
 public class GoToHomePage extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;	// session id
