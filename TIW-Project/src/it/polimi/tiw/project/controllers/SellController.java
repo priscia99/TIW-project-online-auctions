@@ -57,6 +57,7 @@ public class SellController extends HttpServlet {
 			response.sendRedirect(loginpath);
 			return;
 		}
+		// Retrieve user data
 		User user = (User) session.getAttribute("user");
 		
 		// Get lists of open auctions and close auctions from DB
@@ -80,12 +81,15 @@ public class SellController extends HttpServlet {
 		String path = "/WEB-INF/Sell.html";
 		ServletContext servletContext = getServletContext(); // REMOVED
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
+		// Pass page/servlet variables to context (for thymeleaf)
 		context.setVariable("user", user);
 		context.setVariable("openAuctions", openAuctions);
 		context.setVariable("closeAuctions", closeAuctions);
+		// Do redirect
 		templateEngine.process(path, context, response.getWriter());
 	}
-
+	
+	// Servlet only allow get requests
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "POST is not allowed");
 	}
