@@ -33,6 +33,15 @@ public class AuctionDAO {
 			return rs;
 		}
 	}
+
+	public ResultSet filterByArticleName(String query) throws SQLException {
+		String sqlStatement = "SELECT * FROM auction INNER JOIN item WHERE item.name LIKE CONCAT( '%',?,'%')";
+		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);){
+			statement.setString(1, query);
+			ResultSet queryResult = statement.executeQuery();
+			return queryResult;
+		} 
+	}
 	
 	// Create a new auction into database
 	public void createAuction(Auction auction) throws SQLException{

@@ -38,11 +38,13 @@
         <h1 id="title"><span class="text-color-accent">AuctiOn</span><span class="text-secondary">line</span></h1>
         <p class="mv0" th:text="${'Welcome back, ' + session.user.name + ' ' + session.user.surname + '!'}"></p>
         <div class="columns spaced-flex mv10" style="flex-flow: row wrap;">
-            <button id="buy-btn" class="round outer-shadow rows centered-flex color-solid-l text-color-detail">
-                <p class="full-width text-primary-accent" style="font-size: 24px; font-weight: bold;">BUY</p>
-                <img src="/TIW-Project/img/shopping-cart-solid.svg" alt="" class="medium-logo mv0 mh50">
-                <p class="text-primary-accent">Search trough a variety of items on sale</p>
-            </button>
+            <div id="buy-btn" class="round outer-shadow rows centered-flex color-solid-l text-color-detail">
+                <a href="buy">
+                    <p class="full-width text-primary-accent" style="font-size: 24px; font-weight: bold;">BUY</p>
+                    <img src="/TIW-Project/img/shopping-cart-solid.svg" alt="" class="medium-logo mv0 mh50">
+                    <p class="text-primary-accent">Search trough a variety of items on sale</p>
+                </a>
+            </div>
             <button id="sell-btn" class="round outer-shadow rows centered-flex color-solid-l text-color-detail">
                 <p class="full-width text-primary-accent" style="font-size: 24px; font-weight: bold;">SELL</p>
                 <img src="/TIW-Project/img/hand-holding-usd-solid.svg" alt="" class="medium-logo mv0 mh50 ">
