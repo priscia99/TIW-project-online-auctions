@@ -23,7 +23,7 @@ import it.polimi.tiw.project.utils.ConnectionHandler;
 /**
  * Servlet implementation class PerformSignup
  */
-@WebServlet("/PerformSignup")
+@WebServlet("/signup")
 public class PerformSignup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection = null;

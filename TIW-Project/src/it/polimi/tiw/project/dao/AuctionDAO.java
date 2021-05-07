@@ -22,8 +22,7 @@ public class AuctionDAO {
 	
 	// Create a new item into database
 	public Item createItem(Item item) throws SQLException{
-		String query = "INSERT INTO `item` (`name`, `description`, `image_filename`) "
-				+ "VALUES (?, ?, ?);";
+		String query = "INSERT INTO `item` (`name`, `description`, `image_filename`) VALUES (?, ?, ?);";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setString(1, item.getName());
 			statement.setString(2, item.getDescription());
@@ -93,39 +92,35 @@ public class AuctionDAO {
 			statement.setInt(1, user.getId());
 			
 			try (ResultSet rs = statement.executeQuery();) {
-				if (!rs.isBeforeFirst()) // no results, credential check failed
-					return null;
-				else {
-					ArrayList<Auction> toReturn = new ArrayList<>();
-					while(rs.next()) {
-						Item item = new Item(
-							rs.getInt("id_item"), 
-							rs.getString("name"), 
-							rs.getString("description"), 
-							rs.getString("image_filename")
-							);
-					Bid bid = new Bid(
-							rs.getInt("id_max_bid"), 
-							rs.getFloat("max_price"), 
-							rs.getTimestamp("max_bid_time"), 
-							rs.getInt("id_max_bidder")
-							);
-					toReturn.add(
-							new Auction(
-								rs.getInt("id_auction"),
-								rs.getFloat("starting_price"),
-								rs.getFloat("minimum_rise"),
-								rs.getTimestamp("end"),
-								rs.getTimestamp("creation"),
-								rs.getBoolean("open"),
-								item,
-								rs.getInt("id_seller"),
-								bid
-								)
-							);
-					}
-					return new ArrayList<>();
+				ArrayList<Auction> toReturn = new ArrayList<>();
+				while(rs.next()) {
+					Item item = new Item(
+						rs.getInt("id_item"), 
+						rs.getString("name"), 
+						rs.getString("description"), 
+						rs.getString("image_filename")
+						);
+				Bid bid = new Bid(
+						rs.getInt("id_max_bid"), 
+						rs.getFloat("max_price"), 
+						rs.getTimestamp("max_bid_time"), 
+						rs.getInt("id_max_bidder")
+						);
+				toReturn.add(
+						new Auction(
+							rs.getInt("id_auction"),
+							rs.getFloat("starting_price"),
+							rs.getFloat("minimum_rise"),
+							rs.getTimestamp("end"),
+							rs.getTimestamp("creation"),
+							rs.getBoolean("open"),
+							item,
+							rs.getInt("id_seller"),
+							bid
+							)
+						);
 				}
+				return toReturn;
 			}
 		}
 	}
@@ -138,39 +133,35 @@ public class AuctionDAO {
 			statement.setInt(1, user.getId());
 			
 			try (ResultSet rs = statement.executeQuery();) {
-				if (!rs.isBeforeFirst()) // no results, credential check failed
-					return null;
-				else {
-					ArrayList<Auction> toReturn = new ArrayList<>();
-					while(rs.next()) {
-						Item item = new Item(
-							rs.getInt("id_item"), 
-							rs.getString("name"), 
-							rs.getString("description"), 
-							rs.getString("image_filename")
-							);
-					Bid bid = new Bid(
-							rs.getInt("id_max_bid"), 
-							rs.getFloat("max_price"), 
-							rs.getTimestamp("max_bid_time"), 
-							rs.getInt("id_max_bidder")
-							);
-					toReturn.add(
-							new Auction(
-								rs.getInt("id_auction"),
-								rs.getFloat("starting_price"),
-								rs.getFloat("minimum_rise"),
-								rs.getTimestamp("end"),
-								rs.getTimestamp("creation"),
-								rs.getBoolean("open"),
-								item,
-								rs.getInt("id_seller"),
-								bid
-								)
-							);
-					}
-					return toReturn;
+				ArrayList<Auction> toReturn = new ArrayList<>();
+				while(rs.next()) {
+					Item item = new Item(
+						rs.getInt("id_item"), 
+						rs.getString("name"), 
+						rs.getString("description"), 
+						rs.getString("image_filename")
+						);
+				Bid bid = new Bid(
+						rs.getInt("id_max_bid"), 
+						rs.getFloat("max_price"), 
+						rs.getTimestamp("max_bid_time"), 
+						rs.getInt("id_max_bidder")
+						);
+				toReturn.add(
+						new Auction(
+							rs.getInt("id_auction"),
+							rs.getFloat("starting_price"),
+							rs.getFloat("minimum_rise"),
+							rs.getTimestamp("end"),
+							rs.getTimestamp("creation"),
+							rs.getBoolean("open"),
+							item,
+							rs.getInt("id_seller"),
+							bid
+							)
+						);
 				}
+				return toReturn;
 			}
 		}
 	}

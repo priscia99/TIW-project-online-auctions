@@ -90,7 +90,7 @@
     }
   </style>
 </head>
-<body>
+<body id="content">
 
   <div class="container navbar outer-shadow columns centered-flex">
     <div class="nav-logo"><img src="/TIW-Project/img/logo.svg" alt="" class="small-logo"></div>
@@ -121,7 +121,7 @@
       </div>
       <div class="rows w100 scrollable auction-list-wrapper inner-shadow">
         <div class="color-solid w100 h100" style="z-index: -1;">
-          <ul class="auction-list color-solid-l" style="z-index: -1;" th:if="${not #lists.isEmpty(ctx.openAuctions)}" th:each="openAuction : ${ctx.openAuctions}" th:class="${openAuctStat.even}?'even'">
+          <ul class="auction-list color-solid-l" style="z-index: -1;" th:each="openAuction : ${openAuctions}">
             <li class="auction color-solid-l">
               <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
               <a href="">
@@ -129,14 +129,14 @@
               </a>
               <ul>
                 <li>[PRICE]</li>
-                <li th:text="${openAuction.minimumRise}">[RISE]</li>
+                <li th:text="${openAuction.minimumRise}">minimum rise</li>
                 <li>[EXPIRE]</li>
                 <li>[SELLER]</li>
               </ul>
             </li>
             <!-- ecc. -->
           </ul>
-          <p >Nothing to show</p>
+          <p th:if="${#lists.isEmpty(openAuctions)}">Nothing to show</p>
         </div>
       </div>
     </div>
@@ -238,7 +238,7 @@
 
   <div class="create-popup centered container round outer-shadow " id="create-popup">
     <div class="columns">
-      <a href="">
+      <a href="#">
         <button class="round ph10 pv10 color-detail">close</button>
       </a>
     </div>
@@ -276,8 +276,8 @@
         </label>
       </div>
       <div class="mv10 columns spaced-evenly-flex">
-        <a href="" class="button ph20 pv10 round color-accent text-color-background outer-shadow caps-lock" type="submit"> Confirm</a>
-        <a href="" class="button ph20 pv10 round color-background text-color-accent outer-shadow caps-lock" type="reset"> Cancel </a>
+        <a href="#" class="button ph20 pv10 round color-accent text-color-background outer-shadow caps-lock" type="submit"> Confirm</a>
+        <a href="#" class="button ph20 pv10 round color-background text-color-accent outer-shadow caps-lock" type="reset"> Cancel </a>
       </div>
     </form>
   </div>
