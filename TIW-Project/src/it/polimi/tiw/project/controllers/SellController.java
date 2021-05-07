@@ -67,13 +67,13 @@ public class SellController extends HttpServlet {
 			openAuctions = dao.getUserOpenAuctions(user);
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to retrieve user's open auctions");
-			e.printStackTrace();
+			e.printStackTrace();	// REMOVE BEFORE FLIGHT
 		}
 		try {
 			closeAuctions = dao.getUserCloseAuctions(user);
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to retrieve user's closed auctions");
-			e.printStackTrace();
+			e.printStackTrace();	// REMOVE BEFORE FLIGHT
 		}
 		
 		// Redirect to the Sell page and add missions to the parameters

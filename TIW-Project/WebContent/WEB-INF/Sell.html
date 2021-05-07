@@ -107,7 +107,7 @@
   <div class="rows centered-flex w100" id="header">
     <div class="columns m-nav spaced-between-flex w80">
       <div>
-        <h2 th:text="${session.user.username} + '\'s auction'">[USERNAME]</h2>
+        <h2 th:text="${session.user.username}">Username</h2>
         <p>Manage your auctions</p>
       </div>
       <a href="#create-popup"><button class="round ph20 pv10 mv50 caps-lock outer-shadow">CREATE NEW</button></a>
@@ -121,84 +121,26 @@
       </div>
       <div class="rows w100 scrollable auction-list-wrapper inner-shadow">
         <div class="color-solid w100 h100" style="z-index: -1;">
-          <ul class="auction-list color-solid-l" style="z-index: -1;" th:each="openAuction : ${ctx.openAuctions}" th:class="${openAuctStat.even}?'even'">
+          <ul class="auction-list color-solid-l" style="z-index: -1;" th:if="${not #lists.isEmpty(ctx.openAuctions)}" th:each="openAuction : ${ctx.openAuctions}" th:class="${openAuctStat.even}?'even'">
             <li class="auction color-solid-l">
               <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
               <a href="">
                 <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
               </a>
               <ul>
-                <li th:text="${openAuction.sellerId}">[PRICE]</li>
-                <li>[RISE]</li>
+                <li>[PRICE]</li>
+                <li th:text="${openAuction.minimumRise}">[RISE]</li>
                 <li>[EXPIRE]</li>
                 <li>[SELLER]</li>
               </ul>
             </li>
             <!-- ecc. -->
-            <li class="auction color-solid-l">
-              <img src="../img/sample.gif" alt="" class="auction-img">
-              <a href="">
-                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-              </a>
-              <ul>
-                <li>[PRICE]</li>
-                <li>[RISE]</li>
-                <li>[EXPIRE]</li>
-                <li>[SELLER]</li>
-              </ul>
-            </li>
-            <li class="auction color-solid-l">
-              <img src="../img/sample.gif" alt="" class="auction-img">
-              <a href="">
-                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-              </a>
-              <ul>
-                <li>[PRICE]</li>
-                <li>[RISE]</li>
-                <li>[EXPIRE]</li>
-                <li>[SELLER]</li>
-              </ul>
-            </li>
-            <li class="auction color-solid-l">
-              <img src="../img/sample.gif" alt="" class="auction-img">
-              <a href="">
-                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-              </a>
-              <ul>
-                <li>[PRICE]</li>
-                <li>[RISE]</li>
-                <li>[EXPIRE]</li>
-                <li>[SELLER]</li>
-              </ul>
-            </li>
-            <li class="auction color-solid-l">
-              <img src="../img/sample.gif" alt="" class="auction-img">
-              <a href="">
-                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-              </a>
-              <ul>
-                <li>[PRICE]</li>
-                <li>[RISE]</li>
-                <li>[EXPIRE]</li>
-                <li>[SELLER]</li>
-              </ul>
-            </li>
-            <li class="auction color-solid-l">
-              <img src="../img/sample.gif" alt="" class="auction-img">
-              <a href="">
-                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-              </a>
-              <ul>
-                <li>[PRICE]</li>
-                <li>[RISE]</li>
-                <li>[EXPIRE]</li>
-                <li>[SELLER]</li>
-              </ul>
-            </li>
           </ul>
+          <p >Nothing to show</p>
         </div>
       </div>
     </div>
+    
     <div class="rows w40" id="closed-list">
       <div class="columns w100 color-solid filter-bar" style="z-index: 0">
         <ul class="filter">

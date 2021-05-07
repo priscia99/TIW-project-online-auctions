@@ -124,7 +124,7 @@ public class AuctionDAO {
 								)
 							);
 					}
-					return toReturn;
+					return new ArrayList<>();
 				}
 			}
 		}
