@@ -242,41 +242,42 @@
         <button class="round ph10 pv10 color-detail">close</button>
       </a>
     </div>
-    <form action="CreateAuction" class="create-form" id="create-form">
+    <form action="submit-auction" class="create-form" id="create-form" method="post">
       <h3 class="caps-lock">Create new auction</h3>
       <div class="mv10">
         <label>
           Title:
-          <input type="text" class="round inner-shadow text-field">
+          <input type="text" class="round inner-shadow text-field" name="item-name">
         </label>
       </div>
       <div class="mv10">
         <label>
           Description (max 2000 characters):
-          <textarea style="margin-top: 5px;" name="description" class="multiline-text-field round inner-shadow" cols="30" rows="10"></textarea>
+          <textarea style="margin-top: 5px;" name="item-descritpion" class="multiline-text-field round inner-shadow" cols="30" rows="10"></textarea>
         </label>
       </div>
       <div class="mv10">
         <label>
           Starting price:
-          <input type="number" class="round inner-shadow text-field" id="price" min="1" value="1">
+          <input type="number" class="round inner-shadow text-field" id="price" min="1" value="1" name="auction-starting-price">
         </label>
       </div>
       <div class="mv10">
         <label>
           Minimum rise:
-          <input type="number" class="round inner-shadow text-field" id="rise" min="1" value="1">
+          <input type="number" class="round inner-shadow text-field" id="rise" min="1" value="1" name="auction-minimum-rise">
         </label>
       </div>
       <div class="mv10">
         <label>
           Expires on:
           <!-- TODO: set default value today -->
-          <input style="margin-top: 5px;" type="datetime-local" class="text-field round inner-shadow">
+          <input style="margin-top: 5px;" type="datetime-local" class="text-field round inner-shadow" name="auction-end-timestamp">
         </label>
       </div>
       <div class="mv10 columns spaced-evenly-flex">
-        <a href="#" class="button ph20 pv10 round color-accent text-color-background outer-shadow caps-lock" type="submit"> Confirm</a>
+      	<button type="submit" class=" ph20 pv10 round color-accent text-color-background outer-shadow caps-lock">Confirm</button>
+        <!-- <a href="#" class="button ph20 pv10 round color-accent text-color-background outer-shadow caps-lock" type="submit"> Confirm</a> -->
         <a href="#" class="button ph20 pv10 round color-background text-color-accent outer-shadow caps-lock" type="reset"> Cancel </a>
       </div>
     </form>

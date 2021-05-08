@@ -12,6 +12,12 @@ public class Item extends DBObject {
         this.description = description;
         this.imageFilename = imageFilename;
     }
+    
+    public Item(String name, String description, String imageFilename) {
+        this.name = name;
+        this.description = description;
+        this.imageFilename = imageFilename;
+    }
 
     public String getName() {
         return name;
