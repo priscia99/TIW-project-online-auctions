@@ -35,8 +35,7 @@ public class AuctionDAO {
 	}
 
 	public ResultSet filterByArticleName(String query) throws SQLException {
-		// C'E' UNA VIEW AD HOC
-		String sqlStatement = "SELECT * FROM auction INNER JOIN item WHERE item.name LIKE CONCAT( '%',?,'%')";
+		String sqlStatement = "SELECT * FROM auction_item WHERE name LIKE CONCAT( '%',?,'%')";
 		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);){
 			statement.setString(1, query);
 			ResultSet queryResult = statement.executeQuery();
