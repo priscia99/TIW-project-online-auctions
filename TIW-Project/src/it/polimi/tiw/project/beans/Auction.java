@@ -12,6 +12,15 @@ public class Auction extends  DBObject {
     private Item item;
     private int sellerId;
     private ArrayList<Bid> bids = new ArrayList<>();
+    private float currentPrice;
+    
+    private void calculateCurrentPrice() {
+    	if (this.bids.isEmpty()) {
+    		this.currentPrice = this.startingPrice;
+    	} else {
+    		this.currentPrice = this.bids.get(this.bids.size() - 1).getPrice();
+    	}
+    }
 
     public Auction(int id, float startingPrice, float minimumRise, String endTimestamp, boolean open, Item item, int sellerId, ArrayList<Bid> bids) {
     	super(id);
@@ -22,6 +31,7 @@ public class Auction extends  DBObject {
         this.item = item;
         this.sellerId = sellerId;
         this.bids = bids;
+        this.calculateCurrentPrice();
     }
     
     public Auction(float startingPrice, float minimumRise, String endTimestamp, Item item, int sellerId) {
@@ -30,6 +40,7 @@ public class Auction extends  DBObject {
         this.endTimestamp = endTimestamp;
         this.item = item;
         this.sellerId = sellerId;
+        this.calculateCurrentPrice();
     }
     
     public Auction(int id, float startingPrice, float minimumRise, String endTimestamp, boolean open, Item item, int sellerId) {
@@ -39,6 +50,7 @@ public class Auction extends  DBObject {
         this.endTimestamp = endTimestamp;
         this.item = item;
         this.sellerId = sellerId;
+        this.calculateCurrentPrice();
     }
     
     public Auction(int id, float startingPrice, float minimumRise, String endTimestamp, boolean open, Item item, int sellerId, Bid bid) {
@@ -50,6 +62,7 @@ public class Auction extends  DBObject {
         this.item = item;
         this.sellerId = sellerId;
         this.bids.add(bid);
+        this.calculateCurrentPrice();
     }
 
     public float getStartingPrice() {
@@ -58,6 +71,7 @@ public class Auction extends  DBObject {
 
     public void setStartingPrice(float startingPrice) {
         this.startingPrice = startingPrice;
+        this.calculateCurrentPrice();
     }
 
     public float getMinimumRise() {
@@ -106,5 +120,10 @@ public class Auction extends  DBObject {
     
     public void setBids(ArrayList<Bid> bids) {
     	this.bids = bids;
+    	this.calculateCurrentPrice();
+    }
+    
+    public float getCurrentPrice() {
+    	return this.currentPrice;
     }
 }
