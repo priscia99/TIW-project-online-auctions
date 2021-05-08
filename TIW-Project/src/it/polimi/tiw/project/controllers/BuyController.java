@@ -3,6 +3,7 @@ package it.polimi.tiw.project.controllers;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
@@ -72,9 +74,9 @@ public class BuyController extends HttpServlet{
 		User user = (User) session.getAttribute("user");
 		String query = StringEscapeUtils.escapeJava(request.getParameter("query"));
 		AuctionDAO actionDao = new AuctionDAO(connection);
-		
+		ArrayList<Auction> openAuctions = new ArrayList<>();
 		try {
-			actionDao.filterByArticleName(query);
+			openAuctions = actionDao.filterByArticleName(query);
 		}catch(Exception e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Cannot filter auctions");
 			return;
@@ -85,6 +87,7 @@ public class BuyController extends HttpServlet{
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 		context.setVariable("user", user);
 		context.setVariable("query", query);
+		context.setVariable("openAuctions", openAuctions);
 		templateEngine.process(path, context, response.getWriter());
 	}
 	

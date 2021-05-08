@@ -115,122 +115,34 @@
 	        </button>
         </form>
     </div>
-	<div th:if="${query != null}" th:text=${query}>
-	</div>
-    <!-- the main div is set to put the search bar in center when there are no result to display -->
+	<div th:if="${query != null}" >
+	<div th:if="${openAuctions.size > 0}">
+	<div  th:text="|Ecco i risultati per ${query}|" ></div>
     <div class="w100 rows centered-flex">
       <ul class="auction-list">
-        <li class="auction">
-          <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
+        <li class="auction" th:each="openAuction : ${openAuctions}">
+          <img th:src="@{${openAuction.item.imageFilename}}" th:alt-title="${openAuction.item.name}" class="auction-img">
           <div class="auction-details">
-            <a href="">
-              <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+            <a th:href="@{'/auctions/'+${openAuction.id}}">
+              <h3 th:text="${openAuction.item.name}"></h3>
             </a>
             <div>
               <div>
-                <p>Status: <span style="font-weight: bold;">Open</span></p>
-                <p>Expires on <span style="font-weight: bold;">16/05/2023</span> at <span style="font-weight: bold;">08:00 PM</span></p>
+                <p>Is open: <span style="font-weight: bold;" th:text="${openAuction.open}"></span></p>
+                <p>Expires on <span style="font-weight: bold;" th:text="${openAuction.endTimestamp}"></span></p>
               </div>
               <div class="auction-price-wrap">
-                <p>Minimum rise: <span style="font-weight: bold;">EUR 5,00</span></p>
-                <p class="auction-price">EUR 52,70</p>
-              </div>
-            </div>
-          </div>
-        </li>
-        <!-- ecc. -->
-        <li class="auction">
-          <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
-          <div class="auction-details">
-            <a href="">
-              <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-            </a>
-            <div>
-              <div>
-                <p>Status: <span style="font-weight: bold;">Open</span></p>
-                <p>Expires on <span style="font-weight: bold;">16/05/2023</span> at <span style="font-weight: bold;">08:00 PM</span></p>
-              </div>
-              <div class="auction-price-wrap">
-                <p>Minimum rise: <span style="font-weight: bold;">EUR 5,00</span></p>
-                <p class="auction-price">EUR 52,70</p>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="auction">
-          <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
-          <div class="auction-details">
-            <a href="">
-              <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-            </a>
-            <div>
-              <div>
-                <p>Status: <span style="font-weight: bold;">Open</span></p>
-                <p>Expires on <span style="font-weight: bold;">16/05/2023</span> at <span style="font-weight: bold;">08:00 PM</span></p>
-              </div>
-              <div class="auction-price-wrap">
-                <p>Minimum rise: <span style="font-weight: bold;">EUR 5,00</span></p>
-                <p class="auction-price">EUR 52,70</p>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="auction">
-          <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
-          <div class="auction-details">
-            <a href="">
-              <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-            </a>
-            <div>
-              <div>
-                <p>Status: <span style="font-weight: bold;">Open</span></p>
-                <p>Expires on <span style="font-weight: bold;">16/05/2023</span> at <span style="font-weight: bold;">08:00 PM</span></p>
-              </div>
-              <div class="auction-price-wrap">
-                <p>Minimum rise: <span style="font-weight: bold;">EUR 5,00</span></p>
-                <p class="auction-price">EUR 52,70</p>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="auction">
-          <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
-          <div class="auction-details">
-            <a href="">
-              <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-            </a>
-            <div>
-              <div>
-                <p>Status: <span style="font-weight: bold;">Open</span></p>
-                <p>Expires on <span style="font-weight: bold;">16/05/2023</span> at <span style="font-weight: bold;">08:00 PM</span></p>
-              </div>
-              <div class="auction-price-wrap">
-                <p>Minimum rise: <span style="font-weight: bold;">EUR 5,00</span></p>
-                <p class="auction-price">EUR 52,70</p>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="auction">
-          <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
-          <div class="auction-details">
-            <a href="">
-              <h3>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-            </a>
-            <div>
-              <div>
-                <p>Status: <span style="font-weight: bold;">Open</span></p>
-                <p>Expires on <span style="font-weight: bold;">16/05/2023</span> at <span style="font-weight: bold;">08:00 PM</span></p>
-              </div>
-              <div class="auction-price-wrap">
-                <p>Minimum rise: <span style="font-weight: bold;">EUR 5,00</span></p>
-                <p class="auction-price">EUR 52,70</p>
+                <p>Minimum rise: <span style="font-weight: bold;" th:text="|EUR ${openAuction.minimumRise}|"></span></p>
+                <p class="auction-price" th:text="|Initial price: EUR ${openAuction.startingPrice}|"></p>
               </div>
             </div>
           </div>
         </li>
       </ul>
     </div>
+	</div>
+	<div th:if="${openAuctions.size == 0}" th:text="|Nessun risultato trovato per '${query}'|"></div>
+  	</div>
   </div>
 </body>
 </html>

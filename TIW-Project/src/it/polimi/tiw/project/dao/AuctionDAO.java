@@ -35,12 +35,34 @@ public class AuctionDAO {
 		}
 	}
 
-	public ResultSet filterByArticleName(String query) throws SQLException {
+	public ArrayList<Auction> filterByArticleName(String query) throws SQLException {
 		String sqlStatement = "SELECT * FROM auction_item WHERE name LIKE CONCAT( '%',?,'%')";
 		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);){
 			statement.setString(1, query);
-			ResultSet queryResult = statement.executeQuery();
-			return queryResult;
+			try (ResultSet rs = statement.executeQuery();) {
+				ArrayList<Auction> toReturn = new ArrayList<>();
+				while(rs.next()) {
+					Item item = new Item(
+						rs.getInt("id_item"), 
+						rs.getString("name"), 
+						rs.getString("description"), 
+						rs.getString("image_filename")
+						);
+				toReturn.add(
+						new Auction(
+							rs.getInt("id_auction"),
+							rs.getFloat("starting_price"),
+							rs.getFloat("minimum_rise"),
+							rs.getTimestamp("end"),
+							rs.getTimestamp("creation"),
+							rs.getBoolean("open"),
+							item,
+							rs.getInt("id_seller")
+							)
+						);
+				}
+				return toReturn;
+			}
 		} 
 	}
 	
