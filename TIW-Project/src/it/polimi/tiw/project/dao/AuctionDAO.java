@@ -36,7 +36,8 @@ public class AuctionDAO {
 	}
 
 	public ArrayList<Auction> filterByArticleName(String query) throws SQLException {
-		String sqlStatement = "SELECT * FROM auction_item WHERE name LIKE CONCAT( '%',?,'%')";
+		String sqlStatement = "SELECT id_item, name, description, image_filename, id_auction, starting_price, minimum_rise, DATE_FORMAT(end, '%Y-%m-%dT%T'), open, id_seller "
+				+ "FROM auction_item WHERE name LIKE CONCAT( '%',?,'%')";
 		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);){
 			statement.setString(1, query);
 			try (ResultSet rs = statement.executeQuery();) {
@@ -53,8 +54,7 @@ public class AuctionDAO {
 							rs.getInt("id_auction"),
 							rs.getFloat("starting_price"),
 							rs.getFloat("minimum_rise"),
-							rs.getTimestamp("end"),
-							rs.getTimestamp("creation"),
+							rs.getString("end"),
 							rs.getBoolean("open"),
 							item,
 							rs.getInt("id_seller")
