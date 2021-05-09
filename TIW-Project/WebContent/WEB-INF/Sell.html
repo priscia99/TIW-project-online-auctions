@@ -20,7 +20,7 @@
       display: block;
     }
     #create-form {
-      width: 320px;
+      padding: 20px;
     }
     #create-form:target {
       display: none;
@@ -69,17 +69,8 @@
       height: 30px;
       align-items: center;
     }
-    .filter {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
     .filter>li {
       width: 100px;
-    }
-    .filter-menu {
-      position: absolute;
-      display: none;
     }
     .filter:hover .filter-menu {
       display: block;
@@ -87,6 +78,9 @@
 
     input.text-field {
       height: 30px;
+    }
+    #price,#rise {
+      width: 80px;
     }
   </style>
 </head>
@@ -123,7 +117,7 @@
         <div class="color-solid w100 h100" style="z-index: -1;">
           <ul class="auction-list color-solid-l" style="z-index: -1;" th:each="openAuction : ${openAuctions}">
             <li class="auction color-solid-l">
-              <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
+              <img th:src="${openAuction.item.image}" alt="" class="auction-img">
               <a href="">
                 <h3 style="max-height: 95px; overflow: hidden" th:text="${openAuction.item.name}">item name</h3>
               </a>
@@ -148,7 +142,7 @@
         <div class="color-solid w100 h100" style="z-index: -1;">
           <ul class="auction-list color-solid-l" style="z-index: -1;" th:each="closeAuction : ${closeAuctions}">
             <li class="auction color-solid-l">
-              <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
+              <img th:src="${openAuction.item.image}" alt="" class="auction-img">
               <a href="">
                 <h3 style="max-height: 95px; overflow: hidden" th:text="${closeAuction.item.name}">item name</h3>
               </a>
@@ -166,49 +160,59 @@
     </div>
   </div>
 
-  <div class="create-popup centered container round outer-shadow " id="create-popup">
+  <div class="centered container round outer-shadow " id="create-popup">
     <div class="columns">
       <a href="#">
         <button class="round ph10 pv10 color-detail">close</button>
       </a>
     </div>
-    <form action="submit-auction" class="create-form" id="create-form" method="post">
-      <h3 class="caps-lock">Create new auction</h3>
-      <div class="mv10">
-        <label>
-          Title:
-          <input type="text" class="round inner-shadow text-field" name="item-name">
-        </label>
-      </div>
-      <div class="mv10">
-        <label>
-          Description (max 2000 characters):
-          <textarea style="margin-top: 5px;" name="item-descritpion" class="multiline-text-field round inner-shadow" cols="30" rows="10"></textarea>
-        </label>
-      </div>
-      <div class="mv10">
-        <label>
-          Starting price:
-          <input type="number" class="round inner-shadow text-field" id="price" min="1" value="1" name="auction-starting-price">
-        </label>
-      </div>
-      <div class="mv10">
-        <label>
-          Minimum rise:
-          <input type="number" class="round inner-shadow text-field" id="rise" min="1" value="1" name="auction-minimum-rise">
-        </label>
-      </div>
-      <div class="mv10">
-        <label>
-          Expires on:
-          <!-- TODO: set default value today -->
-          <input style="margin-top: 5px;" type="datetime-local" class="text-field round inner-shadow" name="auction-end-timestamp">
-        </label>
+    <form action="submit-auction" class="create-form rows centered-flex" id="create-form" method="post" enctype="multipart/form-data">
+   		<h3 class="caps-lock">Create new auction</h3>
+   		<div class="columns">
+      	<div class="rows mh10">
+      		<div class="mv10">
+	        	<label>
+	          		Name: <br>
+	          		<textarea style="margin-top: 5px;" name="item-name" id="name" class="multiline-text-field round inner-shadow" cols="30" rows="2"></textarea>
+	        	</label>
+	      	</div>
+      		<div class="mv10">
+        		<label>
+          			Description (max 2000 characters): <br>  
+          			<textarea style="margin-top: 5px;" name="item-descritpion" id="description" class="multiline-text-field round inner-shadow" cols="30" rows="10"></textarea>
+        		</label>
+      		</div>
+      	</div>
+      	<div class="rows mh10">
+      		<div class="mv10">
+        	<label>
+	          	Starting price: <br> 
+	          	<input type="number" class="round inner-shadow text-field" id="price" min="1" value="1" name="auction-starting-price">
+        	</label>
+      		</div>
+      		<div class="mv10">
+        		<label>
+          			Minimum rise: <br>
+          			<input type="number" class="round inner-shadow text-field" id="rise" min="1" value="1" name="auction-minimum-rise">
+        		</label>
+	      	</div>
+	      	<div class="mv10">
+	        	<label>
+		          	Expires on: <br>
+		            <input style="margin-top: 5px;" type="datetime-local" class="text-field round inner-shadow" id="end" name="auction-end-timestamp">
+	        	</label>
+	      	</div>
+	      	<div class="mv10">
+	        	<label>
+		          	Load an image <br>
+                     <input type="file" style="margin-top: 5px;" name="item-image" id="image">
+	        	</label>
+	      	</div>
+      	</div>
       </div>
       <div class="mv10 columns spaced-evenly-flex">
       	<button type="submit" class=" ph20 pv10 round color-accent text-color-background outer-shadow caps-lock">Confirm</button>
-        <!-- <a href="#" class="button ph20 pv10 round color-accent text-color-background outer-shadow caps-lock" type="submit"> Confirm</a> -->
-        <a href="#" class="button ph20 pv10 round color-background text-color-accent outer-shadow caps-lock" type="reset"> Cancel </a>
+        <button type="reset" class="ph20 pv10 round color-background text-color-accent outer-shadow caps-lock">Cancel</button>
       </div>
     </form>
   </div>

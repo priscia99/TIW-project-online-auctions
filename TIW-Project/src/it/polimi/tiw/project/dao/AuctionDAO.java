@@ -20,23 +20,9 @@ public class AuctionDAO {
 	public AuctionDAO(Connection connection) {
 		this.connection = connection;
 	}
-	
-	// Create a new item into database
-	public Item createItem(Item item) throws SQLException{
-		String query = "INSERT INTO `item` (`name`, `description`, `image_filename`) VALUES (?, ?, ?);";
-		try (PreparedStatement statement = connection.prepareStatement(query);) {
-			statement.setString(1, item.getName());
-			statement.setString(2, item.getDescription());
-			statement.setString(3, item.getImageFilename());
-			statement.execute();
-			
-			item.setId(statement.getGeneratedKeys().getInt(1));
-			return item;
-		}
-	}
 
 	public ArrayList<Auction> filterByArticleName(String query) throws SQLException {
-		String sqlStatement = "SELECT id_item, name, description, image_filename, id_auction, starting_price, minimum_rise, DATE_FORMAT(end, '%Y-%m-%dT%T'), open, id_seller "
+		String sqlStatement = "SELECT id_item, name, description, image, id_auction, starting_price, minimum_rise, DATE_FORMAT(end, '%Y-%m-%dT%T'), open, id_seller "
 				+ "FROM auction_item WHERE name LIKE CONCAT( '%',?,'%')";
 		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);){
 			statement.setString(1, query);
@@ -47,7 +33,7 @@ public class AuctionDAO {
 						rs.getInt("id_item"), 
 						rs.getString("name"), 
 						rs.getString("description"), 
-						rs.getString("image_filename")
+						rs.getBinaryStream("image")
 						);
 				toReturn.add(
 						new Auction(
@@ -66,47 +52,74 @@ public class AuctionDAO {
 		} 
 	}
 	
+	// Create a new item into database
+	private Item createItem(Item item) throws SQLException{
+		String query = "INSERT INTO item (name, description, image) VALUES (?, ?, ?);";
+		try(PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);) {
+			statement.setString(1, item.getName());
+			statement.setString(2, item.getDescription());
+		    statement.setBlob(3, item.getImage());
+			statement.executeUpdate();
+			ResultSet generatedKeys = statement.getGeneratedKeys();
+			while (generatedKeys.next()) {
+				item.setId(generatedKeys.getInt(1));
+			}
+			return item;
+		}
+	}
+	
 	// Create a new auction into database
-	public void createAuction(Auction auction) throws SQLException{
-		String query = "INSERT INTO `auction` (`id_item`, `id_seller`, `minimum_rise`, `starting_price`, STR_TO_DATE(?, '%Y-%m-%dT%T'), `open`) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?);";
-		try (PreparedStatement statement = connection.prepareStatement(query);) {
+	public Auction createAuction(Auction auction) throws SQLException{
+		String query = "INSERT INTO auction(id_item, id_seller, minimum_rise, starting_price, end, open) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%Y-%m-%dT%T'), ?);";
+		try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);) {
 			statement.setInt(1, auction.getItem().getId());
 			statement.setInt(2, auction.getSellerId());
 			statement.setFloat(3, auction.getMinimumRise());
 			statement.setFloat(4, auction.getStartingPrice());
 			statement.setString(5, auction.getEndTimestamp());
-			statement.setBoolean(7, auction.isOpen());
-			statement.execute();
+			statement.setBoolean(6, auction.isOpen());
+			statement.executeUpdate();
+			ResultSet generatedKeys = statement.getGeneratedKeys();
+			while (generatedKeys.next())
+			{
+				auction.setId(generatedKeys.getInt(1));
+			}
+			return auction;
 		}
 	}
 	
 	// Create a new item and its auction into database
 	public Auction createItemAuction(Auction auction, Item item) throws SQLException{
-		String query = "INSERT INTO item (name, description, image_filename) VALUES (?, ?, ?);";
+		String query = "INSERT INTO item (name, description, image) VALUES (?, ?, ?);";
 		try(PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);) {
 			statement.setString(1, item.getName());
 			statement.setString(2, item.getDescription());
-			statement.setString(3, item.getImageFilename());
+		    statement.setBlob(3, item.getImage());
 			statement.executeUpdate();
 			ResultSet generatedKeys = statement.getGeneratedKeys();
-			while (generatedKeys.next())
-			{
+			while (generatedKeys.next()) {
 				item.setId(generatedKeys.getInt(1));
 			}
-			
 		}
-		query = "INSERT INTO auction(id_item, id_seller, minimum_rise, starting_price, end) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%Y-%m-%dT%T'));";
-		try (PreparedStatement statement = connection.prepareStatement(query)) {
-			statement.setInt(1, item.getId());
+		query = "INSERT INTO auction(id_item, id_seller, minimum_rise, starting_price, end, open) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%Y-%m-%dT%T'), ?);";
+		try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);) {
+			statement.setInt(1, auction.getItem().getId());
 			statement.setInt(2, auction.getSellerId());
 			statement.setFloat(3, auction.getMinimumRise());
 			statement.setFloat(4, auction.getStartingPrice());
 			statement.setString(5, auction.getEndTimestamp());
+			statement.setBoolean(6, auction.isOpen());
 			statement.executeUpdate();
+			ResultSet generatedKeys = statement.getGeneratedKeys();
+			while (generatedKeys.next())
+			{
+				auction.setId(generatedKeys.getInt(1));
+			}
+			return auction;
 		}
-		auction.setItem(item);
-		return auction;
+		//item = this.createItem(item);
+		//auction.setItem(item);
+		//return this.createAuction(auction);
 	}
 	
 	// Query list of open auction for a specific username
@@ -122,7 +135,7 @@ public class AuctionDAO {
 						rs.getInt("id_item"), 
 						rs.getString("name"), 
 						rs.getString("description"), 
-						rs.getString("image_filename")
+						rs.getBinaryStream("image")
 						);
 				Bid bid = new Bid(
 						rs.getInt("id_max_bid"), 
@@ -162,7 +175,7 @@ public class AuctionDAO {
 						rs.getInt("id_item"), 
 						rs.getString("name"), 
 						rs.getString("description"), 
-						rs.getString("image_filename")
+						rs.getBinaryStream("image")
 						);
 				Bid bid = new Bid(
 						rs.getInt("id_max_bid"), 

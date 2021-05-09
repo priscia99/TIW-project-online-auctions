@@ -1,6 +1,8 @@
 package it.polimi.tiw.project.controllers;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.thymeleaf.TemplateEngine;
@@ -65,6 +68,11 @@ public class AuctionSubmissionController extends HttpServlet {
 		boolean badRequest = false;
 		String path = null;	// Path to the right next page
 		HttpSession session = request.getSession();
+		String loginpath = getServletContext().getContextPath() + "/index.html";
+		if (session.isNew() || session.getAttribute("user") == null) {
+			response.sendRedirect(loginpath);
+			return;
+		}
 		
 		User user = (User) session.getAttribute("user");
 		Auction auction = null;
@@ -73,25 +81,32 @@ public class AuctionSubmissionController extends HttpServlet {
 		// Declaration of parameters given by user
 		String itemName = null;
 		String itemDescription = null;
-		String itemImgFilename = null;
+		InputStream imageStream = null;
 		String auctionStartingPrice = null;
 		String auctionMinimumRise = null;
 		String auctionEndTimestamp = null;
 		
 		try {
 			// Parsing parameters from user request
-			itemName = StringEscapeUtils.escapeJava(request.getParameter("item-name"));
-			itemDescription = StringEscapeUtils.escapeJava(request.getParameter("item-descritpion"));
-			//itemImgFilename = StringEscapeUtils.escapeJava(request.getParameter("item-img-filename"));
-			itemImgFilename = "unknown";
-			auctionStartingPrice = StringEscapeUtils.escapeJava(request.getParameter("auction-starting-price"));
-			auctionMinimumRise = StringEscapeUtils.escapeJava(request.getParameter("auction-minimum-rise"));		
-			auctionEndTimestamp = StringEscapeUtils.escapeJava(request.getParameter("auction-end-timestamp"));
-			item = new Item(itemName, itemDescription, itemImgFilename);
+			itemName = request.getParameter("item-name");
+			itemDescription = request.getParameter("item-descritpion");
+			Part imagePart = request.getPart("item-image");	    
+			String mimeType = null;
+			if (imagePart != null) {
+				imageStream = imagePart.getInputStream();
+				String filename = imagePart.getSubmittedFileName();
+				mimeType = getServletContext().getMimeType(filename);			
+			}
+		    
+			auctionStartingPrice = request.getParameter("auction-starting-price");
+			auctionMinimumRise = request.getParameter("auction-minimum-rise");		
+			auctionEndTimestamp = request.getParameter("auction-end-timestamp");
+			item = new Item(itemName, itemDescription, imageStream);
 			auction = new Auction(Float.parseFloat(auctionStartingPrice), Float.parseFloat(auctionMinimumRise), auctionEndTimestamp, item, user.getId());
 			
-			badRequest = itemName.isEmpty() || itemDescription.isEmpty() || itemImgFilename.isEmpty() || 
-					auctionStartingPrice.isEmpty() || auctionMinimumRise.isEmpty() || auctionEndTimestamp.isEmpty();			
+			badRequest = itemName == null || itemName.isEmpty() || itemDescription == null || itemDescription.isEmpty() 
+					|| imageStream == null || (imageStream.available()==0) || !mimeType.startsWith("image/") 
+					|| auctionStartingPrice.isEmpty() || auctionMinimumRise.isEmpty() || auctionEndTimestamp.isEmpty();			
 		}
 		catch(Exception e){
 			badRequest = true;
@@ -118,6 +133,7 @@ public class AuctionSubmissionController extends HttpServlet {
 		}
 				
 		// Finally, if everything is correct
+		System.out.print("submitted");
 		final WebContext webContext = new WebContext(request, response, servletContext, request.getLocale());
 		webContext.setVariable("loginInfoMsg", "User created successfully!");
 		path = "/index.html";	// Re-direct user to login page after successful signup
