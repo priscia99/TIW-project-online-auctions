@@ -106,6 +106,45 @@ public class AuctionDAO {
 		return auction;
 	}
 	
+	public Auction getAuctionDetail(String auctionId) throws SQLException {
+		String query = "SELECT * FROM auction_open_details WHERE id_auction = ?";
+		try(PreparedStatement statement = connection.prepareStatement(query);){
+			statement.setString(1, auctionId);
+			try (ResultSet rs = statement.executeQuery();) {
+				Auction toReturn = null;
+				ArrayList<Bid> bids = new ArrayList<Bid>();
+				while(rs.next()) {
+					Item item = new Item(
+						rs.getInt("id_item"), 
+						rs.getString("name"), 
+						rs.getString("description"), 
+						rs.getString("image_filename")
+						);
+					if(toReturn == null) {
+						toReturn = new Auction(rs.getInt("id_auction"),
+								rs.getFloat("starting_price"),
+								rs.getFloat("minimum_rise"),
+								rs.getTimestamp("end"),
+								rs.getTimestamp("creation"),
+								rs.getBoolean("open"),
+								item,
+								rs.getInt("id_seller")
+								);
+					}
+					bids.add(new Bid(
+						rs.getInt("id_max_bid"), 
+						rs.getFloat("max_price"), 
+						rs.getTimestamp("max_bid_time"), 
+						rs.getInt("id_max_bidder")
+						));
+				}
+				toReturn.setBids(bids);
+				return toReturn;
+			}
+		}
+		
+	}
+	
 	// Query list of open auction for a specific username
 	public ArrayList<Auction> getUserOpenAuctions(User user) throws SQLException {
 		String query = "SELECT * FROM open_auctions WHERE id_seller = ?;";
