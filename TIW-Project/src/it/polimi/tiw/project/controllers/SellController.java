@@ -70,8 +70,8 @@ public class SellController extends HttpServlet {
 		ArrayList<Auction> openAuctions = new ArrayList<>();
 		ArrayList<Auction> closeAuctions = new ArrayList<>();
 		try {
-			openAuctions = dao.getUserOpenAuctions(user);
-			closeAuctions = dao.getUserCloseAuctions(user);
+			openAuctions = dao.getUserOpenAuctions(user.getId());
+			closeAuctions = dao.getUserCloseAuctions(user.getId());
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to retrieve user's open auctions");
 			e.printStackTrace();	// REMOVE BEFORE FLIGHT
@@ -79,9 +79,7 @@ public class SellController extends HttpServlet {
 		
 		// Redirect to the Sell page and add auctions to the parameters
 		String path = "/WEB-INF/Sell.html";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-		dispatcher.forward(request, response);
-		ServletContext servletContext = getServletContext(); // REMOVED
+		ServletContext servletContext = getServletContext();
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 		// Pass page/servlet variables to context (for thymeleaf)
 		context.setVariable("user", user);
