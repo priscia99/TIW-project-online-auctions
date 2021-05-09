@@ -38,7 +38,7 @@
     .auction {
       border-top: 1px solid var(--detail);
       display: grid;
-      grid-template-columns: 100px 1fr 100px;
+      grid-template-columns: 100px 1fr auto;
       grid-template-rows: 100px;
       align-items: center;
       align-content: center;
@@ -117,7 +117,7 @@
   <div class="columns spaced-evenly-flex" style="flex-flow: row wrap;">
     <div class="rows w40" id="active-list">
       <div class="columns w100 color-solid filter-bar" style="z-index: 0">
-        <div class="ph20">Open Auctions</div>
+        <div class="ph20 text-color-background">Open Auctions</div>
       </div>
       <div class="rows w100 scrollable auction-list-wrapper inner-shadow">
         <div class="color-solid w100 h100" style="z-index: -1;">
@@ -125,112 +125,42 @@
             <li class="auction color-solid-l">
               <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
               <a href="">
-                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+                <h3 style="max-height: 95px; overflow: hidden" th:text="${openAuction.item.name}">item name</h3>
               </a>
               <ul>
-                <li>[PRICE]</li>
-                <li th:text="${openAuction.minimumRise}">minimum rise</li>
-                <li>[EXPIRE]</li>
-                <li>[SELLER]</li>
+              	<li th:text="${openAuction.item.id}">item id</li>
+                <li th:text="${openAuction.currentPrice}">current price</li>
+                <li th:text="${openAuction.endTimestamp}">time left</li>
               </ul>
             </li>
             <!-- ecc. -->
           </ul>
-          <p th:if="${#lists.isEmpty(openAuctions)}">Nothing to show</p>
+          <p th:if="${#lists.isEmpty(openAuctions)}" class="ph20">Nothing to show</p>
         </div>
       </div>
     </div>
     
     <div class="rows w40" id="closed-list">
       <div class="columns w100 color-solid filter-bar" style="z-index: 0">
-        <ul class="filter">
-          <li class="color-solid text-color-background ph10" style="border-right: 1px solid var(--background); height: 30px;">Order</li>
-          <li class="filter-menu color-solid-l ph10">
-            <div class="rows">
-              <div>Price</div>
-              <div>Name</div>
-            </div>
-          </li>
-        </ul>
-        <div class="ph20">Closed Auctions</div>
+        <div class="ph20 text-color-background">Closed Auctions</div>
       </div>
       <div class="rows w100 scrollable auction-list-wrapper inner-shadow">
         <div class="color-solid w100 h100" style="z-index: -1;">
-          <ul class="auction-list color-solid-l" style="z-index: -1;">
+          <ul class="auction-list color-solid-l" style="z-index: -1;" th:each="closeAuction : ${closeAuctions}">
             <li class="auction color-solid-l">
-              <img src="../img/sample.gif" alt="" class="auction-img">
+              <img src="/TIW-Project/img/sample.gif" alt="" class="auction-img">
               <a href="">
-                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
+                <h3 style="max-height: 95px; overflow: hidden" th:text="${closeAuction.item.name}">item name</h3>
               </a>
               <ul>
-                <li>[PRICE]</li>
-                <li>[RISE]</li>
-                <li>[EXPIRE]</li>
-                <li>[SELLER]</li>
+              	<li th:text="${closeAuction.item.id}">item id</li>
+                <li th:text="${openAuction.currentPrice}">current price</li>
+                <li th:text="${closeAuction.endTimestamp}">time left</li>
               </ul>
             </li>
             <!-- ecc. -->
-            <li class="auction color-solid-l">
-              <img src="../img/sample.gif" alt="" class="auction-img">
-              <a href="">
-                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-              </a>
-              <ul>
-                <li>[PRICE]</li>
-                <li>[RISE]</li>
-                <li>[EXPIRE]</li>
-                <li>[SELLER]</li>
-              </ul>
-            </li>
-            <li class="auction color-solid-l">
-              <img src="../img/sample.gif" alt="" class="auction-img">
-              <a href="">
-                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-              </a>
-              <ul>
-                <li>[PRICE]</li>
-                <li>[RISE]</li>
-                <li>[EXPIRE]</li>
-                <li>[SELLER]</li>
-              </ul>
-            </li>
-            <li class="auction color-solid-l">
-              <img src="../img/sample.gif" alt="" class="auction-img">
-              <a href="">
-                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-              </a>
-              <ul>
-                <li>[PRICE]</li>
-                <li>[RISE]</li>
-                <li>[EXPIRE]</li>
-                <li>[SELLER]</li>
-              </ul>
-            </li>
-            <li class="auction color-solid-l">
-              <img src="../img/sample.gif" alt="" class="auction-img">
-              <a href="">
-                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-              </a>
-              <ul>
-                <li>[PRICE]</li>
-                <li>[RISE]</li>
-                <li>[EXPIRE]</li>
-                <li>[SELLER]</li>
-              </ul>
-            </li>
-            <li class="auction color-solid-l">
-              <img src="../img/sample.gif" alt="" class="auction-img">
-              <a href="">
-                <h3 style="max-height: 95px; overflow: hidden">Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h3>
-              </a>
-              <ul>
-                <li>[PRICE]</li>
-                <li>[RISE]</li>
-                <li>[EXPIRE]</li>
-                <li>[SELLER]</li>
-              </ul>
-            </li>
           </ul>
+          <p th:if="${#lists.isEmpty(closeAuctions)}" class="ph20">Nothing to show</p>
         </div>
       </div>
     </div>
@@ -242,41 +172,42 @@
         <button class="round ph10 pv10 color-detail">close</button>
       </a>
     </div>
-    <form action="CreateAuction" class="create-form" id="create-form">
+    <form action="submit-auction" class="create-form" id="create-form" method="post">
       <h3 class="caps-lock">Create new auction</h3>
       <div class="mv10">
         <label>
           Title:
-          <input type="text" class="round inner-shadow text-field">
+          <input type="text" class="round inner-shadow text-field" name="item-name">
         </label>
       </div>
       <div class="mv10">
         <label>
           Description (max 2000 characters):
-          <textarea style="margin-top: 5px;" name="description" class="multiline-text-field round inner-shadow" cols="30" rows="10"></textarea>
+          <textarea style="margin-top: 5px;" name="item-descritpion" class="multiline-text-field round inner-shadow" cols="30" rows="10"></textarea>
         </label>
       </div>
       <div class="mv10">
         <label>
           Starting price:
-          <input type="number" class="round inner-shadow text-field" id="price" min="1" value="1">
+          <input type="number" class="round inner-shadow text-field" id="price" min="1" value="1" name="auction-starting-price">
         </label>
       </div>
       <div class="mv10">
         <label>
           Minimum rise:
-          <input type="number" class="round inner-shadow text-field" id="rise" min="1" value="1">
+          <input type="number" class="round inner-shadow text-field" id="rise" min="1" value="1" name="auction-minimum-rise">
         </label>
       </div>
       <div class="mv10">
         <label>
           Expires on:
           <!-- TODO: set default value today -->
-          <input style="margin-top: 5px;" type="datetime-local" class="text-field round inner-shadow">
+          <input style="margin-top: 5px;" type="datetime-local" class="text-field round inner-shadow" name="auction-end-timestamp">
         </label>
       </div>
       <div class="mv10 columns spaced-evenly-flex">
-        <a href="#" class="button ph20 pv10 round color-accent text-color-background outer-shadow caps-lock" type="submit"> Confirm</a>
+      	<button type="submit" class=" ph20 pv10 round color-accent text-color-background outer-shadow caps-lock">Confirm</button>
+        <!-- <a href="#" class="button ph20 pv10 round color-accent text-color-background outer-shadow caps-lock" type="submit"> Confirm</a> -->
         <a href="#" class="button ph20 pv10 round color-background text-color-accent outer-shadow caps-lock" type="reset"> Cancel </a>
       </div>
     </form>

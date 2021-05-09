@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import it.polimi.tiw.project.beans.Item;
@@ -35,7 +36,8 @@ public class AuctionDAO {
 	}
 
 	public ArrayList<Auction> filterByArticleName(String query) throws SQLException {
-		String sqlStatement = "SELECT * FROM auction_item WHERE name LIKE CONCAT( '%',?,'%')";
+		String sqlStatement = "SELECT id_item, name, description, image_filename, id_auction, starting_price, minimum_rise, DATE_FORMAT(end, '%Y-%m-%dT%T'), open, id_seller "
+				+ "FROM auction_item WHERE name LIKE CONCAT( '%',?,'%')";
 		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);){
 			statement.setString(1, query);
 			try (ResultSet rs = statement.executeQuery();) {
@@ -52,8 +54,7 @@ public class AuctionDAO {
 							rs.getInt("id_auction"),
 							rs.getFloat("starting_price"),
 							rs.getFloat("minimum_rise"),
-							rs.getTimestamp("end"),
-							rs.getTimestamp("creation"),
+							rs.getString("end"),
 							rs.getBoolean("open"),
 							item,
 							rs.getInt("id_seller")
@@ -67,15 +68,14 @@ public class AuctionDAO {
 	
 	// Create a new auction into database
 	public void createAuction(Auction auction) throws SQLException{
-		String query = "INSERT INTO `auction` (`id_item`, `id_seller`, `minimum_rise`, `starting_price`, `end`, 'creation', `open`) "
+		String query = "INSERT INTO `auction` (`id_item`, `id_seller`, `minimum_rise`, `starting_price`, STR_TO_DATE(?, '%Y-%m-%dT%T'), `open`) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?);";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setInt(1, auction.getItem().getId());
 			statement.setInt(2, auction.getSellerId());
 			statement.setFloat(3, auction.getMinimumRise());
 			statement.setFloat(4, auction.getStartingPrice());
-			statement.setTimestamp(5, auction.getEndTimestamp());
-			statement.setTimestamp(6, auction.getCreationTimestamp());
+			statement.setString(5, auction.getEndTimestamp());
 			statement.setBoolean(7, auction.isOpen());
 			statement.execute();
 		}
@@ -84,23 +84,26 @@ public class AuctionDAO {
 	// Create a new item and its auction into database
 	public Auction createItemAuction(Auction auction, Item item) throws SQLException{
 		String query = "INSERT INTO item (name, description, image_filename) VALUES (?, ?, ?);";
-		try(PreparedStatement statement = connection.prepareStatement(query);) {
+		try(PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);) {
 			statement.setString(1, item.getName());
 			statement.setString(2, item.getDescription());
 			statement.setString(3, item.getImageFilename());
-			statement.execute();
+			statement.executeUpdate();
 			ResultSet generatedKeys = statement.getGeneratedKeys();
-			item.setId(generatedKeys.getInt(1));
+			while (generatedKeys.next())
+			{
+				item.setId(generatedKeys.getInt(1));
+			}
+			
 		}
-		query = "INSERT INTO auction(id_item, id_seller, minimum_rise, starting_price, end, creation) VALUES (? , ?, ?, ?, ?, ?);";
+		query = "INSERT INTO auction(id_item, id_seller, minimum_rise, starting_price, end) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%Y-%m-%dT%T'));";
 		try (PreparedStatement statement = connection.prepareStatement(query)) {
 			statement.setInt(1, item.getId());
 			statement.setInt(2, auction.getSellerId());
 			statement.setFloat(3, auction.getMinimumRise());
 			statement.setFloat(4, auction.getStartingPrice());
-			statement.setTimestamp(5, auction.getEndTimestamp());
-			statement.setTimestamp(6, auction.getCreationTimestamp());
-			statement.execute();
+			statement.setString(5, auction.getEndTimestamp());
+			statement.executeUpdate();
 		}
 		auction.setItem(item);
 		return auction;
@@ -171,8 +174,7 @@ public class AuctionDAO {
 							rs.getInt("id_auction"),
 							rs.getFloat("starting_price"),
 							rs.getFloat("minimum_rise"),
-							rs.getTimestamp("end"),
-							rs.getTimestamp("creation"),
+							rs.getString("end"),
 							rs.getBoolean("open"),
 							item,
 							rs.getInt("id_seller"),
@@ -212,8 +214,7 @@ public class AuctionDAO {
 							rs.getInt("id_auction"),
 							rs.getFloat("starting_price"),
 							rs.getFloat("minimum_rise"),
-							rs.getTimestamp("end"),
-							rs.getTimestamp("creation"),
+							rs.getString("end"),
 							rs.getBoolean("open"),
 							item,
 							rs.getInt("id_seller"),

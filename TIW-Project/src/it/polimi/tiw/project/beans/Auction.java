@@ -7,46 +7,62 @@ public class Auction extends  DBObject {
 
     private float startingPrice;
     private float minimumRise;
-    private Timestamp creationTimestamp;
-    private Timestamp endTimestamp;
-    private boolean open;
+    private String endTimestamp;
+    private boolean open = true;
     private Item item;
     private int sellerId;
     private ArrayList<Bid> bids = new ArrayList<>();
+    private float currentPrice;
+    
+    private void calculateCurrentPrice() {
+    	if (this.bids.isEmpty()) {
+    		this.currentPrice = this.startingPrice;
+    	} else {
+    		this.currentPrice = this.bids.get(this.bids.size() - 1).getPrice();
+    	}
+    }
 
-    public Auction(int id, float startingPrice, float minimumRise, Timestamp endTimestamp, Timestamp creationTimestamp, boolean open, Item item, int sellerId, ArrayList<Bid> bids) {
+    public Auction(int id, float startingPrice, float minimumRise, String endTimestamp, boolean open, Item item, int sellerId, ArrayList<Bid> bids) {
     	super(id);
         this.startingPrice = startingPrice;
         this.minimumRise = minimumRise;
         this.endTimestamp = endTimestamp;
-        this.creationTimestamp = creationTimestamp;
         this.open = open;
         this.item = item;
         this.sellerId = sellerId;
         this.bids = bids;
+        this.calculateCurrentPrice();
     }
     
-    public Auction(int id, float startingPrice, float minimumRise, Timestamp endTimestamp, Timestamp creationTimestamp, boolean open, Item item, int sellerId, Bid bid) {
+    public Auction(float startingPrice, float minimumRise, String endTimestamp, Item item, int sellerId) {
+        this.startingPrice = startingPrice;
+        this.minimumRise = minimumRise;
+        this.endTimestamp = endTimestamp;
+        this.item = item;
+        this.sellerId = sellerId;
+        this.calculateCurrentPrice();
+    }
+    
+    public Auction(int id, float startingPrice, float minimumRise, String endTimestamp, boolean open, Item item, int sellerId) {
     	super(id);
         this.startingPrice = startingPrice;
         this.minimumRise = minimumRise;
         this.endTimestamp = endTimestamp;
-        this.creationTimestamp = creationTimestamp;
+        this.item = item;
+        this.sellerId = sellerId;
+        this.calculateCurrentPrice();
+    }
+    
+    public Auction(int id, float startingPrice, float minimumRise, String endTimestamp, boolean open, Item item, int sellerId, Bid bid) {
+    	super(id);
+        this.startingPrice = startingPrice;
+        this.minimumRise = minimumRise;
+        this.endTimestamp = endTimestamp;
         this.open = open;
         this.item = item;
         this.sellerId = sellerId;
         this.bids.add(bid);
-    }
-    
-    public Auction(int id, float startingPrice, float minimumRise, Timestamp endTimestamp, Timestamp creationTimestamp, boolean open, Item item, int sellerId) {
-    	super(id);
-        this.startingPrice = startingPrice;
-        this.minimumRise = minimumRise;
-        this.endTimestamp = endTimestamp;
-        this.creationTimestamp = creationTimestamp;
-        this.open = open;
-        this.item = item;
-        this.sellerId = sellerId;
+        this.calculateCurrentPrice();
     }
 
     public float getStartingPrice() {
@@ -55,6 +71,7 @@ public class Auction extends  DBObject {
 
     public void setStartingPrice(float startingPrice) {
         this.startingPrice = startingPrice;
+        this.calculateCurrentPrice();
     }
 
     public float getMinimumRise() {
@@ -64,20 +81,12 @@ public class Auction extends  DBObject {
     public void setMinimumRise(float minimumRise) {
         this.minimumRise = minimumRise;
     }
-    
-    public Timestamp getCreationTimestamp() {
-    	return this.creationTimestamp;
-    }
-    
-    public void setCreaetionTimestamp(Timestamp creationTimestamp) {
-    	this.creationTimestamp = creationTimestamp;
-    }
 
-    public Timestamp getEndTimestamp() {
+    public String getEndTimestamp() {
         return endTimestamp;
     }
 
-    public void setEndTimestamp(Timestamp endTimestamp) {
+    public void setEndTimestamp(String endTimestamp) {
         this.endTimestamp = endTimestamp;
     }
 
@@ -111,5 +120,10 @@ public class Auction extends  DBObject {
     
     public void setBids(ArrayList<Bid> bids) {
     	this.bids = bids;
+    	this.calculateCurrentPrice();
+    }
+    
+    public float getCurrentPrice() {
+    	return this.currentPrice;
     }
 }

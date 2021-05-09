@@ -77,7 +77,7 @@ public class SellController extends HttpServlet {
 			e.printStackTrace();	// REMOVE BEFORE FLIGHT
 		}
 		
-		// Redirect to the Sell page and add missions to the parameters
+		// Redirect to the Sell page and add auctions to the parameters
 		String path = "/WEB-INF/Sell.html";
 		ServletContext servletContext = getServletContext(); // REMOVED
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
