@@ -3,8 +3,10 @@ package it.polimi.tiw.project.controllers;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -57,6 +59,9 @@ public class SellController extends HttpServlet {
 			response.sendRedirect(loginpath);
 			return;
 		}
+
+		session.setAttribute("now", LocalDateTime.now());
+
 		// Retrieve user data
 		User user = (User) session.getAttribute("user");
 		
@@ -65,21 +70,16 @@ public class SellController extends HttpServlet {
 		ArrayList<Auction> openAuctions = new ArrayList<>();
 		ArrayList<Auction> closeAuctions = new ArrayList<>();
 		try {
-			openAuctions = dao.getUserOpenAuctions(user);
+			openAuctions = dao.getUserOpenAuctions(user.getId());
+			closeAuctions = dao.getUserCloseAuctions(user.getId());
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to retrieve user's open auctions");
-			e.printStackTrace();	// REMOVE BEFORE FLIGHT
-		}
-		try {
-			closeAuctions = dao.getUserCloseAuctions(user);
-		} catch (SQLException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to retrieve user's closed auctions");
 			e.printStackTrace();	// REMOVE BEFORE FLIGHT
 		}
 		
 		// Redirect to the Sell page and add auctions to the parameters
 		String path = "/WEB-INF/Sell.html";
-		ServletContext servletContext = getServletContext(); // REMOVED
+		ServletContext servletContext = getServletContext();
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 		// Pass page/servlet variables to context (for thymeleaf)
 		context.setVariable("user", user);

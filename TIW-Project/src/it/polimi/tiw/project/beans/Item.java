@@ -1,22 +1,25 @@
 package it.polimi.tiw.project.beans;
 
+import java.io.InputStream;
+import java.util.Base64;
+
 public class Item extends DBObject {
 
     private String name;
     private String description;
-    private String imageFilename;
+	private String image;
 
-    public Item(int id, String name, String description, String imageFilename) {
+    public Item(int id, String name, String description, String image) {
     	super(id);
         this.name = name;
         this.description = description;
-        this.imageFilename = imageFilename;
+        this.image = image;
     }
     
-    public Item(String name, String description, String imageFilename) {
+    public Item(String name, String description, String image) {
         this.name = name;
         this.description = description;
-        this.imageFilename = imageFilename;
+        this.image = image;
     }
 
     public String getName() {
@@ -35,11 +38,11 @@ public class Item extends DBObject {
         this.description = description;
     }
 
-    public String getImageFilename() {
-        return imageFilename;
+    public String getImage() {
+        return this.image;
     }
 
-    public void setImageFilename(String imageFilename) {
-        this.imageFilename = imageFilename;
+    public void setImage(String image) {
+        this.image = image;
     }
 }

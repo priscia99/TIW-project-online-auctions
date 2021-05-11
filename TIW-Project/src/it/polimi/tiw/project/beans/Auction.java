@@ -15,7 +15,7 @@ public class Auction extends  DBObject {
     private float currentPrice;
     
     private void calculateCurrentPrice() {
-    	if (this.bids.isEmpty()) {
+    	if (this.bids.size() == 0) {
     		this.currentPrice = this.startingPrice;
     	} else {
     		this.currentPrice = this.bids.get(this.bids.size() - 1).getPrice();
