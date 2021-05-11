@@ -24,7 +24,7 @@ public class AuctionDAO {
 	}
 
 	public ArrayList<Auction> filterByArticleName(String query) throws SQLException {
-		String sqlStatement = "SELECT id_item, name, description, image_filename, id_auction, starting_price, minimum_rise, DATE_FORMAT(end, '%Y-%m-%dT%T') as end, open, id_seller "
+		String sqlStatement = "SELECT id_item, name, description, image, id_auction, starting_price, minimum_rise, DATE_FORMAT(end, '%Y-%m-%dT%T') as end, open, id_seller "
 				+ "FROM auction_item WHERE name LIKE CONCAT( '%',?,'%')";
 		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);) {
 			statement.setString(1, query);
@@ -79,7 +79,7 @@ public class AuctionDAO {
 			return id;
 		}
 	}
-	
+	/*
 	public Auction getAuctionDetail(String auctionId) throws SQLException {
 		String query = "SELECT * FROM auction_open_details WHERE id_auction = ?";
 		try(PreparedStatement statement = connection.prepareStatement(query);){
@@ -98,7 +98,7 @@ public class AuctionDAO {
 						toReturn = new Auction(rs.getInt("id_auction"),
 								rs.getFloat("starting_price"),
 								rs.getFloat("minimum_rise"),
-								rs.getTimestamp("end"),
+								rs.getString("end"),
 								rs.getTimestamp("creation"),
 								rs.getBoolean("open"),
 								item,
@@ -119,7 +119,7 @@ public class AuctionDAO {
 		
 	}
 	
-
+*/
 	public void createAuctionItem(String name, String description, InputStream image, int sellerId,
 			float minimumRise, float startingPrice, String end) throws SQLException {
 		this.createAuction(this.createItem(name, description, image), sellerId, minimumRise, startingPrice, end, true);

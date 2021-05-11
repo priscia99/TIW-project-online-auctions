@@ -1,4 +1,4 @@
-package it.polimi.tiw.project.controllers;
+/*package it.polimi.tiw.project.controllers;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -23,8 +23,9 @@ import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 
-@WebServlet("auctions/*")
+@WebServlet("auctions")
 public class AuctionController extends HttpServlet{
 
 	
 }
+*/
