@@ -1,10 +1,10 @@
 package it.polimi.tiw.project.controllers;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,10 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import it.polimi.tiw.project.beans.User;
+import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 
@@ -45,7 +46,6 @@ public class SelfAuctionController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext servletContext = getServletContext();
-		boolean badRequest = false;
 		String path = null; // Path to the right next page
 		HttpSession session = request.getSession();
 		String loginpath = getServletContext().getContextPath() + "/index.html";
@@ -53,15 +53,21 @@ public class SelfAuctionController extends HttpServlet {
 			response.sendRedirect(loginpath);
 			return;
 		}
-		
-		User user = (User) session.getAttribute("user");
-		
-		// Declaration of parameters given by user
-		int auctionId = Integer.parseInt(request.getParameter("id"));
-		
+				
 		AuctionDAO dao = new AuctionDAO(connection);
 		
-		
+		try {
+			Auction auction = dao.getAuctionDetails(Integer.parseInt(request.getParameter("id")));
+			
+			final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
+			context.setVariable("auction", auction);
+			context.setVariable("timeLeft", Duration.between(auction.getEndTimestamp(), LocalDateTime.now()));
+			path = "/WEB-INF/Details.html";
+			templateEngine.process(path, context, response.getWriter());
+		} catch (SQLException e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error while retrieving auction's details: SQL exception");
+			e.printStackTrace();
+		}
 		
 	}
 

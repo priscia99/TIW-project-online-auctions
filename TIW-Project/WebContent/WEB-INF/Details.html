@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"/>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="all" href="../css/style.css"/>
+    <title th:text="${auction.name}">Details</title>
+    <style>
+        #logoff-btn {
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+
+        #details {
+            padding: 0 10px;
+        }
+
+        #details h2 {
+            margin: 0 0 10px 0;
+        }
+
+        #details h4 {
+            margin: 10px 0;
+        }
+
+        #details p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div class="container navbar outer-shadow columns centered-flex">
+        <div class="nav-logo">
+            <img src="/TIW-Project/img/logo.svg" alt="" class="small-logo">
+        </div>
+        <div class="nav-links">
+            <a href="home" class="text-primary-accent">Home</a>
+            <a href="buy" class="text-primary-accent">Buy</a>
+            <a href="sell" class="active text-primary-accent">Sell</a>
+        </div>
+        <div class="nav-opt">
+            <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="rows centered-flex">
+        <div class="m-nav columns">
+            <div class="color-solid">
+                <img th:src="${'data:image/png;base64,' + auction.item.image}" alt="item image" class="auction-img">
+            </div>
+            <div class="color-solid-l" id="details">
+                <h2 th:text="${auction.name}">name</h2>
+                <h4 th:text="${auction.currentPrice}">current price</h4>
+                <p th:text="${auction.minimumRise}">minimum rise</p>
+                <p th:text="${auction.startingPrice}">starting price</p>
+                <p th:text="${auction.end}">end</p>
+                <p th:text="${timeLeft}">time left</p>
+                <p th:text="${auction.open}">open</p>
+            </div>
+        </div>
+        <div class="color-accent">
+            Description.
+        </div>
+    </div>
+
+</body>
+</html>

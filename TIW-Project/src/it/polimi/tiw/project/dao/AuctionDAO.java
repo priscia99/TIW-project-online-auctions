@@ -86,45 +86,7 @@ public class AuctionDAO {
 			}
 			return id;
 		}
-	}
-	
-	public Auction getAuctionDetail(String auctionId) throws SQLException {
-		String query = "SELECT * FROM auction_open_details WHERE id_auction = ?";
-		try(PreparedStatement statement = connection.prepareStatement(query);){
-			statement.setString(1, auctionId);
-			try (ResultSet rs = statement.executeQuery();) {
-				Auction toReturn = null;
-				ArrayList<Bid> bids = new ArrayList<Bid>();
-				while(rs.next()) {
-					Item item = new Item();
-					item.setId(rs.getInt("id_item"));
-					item.setName(rs.getString("name"));
-					item.setDescription(rs.getString("description"));
-					item.setImage(Base64.getEncoder().encodeToString(rs.getBytes("image")));
-					if(toReturn == null) {
-						toReturn = new Auction();
-						toReturn.setId(rs.getInt("id_auction"));			
-						toReturn.setStartingPrice(rs.getFloat("starting_price"));
-						toReturn.setMinimumRise(rs.getFloat("minimum_rise"));
-						toReturn.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
-						toReturn.setOpen(rs.getBoolean("open"));
-						toReturn.setItem(item);
-						toReturn.setSellerId(rs.getInt("id_seller"));
-					}
-					Bid bid = new Bid();
-					bid.setId(rs.getInt("id_max_bid"));
-					bid.setPrice(rs.getFloat("max_price"));
-					bid.setTimestamp(rs.getTimestamp("max_bid_time").toLocalDateTime());
-					bid.setBidderId(rs.getInt("id_max_bidder"));
-					bids.add(bid);
-				}
-				toReturn.setBids(bids);
-				return toReturn;
-			}
-		}
-		
-	}
-	
+	}	
 
 	public void createAuctionItem(String name, String description, InputStream image, int sellerId,
 			float minimumRise, float startingPrice, String end) throws SQLException {
@@ -133,7 +95,7 @@ public class AuctionDAO {
 
 	// Query list of open auction for a specific username
 	public ArrayList<Auction> getUserOpenAuctions(int userId) throws SQLException {
-		String query = "SELECT * FROM open_auctions WHERE id_seller = ?;";
+		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, id_max_bid, max_price FROM open_auctions WHERE id_seller = ?;";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setInt(1, userId);
 
@@ -143,32 +105,24 @@ public class AuctionDAO {
 					Item item = new Item();
 					item.setId(rs.getInt("id_item"));
 					item.setName(rs.getString("name"));
-					item.setDescription(rs.getString("description"));
 					item.setImage(Base64.getEncoder().encodeToString(rs.getBytes("image")));
 					if (rs.getInt("id_max_bid") < 1) {
 						Auction auction = new Auction();
 						auction.setId(rs.getInt("id_auction"));			
 						auction.setStartingPrice(rs.getFloat("starting_price"));
-						auction.setMinimumRise(rs.getFloat("minimum_rise"));
 						auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
 						auction.setOpen(rs.getBoolean("open"));
 						auction.setItem(item);
-						auction.setSellerId(rs.getInt("id_seller"));
 						toReturn.add(auction);
 					} else {
 						Bid bid = new Bid();
-						bid.setId(rs.getInt("id_max_bid"));
 						bid.setPrice(rs.getFloat("max_price"));
-						bid.setTimestamp(rs.getTimestamp("max_bid_time").toLocalDateTime());
-						bid.setBidderId(rs.getInt("id_max_bidder"));
 						Auction auction = new Auction();
 						auction.setId(rs.getInt("id_auction"));			
 						auction.setStartingPrice(rs.getFloat("starting_price"));
-						auction.setMinimumRise(rs.getFloat("minimum_rise"));
 						auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
 						auction.setOpen(rs.getBoolean("open"));
 						auction.setItem(item);
-						auction.setSellerId(rs.getInt("id_seller"));
 						auction.addBid(bid);
 						toReturn.add(auction);
 					}
@@ -180,7 +134,7 @@ public class AuctionDAO {
 
 	// Query list of close auction for a specific username
 	public ArrayList<Auction> getUserCloseAuctions(int userId) throws SQLException {
-		String query = "SELECT * FROM close_auctions WHERE id_seller = ?;";
+		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, max_price FROM close_auctions WHERE id_seller = ?;";
 
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setInt(1, userId);
@@ -190,14 +144,36 @@ public class AuctionDAO {
 					Item item = new Item();
 					item.setId(rs.getInt("id_item"));
 					item.setName(rs.getString("name"));
-					item.setDescription(rs.getString("description"));
 					item.setImage(Base64.getEncoder().encodeToString(rs.getBytes("image")));
 					Bid bid = new Bid();
-					bid.setId(rs.getInt("id_max_bid"));
 					bid.setPrice(rs.getFloat("max_price"));
-					bid.setTimestamp(rs.getTimestamp("max_bid_time").toLocalDateTime());
-					bid.setBidderId(rs.getInt("id_max_bidder"));
 					Auction auction = new Auction();
+					auction.setId(rs.getInt("id_auction"));			
+					auction.setStartingPrice(rs.getFloat("starting_price"));
+					auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+					auction.setOpen(rs.getBoolean("open"));
+					auction.setItem(item);
+					auction.addBid(bid);
+					toReturn.add(auction);
+				}
+				return toReturn;
+			}
+		}
+	}
+	
+	public Auction getAuctionDetails(int auctionId) throws SQLException{
+		String query = "SELECT * FROM auctions_details WHERE id_auction = ?";
+		
+		try (PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setInt(1,  auctionId);
+			try (ResultSet rs = statement.executeQuery();) {
+				Auction auction = new Auction();
+				if(rs.next()) {
+					Item item = new Item();
+					item.setId(rs.getInt("id_item"));
+					item.setName(rs.getString("name"));
+					item.setDescription(rs.getString("description"));
+					item.setImage(Base64.getEncoder().encodeToString(rs.getBytes("image")));
 					auction.setId(rs.getInt("id_auction"));			
 					auction.setStartingPrice(rs.getFloat("starting_price"));
 					auction.setMinimumRise(rs.getFloat("minimum_rise"));
@@ -205,10 +181,17 @@ public class AuctionDAO {
 					auction.setOpen(rs.getBoolean("open"));
 					auction.setItem(item);
 					auction.setSellerId(rs.getInt("id_seller"));
-					auction.addBid(bid);
-					toReturn.add(auction);
+					ArrayList<Bid> bids = new ArrayList<>();
+					while (rs.next()) {
+						Bid bid = new Bid();
+						bid.setId(rs.getInt("id_bid"));
+						bid.setBidderId(rs.getInt("id_bidder"));
+						bid.setPrice(rs.getFloat("price"));
+						bid.setTimestamp(rs.getTimestamp("bid_time").toLocalDateTime());
+					}
+					auction.setBids(bids);
 				}
-				return toReturn;
+				return auction;
 			}
 		}
 	}
