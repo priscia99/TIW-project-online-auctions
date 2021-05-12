@@ -79,7 +79,7 @@ public class AuctionDAO {
 			return id;
 		}
 	}
-	/*
+	
 	public Auction getAuctionDetail(String auctionId) throws SQLException {
 		String query = "SELECT * FROM auction_open_details WHERE id_auction = ?";
 		try(PreparedStatement statement = connection.prepareStatement(query);){
@@ -88,29 +88,15 @@ public class AuctionDAO {
 				Auction toReturn = null;
 				ArrayList<Bid> bids = new ArrayList<Bid>();
 				while(rs.next()) {
-					Item item = new Item(
-						rs.getInt("id_item"), 
-						rs.getString("name"), 
-						rs.getString("description"), 
-						rs.getString("image_filename")
-						);
+					Item item = new Item(rs.getInt("id_item"), rs.getString("name"), rs.getString("description"),
+							Base64.getEncoder().encodeToString(rs.getBytes("image")));
 					if(toReturn == null) {
-						toReturn = new Auction(rs.getInt("id_auction"),
-								rs.getFloat("starting_price"),
-								rs.getFloat("minimum_rise"),
-								rs.getString("end"),
-								rs.getTimestamp("creation"),
-								rs.getBoolean("open"),
-								item,
-								rs.getInt("id_seller")
-								);
+						toReturn = new Auction(rs.getInt("id_auction"), rs.getFloat("starting_price"),
+								rs.getFloat("minimum_rise"), rs.getString("end"), rs.getBoolean("open"), item,
+								rs.getInt("id_seller"));
 					}
-					bids.add(new Bid(
-						rs.getInt("id_max_bid"), 
-						rs.getFloat("max_price"), 
-						rs.getTimestamp("max_bid_time"), 
-						rs.getInt("id_max_bidder")
-						));
+					bids.add(new Bid(rs.getInt("id_max_bid"), rs.getFloat("max_price"),
+							rs.getTimestamp("max_bid_time"), rs.getInt("id_max_bidder")));
 				}
 				toReturn.setBids(bids);
 				return toReturn;
@@ -119,7 +105,7 @@ public class AuctionDAO {
 		
 	}
 	
-*/
+
 	public void createAuctionItem(String name, String description, InputStream image, int sellerId,
 			float minimumRise, float startingPrice, String end) throws SQLException {
 		this.createAuction(this.createItem(name, description, image), sellerId, minimumRise, startingPrice, end, true);
