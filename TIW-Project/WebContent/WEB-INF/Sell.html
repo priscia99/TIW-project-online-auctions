@@ -133,12 +133,12 @@
             <div class="ph20 text-color-background">Open Auctions</div>
         </div>
         <div class="rows w100 scrollable auction-list-wrapper inner-shadow">
-            <div class="color-solid w100 h100" style="z-index: -1;">
+            <div class="color-solid w100 h100">
                 <ul class="auction-list color-solid-l" style="z-index: -1;" th:each="openAuction : ${openAuctions}">
                     <li class="auction color-solid-l">
                         <img th:src="${'data:image/png;base64,'+openAuction.item.image}" alt="" class="auction-img">
                         <div class="rows" style="margin-left: 10px;">
-                            <a href="">
+                            <a th:href="@{/sell-auction(id=${openAuction.id})}">
                                 <h3 style="max-height: 95px; overflow: hidden; margin:0; padding:0;" th:text="${openAuction.item.name}">item name</h3>
                             </a>
                             <div style="margin: 0; padding: 0" class="auction-attr columns">
@@ -149,7 +149,6 @@
                             <h4 style="margin: 0; padding: 0" th:text="'EUR ' + ${openAuction.currentPrice}">current price</h4>
                         </div>
                     </li>
-                    <!-- ecc. -->
                 </ul>
                 <p th:if="${#lists.isEmpty(openAuctions)}" class="ph20">Nothing
                     to show</p>

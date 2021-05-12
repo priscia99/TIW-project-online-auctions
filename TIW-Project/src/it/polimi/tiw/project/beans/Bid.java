@@ -1,19 +1,14 @@
 package it.polimi.tiw.project.beans;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Bid extends DBObject{
 
-    private float price;
-    private Timestamp timestamp;
-    private int bidderId;
+    private float price = 0;
+    private LocalDateTime timestamp = null;
+    private int bidderId = 0;
 
-    public Bid(int id, float price, Timestamp timestamp, int bidderId) {
-        super(id);
-    	this.price = price;
-        this.timestamp = timestamp;
-        this.bidderId = bidderId;
-    }
+    public Bid() {}
 
     public float getPrice() {
         return price;
@@ -23,11 +18,11 @@ public class Bid extends DBObject{
         this.price = price;
     }
 
-    public Timestamp getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 

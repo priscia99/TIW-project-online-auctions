@@ -4,13 +4,7 @@ public abstract class DBObject {
 
     private int id = 0;
     
-    public DBObject(int id) {
-    	this.id = id;
-    }
-    
-    public DBObject() {
-    	
-    }
+    public DBObject() {}
 
     public int getId() {
         return id;

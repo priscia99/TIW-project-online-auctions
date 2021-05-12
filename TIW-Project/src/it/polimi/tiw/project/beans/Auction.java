@@ -6,14 +6,14 @@ import java.util.ArrayList;
 
 public class Auction extends  DBObject {
 
-    private float startingPrice;
-    private float minimumRise;
-    private LocalDateTime endTimestamp;
+    private float startingPrice = 0;
+    private float minimumRise = 0;
+    private LocalDateTime endTimestamp = null;
     private boolean open = true;
-    private Item item;
-    private int sellerId;
+    private Item item = null;
+    private int sellerId = 0;
     private ArrayList<Bid> bids = new ArrayList<>();
-    private float currentPrice;
+    private float currentPrice = 0;
     
     private void calculateCurrentPrice() {
     	if (this.bids.size() == 0) {
@@ -23,28 +23,9 @@ public class Auction extends  DBObject {
     	}
     }
     
-    public Auction(int id, float startingPrice, float minimumRise, LocalDateTime endTimestamp, boolean open, Item item, int sellerId) {
-    	super(id);
-        this.startingPrice = startingPrice;
-        this.minimumRise = minimumRise;
-        this.endTimestamp = endTimestamp;
-        this.item = item;
-        this.sellerId = sellerId;
-        this.calculateCurrentPrice();
+    public Auction() {
     }
     
-    public Auction(int id, float startingPrice, float minimumRise, LocalDateTime endTimestamp, boolean open, Item item, int sellerId, Bid bid) {
-    	super(id);
-        this.startingPrice = startingPrice;
-        this.minimumRise = minimumRise;
-        this.endTimestamp = endTimestamp;
-        this.open = open;
-        this.item = item;
-        this.sellerId = sellerId;
-        this.bids.add(bid);
-        this.calculateCurrentPrice();
-    }
-
     public float getStartingPrice() {
         return startingPrice;
     }
@@ -98,9 +79,17 @@ public class Auction extends  DBObject {
     	return this.bids;
     }
     
+    public Bid getBid(int index) {
+    	return this.bids.get(index);
+    }
+    
     public void setBids(ArrayList<Bid> bids) {
     	this.bids = bids;
     	this.calculateCurrentPrice();
+    }
+    
+    public void addBid(Bid bid) {
+    	this.bids.add(bid);
     }
     
     public float getCurrentPrice() {
