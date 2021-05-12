@@ -1,8 +1,5 @@
 package it.polimi.tiw.project.beans;
 
-import java.io.InputStream;
-import java.util.Base64;
-
 public class Item extends DBObject {
 
     private String name;

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 import it.polimi.tiw.project.beans.Item;
-import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.beans.Bid;
 
@@ -24,18 +23,28 @@ public class AuctionDAO {
 	}
 
 	public ArrayList<Auction> filterByArticleName(String query) throws SQLException {
-		String sqlStatement = "SELECT id_item, name, description, image, id_auction, starting_price, minimum_rise, DATE_FORMAT(end, '%Y-%m-%dT%T') as end, open, id_seller "
+		String sqlStatement = "SELECT id_item, name, description, image, id_auction, starting_price, minimum_rise, end, open, id_seller "
 				+ "FROM auction_item WHERE name LIKE CONCAT( '%',?,'%')";
 		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);) {
 			statement.setString(1, query);
 			try (ResultSet rs = statement.executeQuery();) {
 				ArrayList<Auction> toReturn = new ArrayList<>();
 				while (rs.next()) {
-					Item item = new Item(rs.getInt("id_item"), rs.getString("name"), rs.getString("description"),
-							Base64.getEncoder().encodeToString(rs.getBytes("image")));
-					toReturn.add(new Auction(rs.getInt("id_auction"), rs.getFloat("starting_price"),
-							rs.getFloat("minimum_rise"), rs.getString("end"), rs.getBoolean("open"), item,
-							rs.getInt("id_seller")));
+					Item item = new Item(
+							rs.getInt("id_item"), 
+							rs.getString("name"), 
+							rs.getString("description"),
+							Base64.getEncoder().encodeToString(rs.getBytes("image"))
+							);
+					toReturn.add(new Auction(
+							rs.getInt("id_auction"),
+							rs.getFloat("starting_price"),
+							rs.getFloat("minimum_rise"),
+							rs.getTimestamp("end").toLocalDateTime(),
+							rs.getBoolean("open"),
+							item,
+							rs.getInt("id_seller"))
+							);
 				}
 				return toReturn;
 			}
@@ -137,15 +146,25 @@ public class AuctionDAO {
 					Item item = new Item(rs.getInt("id_item"), rs.getString("name"), rs.getString("description"),
 							Base64.getEncoder().encodeToString(rs.getBytes("image")));
 					if (rs.getInt("id_max_bid") < 1) {
-						toReturn.add(new Auction(rs.getInt("id_auction"), rs.getFloat("starting_price"),
-								rs.getFloat("minimum_rise"), rs.getString("end"), rs.getBoolean("open"), item,
+						toReturn.add(new Auction(
+								rs.getInt("id_auction"), 
+								rs.getFloat("starting_price"),
+								rs.getFloat("minimum_rise"), 
+								rs.getTimestamp("end").toLocalDateTime(), 
+								rs.getBoolean("open"), item,
 								rs.getInt("id_seller")));
 					} else {
 						Bid bid = new Bid(rs.getInt("id_max_bid"), rs.getFloat("max_price"),
 							rs.getTimestamp("max_bid_time"), rs.getInt("id_max_bidder"));
-						toReturn.add(new Auction(rs.getInt("id_auction"), rs.getFloat("starting_price"),
-								rs.getFloat("minimum_rise"), rs.getString("end"), rs.getBoolean("open"), item,
-								rs.getInt("id_seller"), bid));
+						toReturn.add(new Auction(
+								rs.getInt("id_auction"),
+								rs.getFloat("starting_price"),
+								rs.getFloat("minimum_rise"), 
+								rs.getTimestamp("end").toLocalDateTime(),
+								rs.getBoolean("open"), 
+								item,
+								rs.getInt("id_seller"), 
+								bid));
 					}
 				}
 				return toReturn;
@@ -166,9 +185,15 @@ public class AuctionDAO {
 							Base64.getEncoder().encodeToString(rs.getBytes("image")));
 					Bid bid = new Bid(rs.getInt("id_max_bid"), rs.getFloat("max_price"),
 							rs.getTimestamp("max_bid_time"), rs.getInt("id_max_bidder"));
-					toReturn.add(new Auction(rs.getInt("id_auction"), rs.getFloat("starting_price"),
-							rs.getFloat("minimum_rise"), rs.getString("end"), rs.getBoolean("open"), item,
-							rs.getInt("id_seller"), bid));
+					toReturn.add(new Auction(
+							rs.getInt("id_auction"),
+							rs.getFloat("starting_price"),
+							rs.getFloat("minimum_rise"),
+							rs.getTimestamp("end").toLocalDateTime(),
+							rs.getBoolean("open"),
+							item,
+							rs.getInt("id_seller"),
+							bid));
 				}
 				return toReturn;
 			}

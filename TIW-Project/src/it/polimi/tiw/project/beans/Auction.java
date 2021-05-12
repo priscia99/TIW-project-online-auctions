@@ -1,13 +1,14 @@
 package it.polimi.tiw.project.beans;
 
-import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Auction extends  DBObject {
 
     private float startingPrice;
     private float minimumRise;
-    private String endTimestamp;
+    private LocalDateTime endTimestamp;
     private boolean open = true;
     private Item item;
     private int sellerId;
@@ -21,29 +22,8 @@ public class Auction extends  DBObject {
     		this.currentPrice = this.bids.get(this.bids.size() - 1).getPrice();
     	}
     }
-
-    public Auction(int id, float startingPrice, float minimumRise, String endTimestamp, boolean open, Item item, int sellerId, ArrayList<Bid> bids) {
-    	super(id);
-        this.startingPrice = startingPrice;
-        this.minimumRise = minimumRise;
-        this.endTimestamp = endTimestamp;
-        this.open = open;
-        this.item = item;
-        this.sellerId = sellerId;
-        this.bids = bids;
-        this.calculateCurrentPrice();
-    }
     
-    public Auction(float startingPrice, float minimumRise, String endTimestamp, Item item, int sellerId) {
-        this.startingPrice = startingPrice;
-        this.minimumRise = minimumRise;
-        this.endTimestamp = endTimestamp;
-        this.item = item;
-        this.sellerId = sellerId;
-        this.calculateCurrentPrice();
-    }
-    
-    public Auction(int id, float startingPrice, float minimumRise, String endTimestamp, boolean open, Item item, int sellerId) {
+    public Auction(int id, float startingPrice, float minimumRise, LocalDateTime endTimestamp, boolean open, Item item, int sellerId) {
     	super(id);
         this.startingPrice = startingPrice;
         this.minimumRise = minimumRise;
@@ -53,7 +33,7 @@ public class Auction extends  DBObject {
         this.calculateCurrentPrice();
     }
     
-    public Auction(int id, float startingPrice, float minimumRise, String endTimestamp, boolean open, Item item, int sellerId, Bid bid) {
+    public Auction(int id, float startingPrice, float minimumRise, LocalDateTime endTimestamp, boolean open, Item item, int sellerId, Bid bid) {
     	super(id);
         this.startingPrice = startingPrice;
         this.minimumRise = minimumRise;
@@ -82,11 +62,11 @@ public class Auction extends  DBObject {
         this.minimumRise = minimumRise;
     }
 
-    public String getEndTimestamp() {
+    public LocalDateTime getEndTimestamp() {
         return endTimestamp;
     }
 
-    public void setEndTimestamp(String endTimestamp) {
+    public void setEndTimestamp(LocalDateTime endTimestamp) {
         this.endTimestamp = endTimestamp;
     }
 
@@ -125,5 +105,9 @@ public class Auction extends  DBObject {
     
     public float getCurrentPrice() {
     	return this.currentPrice;
+    }
+    
+    public Duration getTimeLeft() {
+    	return Duration.between(this.endTimestamp, LocalDateTime.now());
     }
 }
