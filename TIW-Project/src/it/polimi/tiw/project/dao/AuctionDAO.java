@@ -24,7 +24,7 @@ public class AuctionDAO {
 	}
 
 	public ArrayList<Auction> filterByArticleName(String query) throws SQLException {
-		String sqlStatement = "SELECT id_item, name, description, image, id_auction, starting_price, minimum_rise, DATE_FORMAT(end, '%Y-%m-%dT%T'), open, id_seller "
+		String sqlStatement = "SELECT id_item, name, description, image, id_auction, starting_price, minimum_rise, DATE_FORMAT(end, '%Y-%m-%dT%T') as end, open, id_seller "
 				+ "FROM auction_item WHERE name LIKE CONCAT( '%',?,'%')";
 		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);) {
 			statement.setString(1, query);
@@ -79,7 +79,47 @@ public class AuctionDAO {
 			return id;
 		}
 	}
-
+	/*
+	public Auction getAuctionDetail(String auctionId) throws SQLException {
+		String query = "SELECT * FROM auction_open_details WHERE id_auction = ?";
+		try(PreparedStatement statement = connection.prepareStatement(query);){
+			statement.setString(1, auctionId);
+			try (ResultSet rs = statement.executeQuery();) {
+				Auction toReturn = null;
+				ArrayList<Bid> bids = new ArrayList<Bid>();
+				while(rs.next()) {
+					Item item = new Item(
+						rs.getInt("id_item"), 
+						rs.getString("name"), 
+						rs.getString("description"), 
+						rs.getString("image_filename")
+						);
+					if(toReturn == null) {
+						toReturn = new Auction(rs.getInt("id_auction"),
+								rs.getFloat("starting_price"),
+								rs.getFloat("minimum_rise"),
+								rs.getString("end"),
+								rs.getTimestamp("creation"),
+								rs.getBoolean("open"),
+								item,
+								rs.getInt("id_seller")
+								);
+					}
+					bids.add(new Bid(
+						rs.getInt("id_max_bid"), 
+						rs.getFloat("max_price"), 
+						rs.getTimestamp("max_bid_time"), 
+						rs.getInt("id_max_bidder")
+						));
+				}
+				toReturn.setBids(bids);
+				return toReturn;
+			}
+		}
+		
+	}
+	
+*/
 	public void createAuctionItem(String name, String description, InputStream image, int sellerId,
 			float minimumRise, float startingPrice, String end) throws SQLException {
 		this.createAuction(this.createItem(name, description, image), sellerId, minimumRise, startingPrice, end, true);

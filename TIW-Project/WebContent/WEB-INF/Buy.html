@@ -121,7 +121,7 @@
     <div class="w100 rows centered-flex">
       <ul class="auction-list">
         <li class="auction" th:each="openAuction : ${openAuctions}">
-          <img th:src="@{${openAuction.item.imageFilename}}" th:alt-title="${openAuction.item.name}" class="auction-img">
+          <img th:src="${'data:image/png;base64,'+openAuction.item.image}" alt="" class="auction-img">
           <div class="auction-details">
             <a th:href="@{'/auctions/'+${openAuction.id}}">
               <h3 th:text="${openAuction.item.name}"></h3>
