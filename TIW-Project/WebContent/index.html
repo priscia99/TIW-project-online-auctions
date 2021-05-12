@@ -28,7 +28,7 @@
     <div class="centered round container outer-shadow">
         <form action="login" method="post" id="login-form" class="rows centered-flex">
             <img class="medium-logo" src="img/logo.svg" alt="logo">
-            <p th:class="@{login-info-text}" th:text=${loginInfoMsg}> </p>
+            <p th:class="@{login-info-text}" th:text=${loginInfoMsg}>Info message</p>
             <input type="text" class="round text-field inner-shadow w75" name="username" placeholder="Enter username" required="required"/><br>
             <input type="password" class="round text-field inner-shadow w75" name="password" placeholder="Enter password" required="required"/><br>
             <button id="login-button" class="round outer-shadow" type="submit">Log In</button>

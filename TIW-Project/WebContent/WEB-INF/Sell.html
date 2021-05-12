@@ -105,13 +105,14 @@
                                                                                                       class="active text-primary-accent">Sell</a>
     </div>
     <div class="nav-opt">
-        <button class="round primary-accent text-secondary" id="logoff-btn">Log
-            Off
-        </button>
+        <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
     </div>
 </div>
 
 <div class="rows centered-flex w100" id="header">
+	<div class="color-accent w100">
+		<p th:class="@{submission-info-text}" th:text=${submissionInfoMsg}>Info message</p>
+	</div>
     <div class="columns m-nav spaced-between-flex w80">
         <div>
             <h2 th:text="${session.user.username}">Username</h2>
@@ -239,6 +240,7 @@
         </div>
         <div class="mv10 columns spaced-evenly-flex">
             <button type="submit" class=" ph20 pv10 round color-accent text-color-background outer-shadow caps-lock">Confirm </button>
+            <span class="mh20"></span>
             <button type="reset" class="ph20 pv10 round color-background text-color-accent outer-shadow caps-lock">Cancel </button>
         </div>
     </form>

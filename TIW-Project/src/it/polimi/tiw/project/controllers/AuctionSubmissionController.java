@@ -2,20 +2,10 @@ package it.polimi.tiw.project.controllers;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Map;
-import java.util.Set;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -26,18 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import it.polimi.tiw.project.beans.Auction;
-import it.polimi.tiw.project.beans.Bid;
-import it.polimi.tiw.project.beans.Item;
 import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.AuctionDAO;
-import it.polimi.tiw.project.dao.UserDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 
 /**
@@ -83,8 +68,6 @@ public class AuctionSubmissionController extends HttpServlet {
 		}
 
 		User user = (User) session.getAttribute("user");
-		Auction auction = null;
-		Item item = null;
 
 		// Declaration of parameters given by user
 		String itemName = null;
@@ -139,11 +122,8 @@ public class AuctionSubmissionController extends HttpServlet {
 			return;
 		}
 
-		// Finally, if everything is correct
-		final WebContext webContext = new WebContext(request, response, servletContext, request.getLocale());
-		webContext.setVariable("loginInfoMsg", "User created successfully!");
-		path = "/index.html"; // Re-direct user to login page after successful signup
-		templateEngine.process(path, webContext, response.getWriter());
+		// Finally, if everything is correct		
+		response.sendRedirect(request.getContextPath() + "/sell");
 	}
 
 }
