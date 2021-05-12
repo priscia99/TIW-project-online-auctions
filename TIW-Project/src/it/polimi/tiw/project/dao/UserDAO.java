@@ -28,15 +28,14 @@ public class UserDAO {
 					return null;
 				else {
 					result.next();
-					User user = new User(
-								result.getInt("id_user"),
-								result.getString("username"),
-								result.getString("name"),
-								result.getString("surname"),
-								result.getString("email"),
-								result.getString("address_street"),
-								result.getString("address_town")
-							);
+					User user = new User();
+					user.setId(result.getInt("id_user"));
+					user.setUsername(result.getString("username"));
+					user.setName(result.getString("name"));
+					user.setSurname(result.getString("surname"));
+					user.setEmail(result.getString("email"));
+					user.setAddress_street(result.getString("address_street"));
+					user.setAddress_town(result.getString("address_town"));
 					return user;
 				}
 			}

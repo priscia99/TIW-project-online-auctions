@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -25,9 +24,6 @@ import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 
-/**
- * Servlet implementation class AuctionSubmissionController
- */
 @WebServlet("/submit-auction")
 @MultipartConfig
 public class AuctionSubmissionController extends HttpServlet {

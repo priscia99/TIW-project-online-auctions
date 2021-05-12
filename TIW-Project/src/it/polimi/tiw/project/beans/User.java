@@ -2,22 +2,14 @@ package it.polimi.tiw.project.beans;
 
 public class User extends DBObject{
 
-    private String username;
-    private String name;
-    private String surname;
-    private String email;
-    private String address_street;
-    private String address_town;
+    private String username = null;
+    private String name = null;
+    private String surname = null;
+    private String email = null;
+    private String address_street = null;
+    private String address_town = null;
 
-    public User(int id, String username, String name, String surname, String email, String address_street, String address_town) {
-    	super(id);
-        this.username = username;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.address_street = address_street;
-        this.address_town = address_town;
-    }
+    public User() {}
 
     public String getUsername() {
         return username;

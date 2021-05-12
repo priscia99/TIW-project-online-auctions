@@ -1,26 +1,12 @@
 package it.polimi.tiw.project.beans;
 
-import java.io.InputStream;
-import java.util.Base64;
-
 public class Item extends DBObject {
 
-    private String name;
-    private String description;
-	private String image;
+    private String name = null;
+    private String description = null;
+	private String image = null;
 
-    public Item(int id, String name, String description, String image) {
-    	super(id);
-        this.name = name;
-        this.description = description;
-        this.image = image;
-    }
-    
-    public Item(String name, String description, String image) {
-        this.name = name;
-        this.description = description;
-        this.image = image;
-    }
+    public Item() {}
 
     public String getName() {
         return name;
