@@ -96,15 +96,27 @@ public class AuctionDAO {
 				Auction toReturn = null;
 				ArrayList<Bid> bids = new ArrayList<Bid>();
 				while(rs.next()) {
-					Item item = new Item(rs.getInt("id_item"), rs.getString("name"), rs.getString("description"),
-							Base64.getEncoder().encodeToString(rs.getBytes("image")));
+					Item item = new Item();
+					item.setId(rs.getInt("id_item"));
+					item.setName(rs.getString("name"));
+					item.setDescription(rs.getString("description"));
+					item.setImage(Base64.getEncoder().encodeToString(rs.getBytes("image")));
 					if(toReturn == null) {
-						toReturn = new Auction(rs.getInt("id_auction"), rs.getFloat("starting_price"),
-								rs.getFloat("minimum_rise"), rs.getString("end"), rs.getBoolean("open"), item,
-								rs.getInt("id_seller"));
+						toReturn = new Auction();
+						toReturn.setId(rs.getInt("id_auction"));			
+						toReturn.setStartingPrice(rs.getFloat("starting_price"));
+						toReturn.setMinimumRise(rs.getFloat("minimum_rise"));
+						toReturn.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+						toReturn.setOpen(rs.getBoolean("open"));
+						toReturn.setItem(item);
+						toReturn.setSellerId(rs.getInt("id_seller"));
 					}
-					bids.add(new Bid(rs.getInt("id_max_bid"), rs.getFloat("max_price"),
-							rs.getTimestamp("max_bid_time"), rs.getInt("id_max_bidder")));
+					Bid bid = new Bid();
+					bid.setId(rs.getInt("id_max_bid"));
+					bid.setPrice(rs.getFloat("max_price"));
+					bid.setTimestamp(rs.getTimestamp("max_bid_time").toLocalDateTime());
+					bid.setBidderId(rs.getInt("id_max_bidder"));
+					bids.add(bid);
 				}
 				toReturn.setBids(bids);
 				return toReturn;
