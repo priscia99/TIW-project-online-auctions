@@ -23,14 +23,14 @@ import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 
-@WebServlet("/sell-auction")
-public class SelfAuctionController extends HttpServlet {
+@WebServlet("/auction-details")
+public class AuctionDetailsController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private Connection connection = null;
 	private TemplateEngine templateEngine; // Used for Thymeleaf
        
-    public SelfAuctionController() {
+    public AuctionDetailsController() {
         super();
     }
     
@@ -60,10 +60,8 @@ public class SelfAuctionController extends HttpServlet {
 			Auction auction = dao.getAuctionDetails(Integer.parseInt(request.getParameter("id")));
 			
 			final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
+			auction.calculateTimeLeft(LocalDateTime.now());
 			context.setVariable("auction", auction);
-			long secondsLeft = Duration.between(LocalDateTime.now(), auction.getEndTimestamp()).getSeconds();
-			context.setVariable("sLeft", secondsLeft);
-			context.setVariable("timeLeft", String.format("%d:%02d:%02d", secondsLeft / 3600, (secondsLeft % 3600) / 60, (secondsLeft % 60)));
 			path = "/WEB-INF/Details.html";
 			templateEngine.process(path, context, response.getWriter());
 		} catch (SQLException e) {

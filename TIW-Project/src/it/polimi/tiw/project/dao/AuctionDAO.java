@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 import it.polimi.tiw.project.beans.Item;
 import it.polimi.tiw.project.beans.Auction;
@@ -92,9 +95,56 @@ public class AuctionDAO {
 			float minimumRise, float startingPrice, String end) throws SQLException {
 		this.createAuction(this.createItem(name, description, image), sellerId, minimumRise, startingPrice, end, true);
 	}
+	
+	// Query lists of open and closed auctions for a specific username
+	public Map<String, ArrayList<Auction>> getUserAuctionLists(int userId, LocalDateTime timeReference) throws SQLException {
+		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, id_max_bid, max_price FROM auctions WHERE id_seller = ?;";
+		try (PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setInt(1, userId);
+
+			try (ResultSet rs = statement.executeQuery();) {
+				ArrayList<Auction> openAuctions = new ArrayList<>();
+				ArrayList<Auction> closeAuctions = new ArrayList<>();
+				while (rs.next()) {
+					Item item = new Item();
+					item.setId(rs.getInt("id_item"));
+					item.setName(rs.getString("name"));
+					item.setImage(Base64.getEncoder().encodeToString(rs.getBytes("image")));
+					if (rs.getInt("id_max_bid") < 1) {
+						Auction auction = new Auction();
+						auction.setId(rs.getInt("id_auction"));			
+						auction.setStartingPrice(rs.getFloat("starting_price"));
+						auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+						auction.setOpen(rs.getBoolean("open"));
+						auction.setItem(item);
+						auction.calculateTimeLeft(timeReference);
+						if (auction.isOpen()) openAuctions.add(auction);
+						else closeAuctions.add(auction);
+					} else {
+						Bid bid = new Bid();
+						bid.setPrice(rs.getFloat("max_price"));
+						Auction auction = new Auction();
+						auction.setId(rs.getInt("id_auction"));			
+						auction.setStartingPrice(rs.getFloat("starting_price"));
+						auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+						auction.setOpen(rs.getBoolean("open"));
+						auction.setItem(item);
+						auction.addBid(bid);
+						auction.calculateTimeLeft(timeReference);
+						if (auction.isOpen()) openAuctions.add(auction);
+						else closeAuctions.add(auction);
+					}
+				}
+				Map<String, ArrayList<Auction>> toReturn = new HashMap<>();
+				toReturn.put("open", openAuctions);
+				toReturn.put("close", closeAuctions);
+				return toReturn;
+			}
+		}
+	}
 
 	// Query list of open auction for a specific username
-	public ArrayList<Auction> getUserOpenAuctions(int userId) throws SQLException {
+	public ArrayList<Auction> getUserOpenAuctions(int userId, LocalDateTime timeReference) throws SQLException {
 		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, id_max_bid, max_price FROM open_auctions WHERE id_seller = ?;";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setInt(1, userId);
@@ -113,6 +163,7 @@ public class AuctionDAO {
 						auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
 						auction.setOpen(rs.getBoolean("open"));
 						auction.setItem(item);
+						auction.calculateTimeLeft(timeReference);
 						toReturn.add(auction);
 					} else {
 						Bid bid = new Bid();
@@ -124,6 +175,7 @@ public class AuctionDAO {
 						auction.setOpen(rs.getBoolean("open"));
 						auction.setItem(item);
 						auction.addBid(bid);
+						auction.calculateTimeLeft(timeReference);
 						toReturn.add(auction);
 					}
 				}
@@ -133,7 +185,7 @@ public class AuctionDAO {
 	}
 
 	// Query list of close auction for a specific username
-	public ArrayList<Auction> getUserCloseAuctions(int userId) throws SQLException {
+	public ArrayList<Auction> getUserCloseAuctions(int userId, LocalDateTime timeReference) throws SQLException {
 		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, max_price FROM close_auctions WHERE id_seller = ?;";
 
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
@@ -154,6 +206,7 @@ public class AuctionDAO {
 					auction.setOpen(rs.getBoolean("open"));
 					auction.setItem(item);
 					auction.addBid(bid);
+					auction.calculateTimeLeft(timeReference);
 					toReturn.add(auction);
 				}
 				return toReturn;
@@ -166,7 +219,7 @@ public class AuctionDAO {
 		
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setInt(1,  auctionId);
-			try (ResultSet rs = statement.executeQuery();) {
+			try (ResultSet rs = statement.executeQuery();) {				
 				Auction auction = new Auction();
 				if(rs.next()) {
 					Item item = new Item();
@@ -181,15 +234,27 @@ public class AuctionDAO {
 					auction.setOpen(rs.getBoolean("open"));
 					auction.setItem(item);
 					auction.setSellerId(rs.getInt("id_seller"));
-					ArrayList<Bid> bids = new ArrayList<>();
-					while (rs.next()) {
+					// parse bids if exist
+					if (rs.getString("id_bid") != null) {
+						ArrayList<Bid> bids = new ArrayList<>();
+						// parse first bid
 						Bid bid = new Bid();
 						bid.setId(rs.getInt("id_bid"));
 						bid.setBidderId(rs.getInt("id_bidder"));
 						bid.setPrice(rs.getFloat("price"));
 						bid.setTimestamp(rs.getTimestamp("bid_time").toLocalDateTime());
+						bids.add(bid);
+						// parse next bids
+						while (rs.next()) {
+							bid = new Bid();
+							bid.setId(rs.getInt("id_bid"));
+							bid.setBidderId(rs.getInt("id_bidder"));
+							bid.setPrice(rs.getFloat("price"));
+							bid.setTimestamp(rs.getTimestamp("bid_time").toLocalDateTime());
+							bids.add(bid);
+						}
+						auction.setBids(bids);
 					}
-					auction.setBids(bids);
 				}
 				return auction;
 			}

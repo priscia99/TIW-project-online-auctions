@@ -69,8 +69,8 @@ public class SellController extends HttpServlet {
 		ArrayList<Auction> openAuctions = new ArrayList<>();
 		ArrayList<Auction> closeAuctions = new ArrayList<>();
 		try {
-			openAuctions = dao.getUserOpenAuctions(user.getId());
-			closeAuctions = dao.getUserCloseAuctions(user.getId());
+			openAuctions = dao.getUserOpenAuctions(user.getId(), LocalDateTime.now());
+			closeAuctions = dao.getUserCloseAuctions(user.getId(), LocalDateTime.now());
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to retrieve user's open auctions");
 			e.printStackTrace();	// REMOVE BEFORE FLIGHT

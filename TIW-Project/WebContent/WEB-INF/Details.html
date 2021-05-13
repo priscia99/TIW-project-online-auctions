@@ -86,17 +86,17 @@
                 <p>Minimum rise: <span th:text="'EUR ' + ${auction.minimumRise}" style="font-weight: bold;"></span></p>
                 <p>Starting price: <span th:text="'EUR ' + ${auction.startingPrice}" style="font-weight: bold;"></span></p>
                 <p>Ends on <span th:text="${auction.endTimestamp.toString().replace('T', ' ')}" style="font-weight: bold;"></span></p>
-                <p>Time left: <span th:text="${timeLeft}" style="font-weight: bold;"></span> hours</p>
+                <p>Time left: <span th:text="${auction.timeLeftFormatted}" style="font-weight: bold;"></span> hours</p>
                 <p th:if="${auction.open}">Status: <span style="font-weight: bold;">Open</span></p>
                 <p th:if="${not auction.open}">Status: <span style="font-weight: bold;">Closed</span></p>
             </div>
         </div>
-        <form method="POST" action="close-auction" th:if="${auction.open && sLeft > 0}" class="mv20">
+        <form method="POST" action="close-auction" th:if="${auction.open && auction.isEnded()}" class="mv20">
         	<input type="hidden" name="id" th:value="${auction.id}" />
         	<button type="submit" class="round ph20 pv10">Close auction</button>
         </form>
         <table>
-        	<thead>
+        	<thead th:if="${auction.open}">
         		<tr>
 		        	<th>Bid ID</th>
 		        	<th>Bidder ID</th>
@@ -104,15 +104,35 @@
 		        	<th>Time</th>
 		        </tr>
         	</thead>
-        	<tbody>
-	        	<tr th:if="${auction.bids.empty}">
+        	<thead th:if="${not auction.open}">
+		        <tr>
+		        	<th>Bid ID</th>
+		        	<th>Winner ID</th>
+		        	<th>Final Price</th>
+		        	<th>Time</th>
+		        </tr>
+        	</thead>
+        	
+        	<tbody th:if="${auction.open}">
+	        	<tr th:if="${#lists.isEmpty(auction.bids)}">
 		            <td colspan="4"> No Bids Available </td>
 		        </tr>
         		<tr th:each="bid : ${auction.bids}">
 		        	<td th:text="${bid.id}">Bid ID</td>
 		        	<td th:text="${bid.bidderId}">Bidder ID</td>
 		        	<td th:text="${bid.price}">Price</td>
-		        	<td th:text="${bid.timestamp}">Time</td>
+		        	<td th:text="${bid.timestamp.toString().replace('T', ' ')}">Time</td>
+		        </tr>
+        	</tbody>
+        	<tbody th:if="${not auction.open}">
+	        	<tr th:if="${auction.getMaxBid() == null}">
+		            <td colspan="4"> No Bids Available </td>
+		        </tr>
+		        <tr th:if="${not auction.getMaxBid() == null}">
+		        	<td th:text="${auction.getMaxBid().id}">Bid ID</td>
+		        	<td th:text="${auction.getMaxBid().bidderId}">Bidder ID</td>
+		        	<td th:text="${auction.getMaxBid().price}">Price</td>
+		        	<td th:text="${auction.getMaxBid().timestamp.toString().replace('T', ' ')}">Time</td>
 		        </tr>
         	</tbody>
         </table>
