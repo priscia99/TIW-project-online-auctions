@@ -93,6 +93,7 @@ public class PerformLogin extends HttpServlet {
 		}
 		else{
 			// User is an actual object -> user authenticated successfully
+			log("User " + user.getUsername() + " logged at " + user.getLoginTime());
 			request.getSession().setAttribute("user", user);	// Create a new session giving the user object as an attribute
 			path = getServletContext().getContextPath() + "/home";	// Re-direct to home page
 			response.sendRedirect(path);
