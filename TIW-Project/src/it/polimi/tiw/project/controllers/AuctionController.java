@@ -22,7 +22,7 @@ import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 
-@WebServlet("/auctions/*")
+@WebServlet("/auctions")
 public class AuctionController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
@@ -50,7 +50,7 @@ public class AuctionController extends HttpServlet{
 		}
 		
 		User user = (User) session.getAttribute("user");
-		int auctionId = Integer.parseInt(request.getPathInfo().substring(1));
+		int auctionId = Integer.parseInt(request.getParameter("id"));
 		AuctionDAO auctionDao = new AuctionDAO(connection);
 		Auction auctionDetail = new Auction();
 		try {
