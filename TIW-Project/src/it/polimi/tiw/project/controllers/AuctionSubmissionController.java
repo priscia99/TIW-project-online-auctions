@@ -53,13 +53,12 @@ public class AuctionSubmissionController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ServletContext servletContext = getServletContext();
+		
 		boolean badRequest = false;
-		String path = null; // Path to the right next page
+		ServletContext servletContext = getServletContext();
 		HttpSession session = request.getSession();
-		String loginpath = getServletContext().getContextPath() + "/index.html";
 		if (session.isNew() || session.getAttribute("user") == null) {
-			response.sendRedirect(loginpath);
+			response.sendRedirect(getServletContext().getContextPath() + "/index.html");
 			return;
 		}
 
@@ -73,8 +72,8 @@ public class AuctionSubmissionController extends HttpServlet {
 		String auctionMinimumRise = null;
 		String auctionEndTimestamp = null;
 
+		// Parse parameters from user request
 		try {
-			// Parsing parameters from user request
 			itemName = request.getParameter("item-name");
 			itemDescription = request.getParameter("item-descritpion");
 			Part imagePart = request.getPart("item-image");
@@ -97,18 +96,17 @@ public class AuctionSubmissionController extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		// Responde with bad request
+		// Respond to bad request
 		if (badRequest) {
 			final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 			context.setVariable("signupInfoMsg", "Missing or empty parameters");
-			path = "/signup.html"; // If it is a bad request, re-direct to sign up page and show an error
-			templateEngine.process(path, context, response.getWriter());
+			templateEngine.process("/signup.html", context, response.getWriter());
 			return;
 		}
 
-		AuctionDAO dao = new AuctionDAO(connection);
 		// Create user in DB using UserDAO
 		try {
+			AuctionDAO dao = new AuctionDAO(connection);
 			dao.createAuctionItem(itemName, itemDescription, imageStream, user.getId(), Float.parseFloat(auctionMinimumRise),
 					Float.parseFloat(auctionStartingPrice), auctionEndTimestamp);
 		} catch (SQLException e) {
@@ -118,7 +116,7 @@ public class AuctionSubmissionController extends HttpServlet {
 			return;
 		}
 
-		// Finally, if everything is correct		
+		// If everything is correct redirect to the sell page
 		response.sendRedirect(request.getContextPath() + "/sell");
 	}
 

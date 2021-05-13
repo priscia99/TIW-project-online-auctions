@@ -1,5 +1,7 @@
 package it.polimi.tiw.project.beans;
 
+import java.time.LocalDateTime;
+
 public class User extends DBObject{
 
     private String username = null;
@@ -8,8 +10,11 @@ public class User extends DBObject{
     private String email = null;
     private String address_street = null;
     private String address_town = null;
+    private LocalDateTime loginTime;
 
-    public User() {}
+    public User() {
+    	loginTime = LocalDateTime.now();
+    }
 
     public String getUsername() {
         return username;
@@ -57,5 +62,9 @@ public class User extends DBObject{
 
     public void setAddress_town(String address_town) {
         this.address_town = address_town;
+    }
+    
+    public LocalDateTime getLoginTime() {
+    	return loginTime;
     }
 }

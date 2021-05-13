@@ -14,6 +14,8 @@ public class Auction extends  DBObject {
     private int sellerId = 0;
     private ArrayList<Bid> bids = new ArrayList<>();
     private float currentPrice = 0;
+    private long secondsLeft = 0;
+    private String timeLeftFormatted = null;
     
     private void calculateCurrentPrice() {
     	if (this.bids.size() == 0) {
@@ -83,6 +85,14 @@ public class Auction extends  DBObject {
     	return this.bids.get(index);
     }
     
+    public Bid getMaxBid() {
+    	if (this.bids.isEmpty()) {
+    		return null;
+    	} else {
+    		return this.bids.get(0);
+    	}
+    }
+    
     public void setBids(ArrayList<Bid> bids) {
     	this.bids = bids;
     	this.calculateCurrentPrice();
@@ -99,4 +109,27 @@ public class Auction extends  DBObject {
     public Duration getTimeLeft() {
     	return Duration.between(this.endTimestamp, LocalDateTime.now());
     }
+    
+    public void calculateTimeLeft(LocalDateTime reference) {
+    	long secondsLeft = Duration.between(reference, this.endTimestamp).getSeconds();
+    	this.secondsLeft = secondsLeft;
+		this.timeLeftFormatted = String.format("%d:%02d:%02d", secondsLeft / 3600, (secondsLeft % 3600) / 60, (secondsLeft % 60));
+    }
+
+	public long getSecondsLeft() {
+		return secondsLeft;
+	}
+
+	public void setSecondsLeft(long secondsLeft) {
+		this.secondsLeft = secondsLeft;
+		this.timeLeftFormatted = String.format("%d:%02d:%02d", secondsLeft / 3600, (secondsLeft % 3600) / 60, (secondsLeft % 60));
+	}
+
+	public String getTimeLeftFormatted() {
+		return timeLeftFormatted;
+	}
+	
+	public boolean isEnded() {
+		return this.secondsLeft <= 0;
+	}
 }
