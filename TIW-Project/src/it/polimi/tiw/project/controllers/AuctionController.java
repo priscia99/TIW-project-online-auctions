@@ -17,7 +17,9 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.beans.User;
+import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 
 @WebServlet("/auctions/*")
@@ -48,11 +50,11 @@ public class AuctionController extends HttpServlet{
 		}
 		
 		User user = (User) session.getAttribute("user");
-		String auctionId = request.getPathInfo().substring(1);
+		int auctionId = Integer.parseInt(request.getPathInfo().substring(1));
 		AuctionDAO auctionDao = new AuctionDAO(connection);
 		Auction auctionDetail = new Auction();
 		try {
-			auctionDetail = auctionDao.getAuctionDetail(auctionId);
+			auctionDetail = auctionDao.getAuctionDetails(auctionId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
