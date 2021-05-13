@@ -161,7 +161,7 @@ public class AuctionDAO {
 		}
 	}
 	
-	public Auction getAuctionDetails(int auctionId) throws SQLException{
+	public Auction getAuctionDetails(int auctionId) throws SQLException {
 		String query = "SELECT * FROM auctions_details WHERE id_auction = ?";
 		
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
@@ -193,6 +193,15 @@ public class AuctionDAO {
 				}
 				return auction;
 			}
+		}
+	}
+	
+	public void closeAuction(int auctionId) throws SQLException {
+		String query = "UPDATE auction SET open = FALSE WHERE id_auction = ?;";
+		
+		try (PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setInt(1, auctionId);
+			statement.executeUpdate();
 		}
 	}
 }
