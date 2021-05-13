@@ -89,7 +89,7 @@ public class AuctionDAO {
 	}
 	
 	public Auction getAuctionDetail(String auctionId) throws SQLException {
-		String query = "SELECT * FROM auction_open_details WHERE id_auction = ?";
+		String query = "SELECT * FROM auctions_open_details WHERE id_auction = ?";
 		try(PreparedStatement statement = connection.prepareStatement(query);){
 			statement.setString(1, auctionId);
 			try (ResultSet rs = statement.executeQuery();) {
@@ -107,6 +107,7 @@ public class AuctionDAO {
 						toReturn.setStartingPrice(rs.getFloat("starting_price"));
 						toReturn.setMinimumRise(rs.getFloat("minimum_rise"));
 						toReturn.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+						toReturn.setTimeLeftTimestamp(rs.getTimestamp("time_left").toLocalDateTime());
 						toReturn.setOpen(rs.getBoolean("open"));
 						toReturn.setItem(item);
 						toReturn.setSellerId(rs.getInt("id_seller"));

@@ -23,7 +23,7 @@ import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 
-@WebServlet("/auctions")
+@WebServlet("/auctions/*")
 public class AuctionController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
@@ -51,12 +51,21 @@ public class AuctionController extends HttpServlet{
 		}
 		
 		User user = (User) session.getAttribute("user");
-	
+		String auctionId = request.getPathInfo().substring(1);
+		AuctionDAO auctionDao = new AuctionDAO(connection);
+		Auction auctionDetail = new Auction();
+		try {
+			auctionDetail = auctionDao.getAuctionDetail(auctionId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-		String path = "/WEB-INF/Buy.html";
+		
+		String path = "/WEB-INF/Auction.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 		context.setVariable("user", user);
+		context.setVariable("auctionDetail", auctionDetail);
 		templateEngine.process(path, context, response.getWriter());
 	}
 	

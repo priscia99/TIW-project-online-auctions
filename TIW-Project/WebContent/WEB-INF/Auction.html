@@ -138,23 +138,28 @@
       <div id="cover">
 
         <div id="auction-img-wrapper">
-          <img src="../img/sample.gif" alt="cover" id="auction-img">
         </div>
 
         <div id="auction-overview">
           <div id="auction-title">
-            <h4>Multimetro Tester 2 In 1 Digitale Intelligente Oscilloscopio Grafico Barre 20KHz</h4>
+            <h4 th:text="${auctionDetail.name}"></h4>
           </div>
           <div id="status">
             <p style=" margin-bottom: 5px;">Status: <span style="font-weight: bold;">Open</span></p>
-            <p style=" margin-bottom: 5px;">Expires on <span style="font-weight: bold">02/06/2022</span> at <span style="font-weight: bold">08:00 PM</span></p>
-            <p>Time before expiration: <span style="font-weight: bold">16h 23m</span></p>
+            <p style=" margin-bottom: 5px;">Expires on <span style="font-weight: bold" th:text="${auctionDetail.end}"></span></p>
+            <p>Time before expiration: <span style="font-weight: bold" th:text="${auctionDetail.timeLeftTimestamp}"></span></p>
           </div>
           <div class="rows centered-flex">
             <div id="offer" class="round">
               <div id="price">
-                <p style="font-weight: bold; font-size: 20px;"> EUR 52.70 </p>
+                <p style="font-weight: bold; font-size: 20px;"> EUR <span th:text="${auctionDetail.currentPrice}"></span> </p>
                 <a href=""># Offerte</a>
+                <ul>
+                	<li th:each="bid : ${auctionDetail.bids}">
+                		Bidder id: <span th:text="bid.bidderId"></span><br>
+                		
+                	</li>
+                </ul>
               </div>
               <form action="CreateOffer" id="place-offer">
                 <div id="field">
@@ -173,99 +178,7 @@
 
       </div>
       <div id="description">
-        <p>Sei ancora perplesso nel cambiare frequentemente il contatore? Porterà a bassa efficienza per ostacolare il lavoro e costi elevati nel lavoro. Hai bisogno urgentemente del multimetro dell'oscilloscopio. Questo multimetro oscilloscopio 2 in 1 è più comodo e facile da usare.
-
-          Caratteristiche:
-          Multimetro digitale con campionamento A / D 200K ad alta velocità, 4000 conteggi auto-range, interruttore a un pulsante di visualizzazione grafica della forma d'onda durante la misurazione.
-          Elevata affidabilità con tecnologia di calibrazione del pannello e calibrazione della memoria, risparmiando la necessità di regolazione con potenziometro.
-          Memorizzazione indipendente di 100 set di dati e 10 forme d'onda.
-          Capace di contenere la forma d'onda e i dati durante la misurazione, facile da visualizzare e analizzare.
-          Visualizzazione dei dati storici e misurazione in tempo reale sullo stesso schermo con particolare modalità di lettura dei record per un facile confronto.
-          Dotato di tensione / corrente DC / AC, resistenza, capacità / mF (grande capacità), frequenza / duty cycle, diodo / test di continuità.
-          Larghezza di banda della tensione AC fino a 20 KHz.
-          Design innovativo per la "modalità silenziosa" a una chiave, silenzioso nella padronanza.
-          Misura di frequenza con intervallo di commutazione automatica 5Hz ~ 5MHz e ingresso massimo di 380VAC.
-          Misurazione della corrente CA e CC 10A con protezione contro l'errore di tensione.
-          Capacità doppia marcia design 0.1nf-100uf posizione ingranaggio: conveniente per piccoli condensatori per misurare rapidamente.
-          Posizione del cambio 10mf: alta capacità e alta precisione sono garantite.
-          Realizzazione dell'acquisizione automatica della forma d'onda con un solo pulsante, facile da usare per apprendere e utilizzare.
-          Eliminazione efficace della resistenza di piombo, della capacità distribuita o dei segnali di interferenza con misurazione del valore relativo (azzeramento).
-          Estensione della durata della batteria con funzione di spegnimento automatico.
-
-          specifiche tecniche:
-          Materiale: ABS
-          Colore principale: grigio
-          Display: display LCD, grafica a matrice di 128 * 64 pixel, 4000 conteggi
-          Dimensioni LCD: 60 * 40 mm / 2,4 * 1,6 pollici
-          Retroilluminazione: bianca
-          Alimentazione: batteria AA 3 * 1,5 V (non inclusa)
-          Resistenza d'ingresso: 10M?
-          Sospensione automatica: sì (lo strumento si spegne automaticamente in 15 minuti senza utilizzare il pulsante)
-          Consumo energetico: circa 40 mA
-          Capacità di memoria: dati DMM: 100 gruppi, registrazione della forma d'onda: 10 gruppi
-          Ambiente operativo: 0 ? ~ + 40 ?; <75% RH
-          Ambiente di stoccaggio: -10 ? ~ + 60 ?; <90% RH
-          Dimensioni dell'articolo: 160 * 83 * 32 mm / 6,3 * 3,3 * 1,3 pollici
-          Peso dell'articolo: 190 g / 6,7 once
-          Formato del pacchetto: 190 * 140 * 45 mm / 7,5 * 5,5 * 1,8 pollici
-          Peso del pacchetto: 360 g / 12,7 once
-
-          Scopemeter di archiviazione digitale:
-          Larghezza di banda analogica: ACV / DCV / ACA / DCA 20KHz
-          Frequenza di campionamento massima in tempo reale: 200ksps
-
-          Multimetro digitale:
-          Tensione DC:
-          Gamma: 400mV / 4V / 40V / 400V / 1000V
-          Risoluzione: 0,1 mV / 1 mV / 10 mV / 100 mV / 1 V
-          Incertezza:
-          400mV: ± (0,75% rdg + 10dgt)
-          4V / 40V / 400V / 1000V: ± (1,5% rdg + 10dgt) / 1000V
-          Tensione alternata:
-          Gamma: 400mV / 4V / 40V / 400V / 750V
-          Risoluzione: 0,1 mV / 1 mV / 10 mV / 100 mV / 1 V
-          Incertezza:
-          400mV: 50Hz ~ 1KHz / ± (2,0% rdg + 10dgt) non più di 1KHz
-          4 V / 40 V / 400 V: 50Hz ~ 400Hz / ± (1.0% rdg + 10dgt) 400Hz ~ 20KHz / ± (5.0% rdg + 10dgt)
-          750V: 50Hz ~ 1KHz / ± (1,5% rdg + 10dgt) non più di 1KHz
-          Corrente continua:
-          Gamma: 40mA / 400mA, 4A / 10A
-          Risoluzione:
-          40mA / 400mA: 10?A / 100?A
-          4A / 10A: 1mA / 10mA
-          Incertezza: ± (1,2% rdg + 10dgt)
-          Corrente alternata:
-          Gamma: 40mA / 400mA, 4A / 10A
-          Risoluzione:
-          40mA / 400mA: 10?A / 100?A
-          4A / 10A: 1mA / 10mA
-          Incertezza: ± (1,5% rdg + 10dgt) 50Hz ~ 5KHz non più di 5KHz
-          Resistenza:
-          Intervallo: 400? / 4K? / 40K? / 400K? / 4M? / 40M?
-          Risoluzione: 0,1? / 1? / 10? / 100? / 1K? / 10K?
-          Incertezza: ± (1,0% rdg + 5dgt) ± (3,0% rdg + 5dgt) / 40M?
-          Capacità:
-          Intervallo: 51.2nF / 512nF / 5.12?F / 51.2?F / 100?F / 10mF
-          Risoluzione:
-          51.2nF / 512nF / 5.12?F / 51.2?F / 100?F: 10pF / 100pF / 1nF / 10nF / 100nF
-          10mF: 1?F
-          Incertezza:
-          51.2nF / 512nF / 5.12?F / 51.2?F / 100?F: ± (3.0% rdg + 10dgt)
-          10mF: ± (5,0% rdg + 15dgt)
-          Frequenza:
-          Intervallo: 5Hz ~ 5MHz
-          Risoluzione: 1Hz
-          Incertezza: ± (1,0% rdg + 5dgt), (ampiezza del segnale non inferiore a 2 Vp-p, ACV, MAX 380 V)
-          Test diodi: la tensione a circuito aperto è di circa 1,5 V, la corrente massima di test è di circa 1,5 mA
-          Test di continuità: la resistenza di riferimento è di circa 50?
-          Specifica del fusibile: 500mA / 250V, 10A / 250V
-
-          Elenco dei pacchetti:
-          1 * oscilloscopio multimetro
-          1 * paio di penne di prova
-          1 * Borsa protettiva
-          1 * Manuale dell'utente
-        </p>
+       
       </div>
     </div>
   </div>
