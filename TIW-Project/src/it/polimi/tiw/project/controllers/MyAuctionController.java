@@ -23,14 +23,14 @@ import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 
-@WebServlet("/auction-details")
-public class AuctionDetailsController extends HttpServlet {
+@WebServlet("/my-auctions")
+public class MyAuctionController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private Connection connection = null;
 	private TemplateEngine templateEngine; // Used for Thymeleaf
        
-    public AuctionDetailsController() {
+    public MyAuctionController() {
         super();
     }
     
@@ -62,7 +62,7 @@ public class AuctionDetailsController extends HttpServlet {
 			final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 			auction.calculateTimeLeft(LocalDateTime.now());
 			context.setVariable("auction", auction);
-			path = "/WEB-INF/Details.html";
+			path = "/WEB-INF/MyAuction.html";
 			templateEngine.process(path, context, response.getWriter());
 		} catch (SQLException e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error while retrieving auction's details: SQL exception");

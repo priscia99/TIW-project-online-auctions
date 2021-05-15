@@ -137,7 +137,7 @@
                         <li class="auction color-solid-l">
                             <img th:src="${'data:image/png;base64,' + auction.item.image}" alt="" class="auction-img">
                             <div class="rows" style="margin-left: 10px;">
-                                <a th:href="@{/auction-details(id=${auction.id})}">
+                                <a th:href="@{/my-auctions(id=${auction.id})}">
                                     <h3 style="max-height: 95px; overflow: hidden; margin:0; padding:0;" th:text="${auction.item.name}">item name</h3>
                                 </a>
                                 <div style="margin: 0; padding: 0" class="auction-attr columns">
@@ -167,7 +167,7 @@
                         <li class="auction color-solid-l">
                             <img th:src="${'data:image/png;base64,' + auction.item.image}" alt="" class="auction-img">
                             <div class="rows" style="margin-left: 10px;">
-                                <a th:href="@{/auction-details(id=${auction.id})}">
+                                <a th:href="@{/my-auctions(id=${auction.id})}">
                                     <h3 style="max-height: 95px; overflow: hidden; margin:0; padding:0;" th:text="${auction.item.name}">item name</h3>
                                 </a>
                                 <div style="margin: 0; padding: 0" class="auction-attr columns">
