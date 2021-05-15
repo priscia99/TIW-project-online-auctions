@@ -57,7 +57,7 @@ public class AuctionDetailsController extends HttpServlet {
 		AuctionDAO dao = new AuctionDAO(connection);
 		
 		try {
-			Auction auction = dao.getAuctionDetails(Integer.parseInt(request.getParameter("id")));
+			Auction auction = dao.getAuctionDetails(Integer.parseInt(request.getParameter("id")), LocalDateTime.now());
 			
 			final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 			auction.calculateTimeLeft(LocalDateTime.now());

@@ -3,6 +3,7 @@ package it.polimi.tiw.project.controllers;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -54,7 +55,7 @@ public class AuctionController extends HttpServlet{
 		AuctionDAO auctionDao = new AuctionDAO(connection);
 		Auction auctionDetail = new Auction();
 		try {
-			auctionDetail = auctionDao.getAuctionDetails(auctionId);
+			auctionDetail = auctionDao.getAuctionDetails(auctionId, LocalDateTime.now());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

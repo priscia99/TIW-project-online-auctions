@@ -104,45 +104,78 @@
           <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
         </a>
   </div>
+  <div class=columns>
+   <div class="rows centered-flex w50 mv50">
+      <h1>Won auctions</h1>
+      		<div th:if="${wonAuctions.size == 0}" th:text="|You have not won any auction yet!|"></div>
+			<div th:if="${wonAuctions.size > 0}">
+    			<div class="w100 rows centered-flex">
+      				<ul class="auction-list">
+        				<li class="auction" th:each="wonAuction : ${wonAuctions}">
+          				<img th:src="${'data:image/png;base64,'+wonAuction.item.image}" alt="" class="auction-img">
+          				<div class="auction-details">
+           					 <a th:href="@{/auctions(id=${wonAuction.id})}">
+             				 	<h3 th:text="${wonAuction.item.name}"></h3>
+           					</a>
+            			<div>
+              			<div>
+                			<p>Is open: <span style="font-weight: bold;" th:text="${wonAuction.open}"></span></p>
+                			<p>Expires on <span style="font-weight: bold;" th:text="${wonAuction.endTimestamp}"></span></p>
+              			</div>
+              			<div class="auction-price-wrap">
+                			<p>Minimum rise: <span style="font-weight: bold;" th:text="|EUR ${wonAuction.minimumRise}|"></span></p>
+                			<p class="auction-price" th:text="|Initial price: EUR ${wonAuction.startingPrice}|"></p>
+              			</div>
+            			</div>
+          				</div>
+        				</li>
+      				</ul>
+    			</div>
+		</div>
+    </div>
+  	<div class="w50">
 
-  <div class="rows centered-flex w100 nav-rest">
-    <div class="rows centered-flex w100 mv50">
-      <h1>Search Auctions</h1>
+    <div class="rows centered-flex mv50">
+          <h1>Search Auctions</h1>
       	<form action="buy" method="POST" class="columns spaced-evenly-flex w80" id="search-bar">
 	        <input type="text" name="query" placeholder="Enter keywords to search" class="round text-field inner-shadow" id="search-field">
 	        <button type="submit" class="round outer-shadow" id="search-button">
 	        	<img src="/TIW-Project/img/search-solid.svg" alt="#search-result" class="small-logo" style="z-index: -2;">
 	        </button>
         </form>
+
     </div>
 	<div th:if="${query != null}" >
-	<div th:if="${openAuctions.size > 0}">
-	<div  th:text="|Ecco i risultati per ${query}|" ></div>
-    <div class="w100 rows centered-flex">
-      <ul class="auction-list">
-        <li class="auction" th:each="openAuction : ${openAuctions}">
-          <img th:src="${'data:image/png;base64,'+openAuction.item.image}" alt="" class="auction-img">
-          <div class="auction-details">
-            <a th:href="@{/auctions(id=${openAuction.id})}">
-              <h3 th:text="${openAuction.item.name}"></h3>
-            </a>
-            <div>
-              <div>
-                <p>Is open: <span style="font-weight: bold;" th:text="${openAuction.open}"></span></p>
-                <p>Expires on <span style="font-weight: bold;" th:text="${openAuction.endTimestamp}"></span></p>
-              </div>
-              <div class="auction-price-wrap">
-                <p>Minimum rise: <span style="font-weight: bold;" th:text="|EUR ${openAuction.minimumRise}|"></span></p>
-                <p class="auction-price" th:text="|Initial price: EUR ${openAuction.startingPrice}|"></p>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-	</div>
-	<div th:if="${openAuctions.size == 0}" th:text="|Nessun risultato trovato per '${query}'|"></div>
+			<div th:if="${openAuctions.size > 0}">
+				<div  th:text="|Ecco i risultati per ${query}|" ></div>
+    			<div class="w100 rows centered-flex">
+      				<ul class="auction-list">
+        				<li class="auction" th:each="openAuction : ${openAuctions}">
+          				<img th:src="${'data:image/png;base64,'+openAuction.item.image}" alt="" class="auction-img">
+          				<div class="auction-details">
+           					 <a th:href="@{/auctions(id=${openAuction.id})}">
+             				 	<h3 th:text="${openAuction.item.name}"></h3>
+           					</a>
+            			<div>
+              			<div>
+                			<p>Is open: <span style="font-weight: bold;" th:text="${openAuction.open}"></span></p>
+                			<p>Expires on <span style="font-weight: bold;" th:text="${openAuction.endTimestamp}"></span></p>
+              			</div>
+              			<div class="auction-price-wrap">
+                			<p>Minimum rise: <span style="font-weight: bold;" th:text="|EUR ${openAuction.minimumRise}|"></span></p>
+                			<p class="auction-price" th:text="|Initial price: EUR ${openAuction.startingPrice}|"></p>
+              			</div>
+            			</div>
+          				</div>
+        				</li>
+      				</ul>
+    			</div>
+		</div>
+		<div th:if="${openAuctions.size == 0}" th:text="|Nessun risultato trovato per '${query}'|"></div>
   	</div>
+  	
+  	</div>
+
   </div>
 </body>
 </html>

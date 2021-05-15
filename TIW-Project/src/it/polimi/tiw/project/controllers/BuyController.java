@@ -3,6 +3,7 @@ package it.polimi.tiw.project.controllers;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
@@ -54,11 +55,21 @@ public class BuyController extends HttpServlet{
 		
 		User user = (User) session.getAttribute("user");
 	
+		AuctionDAO actionDao = new AuctionDAO(connection);
+		ArrayList<Auction> wonAuctions = new ArrayList<>();
+		try {
+			wonAuctions = actionDao.getUserWonAuctionsList(user.getId(), LocalDateTime.now());
+		}catch(Exception e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Cannot get won auctions");
+			return;
+		}
 		
 		String path = "/WEB-INF/Buy.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 		context.setVariable("user", user);
+		context.setVariable("wonAuctions", wonAuctions);
 		templateEngine.process(path, context, response.getWriter());
 	}
 	
@@ -75,6 +86,14 @@ public class BuyController extends HttpServlet{
 		String query = StringEscapeUtils.escapeJava(request.getParameter("query"));
 		AuctionDAO actionDao = new AuctionDAO(connection);
 		ArrayList<Auction> openAuctions = new ArrayList<>();
+		ArrayList<Auction> wonAuctions = new ArrayList<>();
+		try {
+			wonAuctions = actionDao.getUserWonAuctionsList(user.getId(), LocalDateTime.now());
+		}catch(Exception e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Cannot get won auctions");
+			return;
+		}
 		try {
 			openAuctions = actionDao.filterByArticleName(query);
 		}catch(Exception e) {
@@ -89,6 +108,7 @@ public class BuyController extends HttpServlet{
 		context.setVariable("user", user);
 		context.setVariable("query", query);
 		context.setVariable("openAuctions", openAuctions);
+		context.setVariable("wonAuctions", wonAuctions);
 		templateEngine.process(path, context, response.getWriter());
 	}
 	

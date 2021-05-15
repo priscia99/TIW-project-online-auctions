@@ -96,6 +96,46 @@ public class AuctionDAO {
 		this.createAuction(this.createItem(name, description, image), sellerId, minimumRise, startingPrice, end, true);
 	}
 	
+	public void addBidToAuction(int auctionId, int bidderId, float price) throws SQLException {
+		String query = "INSERT INTO bid(id_auction, id_bidder, price, bid_time) VALUES (?, ?, ?, CURRENT_TIMESTAMP);";
+		try(PreparedStatement statement = connection.prepareStatement(query);){
+			statement.setInt(1, auctionId);
+			statement.setInt(2, bidderId);
+			statement.setFloat(3, price);
+			statement.executeUpdate();
+		}
+				
+	}
+	
+	public ArrayList<Auction> getUserWonAuctionsList(int userId, LocalDateTime timeReference) throws SQLException {
+		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, max_price FROM close_auctions WHERE id_max_bidder = ?;";
+
+		try (PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setInt(1, userId);
+			try (ResultSet rs = statement.executeQuery();) {
+				ArrayList<Auction> toReturn = new ArrayList<>();
+				while (rs.next()) {
+					Item item = new Item();
+					item.setId(rs.getInt("id_item"));
+					item.setName(rs.getString("name"));
+					item.setImage(Base64.getEncoder().encodeToString(rs.getBytes("image")));
+					Bid bid = new Bid();
+					bid.setPrice(rs.getFloat("max_price"));
+					Auction auction = new Auction();
+					auction.setId(rs.getInt("id_auction"));			
+					auction.setStartingPrice(rs.getFloat("starting_price"));
+					auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+					auction.setOpen(rs.getBoolean("open"));
+					auction.setItem(item);
+					auction.addBid(bid);
+					auction.calculateTimeLeft(timeReference);
+					toReturn.add(auction);
+				}
+				return toReturn;
+			}
+		}
+	}
+	
 	// Query lists of open and closed auctions for a specific username
 	public Map<String, ArrayList<Auction>> getUserAuctionLists(int userId, LocalDateTime timeReference) throws SQLException {
 		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, id_max_bid, max_price FROM auctions WHERE id_seller = ?;";
@@ -214,7 +254,7 @@ public class AuctionDAO {
 		}
 	}
 	
-	public Auction getAuctionDetails(int auctionId) throws SQLException {
+	public Auction getAuctionDetails(int auctionId, LocalDateTime timeReference) throws SQLException {
 		String query = "SELECT * FROM auctions_details WHERE id_auction = ?";
 		
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
@@ -232,6 +272,7 @@ public class AuctionDAO {
 					auction.setMinimumRise(rs.getFloat("minimum_rise"));
 					auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
 					auction.setOpen(rs.getBoolean("open"));
+					auction.calculateTimeLeft(timeReference);
 					auction.setItem(item);
 					auction.setSellerId(rs.getInt("id_seller"));
 					// parse bids if exist

@@ -4,7 +4,7 @@
 <head>
   <meta charset="ISO-8859-1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" media="all" href="../css/style.css"/>
+   <link rel="stylesheet" type="text/css" media="all" href="/TIW-Project/css/style.css"/>
   <title>Online Auction - Auction</title>
   <style>
     #logoff-btn {
@@ -40,7 +40,7 @@
       flex-direction: column;
       margin-right: 20px;
     }
-    #auction-img {
+    .auction-img {
       width: 300px;
       height: 300px;
       object-fit: cover;
@@ -121,50 +121,57 @@
 </head>
 <body>
 
-  <div class="container navbar outer-shadow columns centered-flex">
-    <div class="nav-logo"><img src="../img/logo.svg" alt="" class="small-logo"></div>
-    <div class="nav-links">
-      <a href="Home.html" class="text-primary-accent">Home</a>
-      <a href="Buy.html" class="text-primary-accent">Buy</a>
-      <a href="Sell.html" class="active text-primary-accent">Sell</a>
-    </div>
-    <a href="PerformLogout">
+    <!-- NAVBAR -->
+    <div class="container navbar outer-shadow columns centered-flex">
+        <div class="nav-logo">
+            <img src="/TIW-Project/img/logo.svg" alt="" class="small-logo">
+        </div>
+        <div class="nav-links">
+            <a href="home" class="text-primary-accent">Home</a>
+            <a href="buy" class="active text-primary-accent">Buy</a>
+            <a href="sell" class="text-primary-accent">Sell</a>
+        </div>
+        <a href="PerformLogout">
           <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
         </a>
-  </div>
+    </div>
 
   <div class="p-nav" id="content-wrap">
     <div id="content">
       <div id="cover">
 
-        <div id="auction-img-wrapper">
-        </div>
-
+        <img th:src="${'data:image/png;base64,' + auctionDetail.item.image}" alt="" class="auction-img">
         <div id="auction-overview">
           <div id="auction-title">
             <h4 th:text="${auctionDetail.item.name}"></h4>
           </div>
           <div id="status">
             <p style=" margin-bottom: 5px;">Status: <span style="font-weight: bold;">Open</span></p>
-            <p style=" margin-bottom: 5px;">Expires on <span style="font-weight: bold" th:text="${auctionDetail.end}"></span></p>
-            <p>Time before expiration: <span style="font-weight: bold" th:text="${auctionDetail.timeLeftTimestamp}"></span></p>
+            <p style=" margin-bottom: 5px;">Expires on <span style="font-weight: bold" th:text="${auctionDetail.endTimestamp}"></span></p>
+            <p>Time before expiration: <span style="font-weight: bold" th:text="${auctionDetail.timeLeftFormatted}"></span></p>
           </div>
+          <div th:if="${auctionDetail.bids.size()>0}">
+          Offerte
+                    <ul >
+                	<li th:each="bid : ${auctionDetail.bids}">
+                		Bidder id: <span th:text="${bid.bidderId}"></span> amount: <span th:text="${bid.price}"></span> time: <span th:text="${bid.timestamp}"></span>
+                		
+                	</li>
+                </ul>
+          </div>
+
           <div class="rows centered-flex">
             <div id="offer" class="round">
               <div id="price">
                 <p style="font-weight: bold; font-size: 20px;"> EUR <span th:text="${auctionDetail.currentPrice}"></span> </p>
-                <a href=""># Offerte</a>
-                <ul>
-                	<li th:each="bid : ${auctionDetail.bids}">
-                		Bidder id: <span th:text="bid.bidderId"></span><br>
-                		
-                	</li>
-                </ul>
               </div>
-              <form action="CreateOffer" id="place-offer">
+              Create offer:
+              <form action="submit-bid" id="place-offer" method="post">
                 <div id="field">
-                  <input type="text" class="text-field round inner-shadow">
+                  <input type="text" class="text-field round inner-shadow" name="price">
                 </div>
+                <input type="hidden" name="bidderId" th:value="${user.id}">
+                <input type="hidden" name="auctionId" th:value="${auctionDetail.id}">
                 <div class="columns spaced-evenly-flex">
                   <button class="round" type="submit">Confirm</button>
                   <button class="round color-background text-color-accent" type="reset">Cancel</button>
@@ -177,7 +184,7 @@
 
 
       </div>
-      <div id="description">
+      <div id="description" th:text="${auctionDetail.item.description}">
        
       </div>
     </div>
