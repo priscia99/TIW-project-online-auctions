@@ -22,6 +22,7 @@
       font-size: 10px;
     }
     #search-field {
+      background-color: whitesmoke;
       width: calc(100% - 50px);
       margin-right: 10px;
     }
@@ -31,8 +32,6 @@
       padding: 0;
       margin: 0;
       min-width: 650px;
-
-      /*background-color: red;*/
     }
 
 
@@ -53,7 +52,6 @@
       object-fit: cover;
     }
     .auction-details {
-      /*background-color: yellow;*/
       padding: 10px 10px 10px 30px;
       display: flex;
       flex-direction: column;
@@ -63,7 +61,6 @@
       text-decoration: none;
     }
     .auction-details h3 {
-      /*background-color: red;*/
       max-height: 90px;
       overflow: hidden;
       margin: 0 0 10px 0;
@@ -75,15 +72,12 @@
       font-size: 20px;
       font-weight: bold;
       text-transform: uppercase;
-      /*margin: 20px 0;*/
     }
     .auction-details>div {
-      /*background-color: cyan;*/
       display: flex;
       flex-direction: row;
     }
     .auction-details>div>div {
-      /*background-color: gray;*/
       display: flex;
       flex-direction: column;
       padding-right: 50px;
@@ -92,18 +86,22 @@
   </style>
 </head>
 <body>
-
+	
+	<!-- NAVBAR -->
   <div class="container navbar outer-shadow columns centered-flex">
-    <div class="nav-logo"><img src="/TIW-Project/img/logo.svg" alt="" class="small-logo"></div>
-    <div class="nav-links">
-      <a href="home" class="text-primary-accent">Home</a>
-      <a href="buy" class="active text-primary-accent">Buy</a>
-      <a href="sell" class="text-primary-accent">Sell</a>
-    </div>
-    <a href="PerformLogout">
+      <div class="nav-logo"><img src="/TIW-Project/img/logo.svg" alt="" class="small-logo"></div>
+      <div class="nav-links">
+          <a href="home" class="text-primary-accent">Home</a>
+          <a href="buy" class="active text-primary-accent">Buy</a>
+          <a href="sell" class="text-primary-accent">Sell</a>
+      </div>
+      <div class="nav-opt">
+      	<a href="PerformLogout">
           <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
         </a>
-  </div>
+      </div>
+    </div>
+  
   <div class=columns>
    <div class="rows centered-flex w50 mv50">
       <h1>Won auctions</h1>
@@ -138,7 +136,7 @@
     <div class="rows centered-flex mv50">
           <h1>Search Auctions</h1>
       	<form action="buy" method="POST" class="columns spaced-evenly-flex w80" id="search-bar">
-	        <input type="text" name="query" placeholder="Enter keywords to search" class="round text-field inner-shadow" id="search-field">
+	        <input type="text" name="query" placeholder="Enter keywords to search" class="round text-field inner-shadow color-solid" id="search-field">
 	        <button type="submit" class="round outer-shadow" id="search-button">
 	        	<img src="/TIW-Project/img/search-solid.svg" alt="#search-result" class="small-logo" style="z-index: -2;">
 	        </button>

@@ -8,13 +8,13 @@
     /*    --accent: #DD1C1A;*/
     /*}*/
     /* BLUE-ORANGE */
-    :root {
-        --detail: hsla(218, 23%, 21%, 1);
-        --solid: hsla(200, 35%, 60%, 1);
-        --solid-lighter: hsla(161, 28%, 78%, 1);
-        --background: hsla(74, 97%, 89%, 1);
-        --accent: hsla(7, 100%, 56%, 1);
-    }
+    /*:root {*/
+    /*    --detail: hsla(218, 23%, 21%, 1);*/
+    /*    --solid: hsla(200, 35%, 60%, 1);*/
+    /*    --solid-lighter: hsla(161, 28%, 78%, 1);*/
+    /*    --background: hsla(74, 97%, 89%, 1);*/
+    /*    --accent: hsla(7, 100%, 56%, 1);*/
+    /*}*/
     /* GREEN-RANGE */
     /*:root {*/
     /*    --detail: hsla(71, 45%, 15%, 1);*/
@@ -31,14 +31,14 @@
     /*    --solid-lighter: hsla(39, 100%, 45%, 1);*/
     /*    --background: hsla(0, 17%, 88%, 1);*/
     /*}*/
-    /* WHITE-BLUE*/
-    /*:root {*/
-    /*    --detail: dimgrey;*/
-    /*    --solid: whitesmoke;*/
-    /*    --solid-lighter: dodgerblue;*/
-    /*    --background: white;*/
-    /*    --accent: dodgerblue;*/
-    /*}*/
+    /* WHITE-BLUE */
+    :root {
+        --detail: dimgrey;
+        --solid: whitesmoke;
+        --solid-lighter: dodgerblue;
+        --background: white;
+        --accent: dodgerblue;
+    }
 
     @font-face {
         font-family: Roboto;

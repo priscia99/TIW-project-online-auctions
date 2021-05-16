@@ -97,17 +97,17 @@
 
     <!-- NAVBAR -->
     <div class="container navbar outer-shadow columns centered-flex">
-        <div class="nav-logo">
-            <img src="/TIW-Project/img/logo.svg" alt="" class="small-logo">
-        </div>
-        <div class="nav-links">
-            <a href="home" class="text-primary-accent">Home</a>
-            <a href="buy" class="text-primary-accent">Buy</a>
-            <a href="sell" class="active text-primary-accent">Sell</a>
-        </div>
-        <a href="PerformLogout">
+      <div class="nav-logo"><img src="/TIW-Project/img/logo.svg" alt="" class="small-logo"></div>
+      <div class="nav-links">
+          <a href="home" class="text-primary-accent">Home</a>
+          <a href="buy" class="text-primary-accent">Buy</a>
+          <a href="sell" class="active text-primary-accent">Sell</a>
+      </div>
+      <div class="nav-opt">
+      	<a href="PerformLogout">
           <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
         </a>
+      </div>
     </div>
 
     <!-- HEADER -->
@@ -127,17 +127,17 @@
     <div class="columns spaced-evenly-flex" style="flex-flow: row wrap;">
         <div class="rows w40" id="active-list">
             <div class="columns w100 color-solid filter-bar" style="z-index: 0">
-                <div class="ph20 text-color-background">
+                <div class="ph20">
                     Open Auctions
                 </div>
             </div>
             <div class="rows w100 scrollable auction-list-wrapper inner-shadow">
                 <div class="color-solid w100 h100">
-                    <ul class="auction-list color-solid-l" style="z-index: -1;" th:each="auction : ${openAuctions}">
-                        <li class="auction color-solid-l">
+                    <ul class="auction-list color-solid" style="z-index: -1;" th:each="auction : ${openAuctions}">
+                        <li class="auction color-solid">
                             <img th:src="${'data:image/png;base64,' + auction.item.image}" alt="" class="auction-img">
                             <div class="rows" style="margin-left: 10px;">
-                                <a th:href="@{/my-auctions(id=${auction.id})}">
+                                <a th:href="@{/details(id=${auction.id})}">
                                     <h3 style="max-height: 95px; overflow: hidden; margin:0; padding:0;" th:text="${auction.item.name}">item name</h3>
                                 </a>
                                 <div style="margin: 0; padding: 0" class="auction-attr columns">
@@ -157,14 +157,14 @@
         <!-- CLOSED AUCTIONS LIST -->
         <div class="rows w40" id="closed-list">
             <div class="columns w100 color-solid filter-bar" style="z-index: 0">
-                <div class="ph20 text-color-background">
+                <div class="ph20">
                     Closed Auctions
                 </div>
             </div>
             <div class="rows w100 scrollable auction-list-wrapper inner-shadow">
                 <div class="color-solid w100 h100">
-                    <ul class="auction-list color-solid-l" style="z-index: -1;" th:each="auction : ${closeAuctions}">
-                        <li class="auction color-solid-l">
+                    <ul class="auction-list color-solid" style="z-index: -1;" th:each="auction : ${closeAuctions}">
+                        <li class="auction color-solid">
                             <img th:src="${'data:image/png;base64,' + auction.item.image}" alt="" class="auction-img">
                             <div class="rows" style="margin-left: 10px;">
                                 <a th:href="@{/my-auctions(id=${auction.id})}">

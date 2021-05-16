@@ -108,7 +108,7 @@ public class AuctionDAO {
 	}
 	
 	public ArrayList<Auction> getUserWonAuctionsList(int userId, LocalDateTime timeReference) throws SQLException {
-		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, max_price FROM close_auctions WHERE id_max_bidder = ?;";
+		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, max_price FROM auctions_summary WHERE id_max_bidder = ? AND open = FALSE;";
 
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setInt(1, userId);
@@ -138,7 +138,7 @@ public class AuctionDAO {
 	
 	// Query lists of open and closed auctions for a specific username
 	public Map<String, ArrayList<Auction>> getUserAuctionLists(int userId, LocalDateTime timeReference) throws SQLException {
-		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, id_max_bid, max_price FROM auctions WHERE id_seller = ?;";
+		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, id_max_bid, max_price FROM auctions_summary WHERE id_seller = ?;";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setInt(1, userId);
 
@@ -185,7 +185,7 @@ public class AuctionDAO {
 
 	// Query list of open auction for a specific username
 	public ArrayList<Auction> getUserOpenAuctions(int userId, LocalDateTime timeReference) throws SQLException {
-		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, id_max_bid, max_price FROM open_auctions WHERE id_seller = ?;";
+		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, id_max_bid, max_price FROM auctions_summary WHERE id_seller = ? AND open=TRUE;";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setInt(1, userId);
 
@@ -226,7 +226,7 @@ public class AuctionDAO {
 
 	// Query list of close auction for a specific username
 	public ArrayList<Auction> getUserCloseAuctions(int userId, LocalDateTime timeReference) throws SQLException {
-		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, max_price FROM close_auctions WHERE id_seller = ?;";
+		String query = "SELECT id_item, name, image, id_auction, starting_price, end, open, max_price FROM auctions_summary WHERE id_seller = ? AND open=FALSE;";
 
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setInt(1, userId);
