@@ -35,7 +35,7 @@
     :root {
         --detail: dimgrey;
         --solid: whitesmoke;
-        --solid-lighter: dodgerblue;
+        --solid-lighter: white;
         --background: white;
         --accent: dodgerblue;
     }
@@ -510,7 +510,7 @@
         text-decoration: overline;
     }
     .nav-links > a.active {
-        color: var(--solid-lighter);
+        color: var(--accent);
         font-weight: bold;
     }
 

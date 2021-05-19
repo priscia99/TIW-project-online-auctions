@@ -140,10 +140,10 @@
                                 <a th:href="@{/details(id=${auction.id})}">
                                     <h3 style="max-height: 95px; overflow: hidden; margin:0; padding:0;" th:text="${auction.item.name}">item name</h3>
                                 </a>
-                                <div style="margin: 0; padding: 0" class="auction-attr columns">
-                                    <p style="margin: 0; padding: 0" th:text="'Item ID: ' + ${auction.item.id}" class="ph0">item id</p>
+                                <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
+                                    <p style="margin:0; padding: 0;" th:text="'Item ID: ' + ${auction.item.id}" class="ph0">item id</p>
                                     <span class="mh20"></span>
-                                    <p style="margin: 0; padding: 0" th:text="'Hours left: ' + ${auction.timeLeftFormatted}" class="ph0">time left</p>
+                                    <p style="margin: 0; padding: 0;" th:text="'Hours left: ' + ${auction.timeLeftFormatted}" class="ph0">time left</p>
                                 </div>
                                 <h4 style="margin: 0; padding: 0" th:text="'EUR ' + ${auction.currentPrice}">current price</h4>
                             </div>
@@ -167,13 +167,11 @@
                         <li class="auction color-solid">
                             <img th:src="${'data:image/png;base64,' + auction.item.image}" alt="" class="auction-img">
                             <div class="rows" style="margin-left: 10px;">
-                                <a th:href="@{/my-auctions(id=${auction.id})}">
+                                <a th:href="@{/details(id=${auction.id})}">
                                     <h3 style="max-height: 95px; overflow: hidden; margin:0; padding:0;" th:text="${auction.item.name}">item name</h3>
                                 </a>
-                                <div style="margin: 0; padding: 0" class="auction-attr columns">
+                                <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
                                     <p style="margin: 0; padding: 0" th:text="'Item ID: ' + ${auction.item.id}" class="ph0">item id</p>
-                                    <span class="mh20"></span>
-                                    <p style="margin: 0; padding: 0" th:text="'Hours left: ' + ${auction.timeLeftFormatted}" class="ph0">time left</p>
                                 </div>
                                 <h4 style="margin: 0; padding: 0" th:text="'EUR ' + ${auction.currentPrice}">current price</h4>
                             </div>
@@ -198,13 +196,13 @@
                     <div class="mv10">
                         <label>
                             Name: <br>
-                            <textarea style="margin-top: 5px;" name="item-name" id="name" class="multiline-text-field round inner-shadow" cols="30" rows="2"></textarea>
+                            <textarea style="margin-top: 5px;" name="item-name" id="name" class="multiline-text-field color-solid-l round inner-shadow" cols="30" rows="2"></textarea>
                         </label>
                     </div>
                     <div class="mv10">
                         <label>
                             Description (max 2000 characters): <br>
-                            <textarea style="margin-top: 5px;" name="item-descritpion" id="description" class="multiline-text-field round inner-shadow" cols="30" rows="10"></textarea>
+                            <textarea style="margin-top: 5px;" name="item-descritpion" id="description" class="multiline-text-field color-solid-l  round inner-shadow" cols="30" rows="10"></textarea>
                         </label>
                     </div>
                 </div>
@@ -212,25 +210,25 @@
                     <div class="mv10">
                         <label>
                             Starting price: <br>
-                            <input type="number" step="0.01" class="round inner-shadow text-field" id="price" min="1" value="1" name="auction-starting-price">
+                            <input type="number" step="0.01" class="round inner-shadow text-field color-solid-l " id="price" min="1" value="1" name="auction-starting-price">
                         </label>
                     </div>
                     <div class="mv10">
                         <label>
                             Minimum rise: <br>
-                            <input type="number" step="0.01" class="round inner-shadow text-field" id="rise" min="1" value="1" name="auction-minimum-rise">
+                            <input type="number" step="0.01" class="round inner-shadow text-field color-solid-l " id="rise" min="1" value="1" name="auction-minimum-rise">
                         </label>
                     </div>
                     <div class="mv10">
                         <label>
                             Expires on: <br>
-                            <input style="margin-top: 5px;" type="datetime-local" class="text-field round inner-shadow" id="end" name="auction-end-timestamp">
+                            <input style="margin-top: 5px;" type="datetime-local" class="text-field round inner-shadow color-solid-l " id="end" name="auction-end-timestamp">
                         </label>
                     </div>
                     <div class="mv10">
                         <label>
                             Load an image <br>
-                            <input type="file" style="margin-top: 5px;" name="item-image" id="image">
+                            <input type="file" style="margin-top: 5px;" name="item-image color-solid-l" id="image">
                         </label>
                     </div>
                 </div>
