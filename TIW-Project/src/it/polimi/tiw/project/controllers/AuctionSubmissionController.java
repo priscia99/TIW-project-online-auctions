@@ -98,10 +98,7 @@ public class AuctionSubmissionController extends HttpServlet {
 
 		// Respond to bad request
 		if (badRequest) {
-			final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
-			context.setVariable("signupInfoMsg", "Missing or empty parameters");
-			templateEngine.process("/signup.html", context, response.getWriter());
-			return;
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing or unexpected parameters.");
 		}
 
 		// Create user in DB using UserDAO
