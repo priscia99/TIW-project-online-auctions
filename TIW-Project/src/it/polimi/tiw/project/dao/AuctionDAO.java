@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import it.polimi.tiw.project.beans.Item;
+import it.polimi.tiw.project.utils.TimezoneHelper;
 import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.beans.Bid;
 
@@ -127,7 +128,7 @@ public class AuctionDAO {
 					Auction auction = new Auction();
 					auction.setId(rs.getInt("id_auction"));			
 					auction.setStartingPrice(rs.getFloat("starting_price"));
-					auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
+					auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(TimezoneHelper.getCustomTimezoneID()).toLocalDateTime());
 					auction.setOpen(rs.getBoolean("open"));
 					auction.setItem(item);
 					auction.addBid(bid);
@@ -157,7 +158,7 @@ public class AuctionDAO {
 						Auction auction = new Auction();
 						auction.setId(rs.getInt("id_auction"));			
 						auction.setStartingPrice(rs.getFloat("starting_price"));
-						auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
+						auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(TimezoneHelper.getCustomTimezoneID()).toLocalDateTime());
 						auction.setOpen(rs.getBoolean("open"));
 						auction.setItem(item);
 						auction.calculateTimeLeft(timeReference);
@@ -169,7 +170,7 @@ public class AuctionDAO {
 						Auction auction = new Auction();
 						auction.setId(rs.getInt("id_auction"));			
 						auction.setStartingPrice(rs.getFloat("starting_price"));
-						auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
+						auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(TimezoneHelper.getCustomTimezoneID()).toLocalDateTime());
 						auction.setOpen(rs.getBoolean("open"));
 						auction.setItem(item);
 						auction.addBid(bid);
@@ -204,7 +205,7 @@ public class AuctionDAO {
 						Auction auction = new Auction();
 						auction.setId(rs.getInt("id_auction"));			
 						auction.setStartingPrice(rs.getFloat("starting_price"));
-						auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
+						auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(TimezoneHelper.getCustomTimezoneID()).toLocalDateTime());
 						auction.setOpen(rs.getBoolean("open"));
 						auction.setItem(item);
 						auction.calculateTimeLeft(timeReference);
@@ -215,7 +216,7 @@ public class AuctionDAO {
 						Auction auction = new Auction();
 						auction.setId(rs.getInt("id_auction"));			
 						auction.setStartingPrice(rs.getFloat("starting_price"));
-						auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
+						auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(TimezoneHelper.getCustomTimezoneID()).toLocalDateTime());
 						auction.setOpen(rs.getBoolean("open"));
 						auction.setItem(item);
 						auction.addBid(bid);
@@ -246,7 +247,7 @@ public class AuctionDAO {
 					Auction auction = new Auction();
 					auction.setId(rs.getInt("id_auction"));			
 					auction.setStartingPrice(rs.getFloat("starting_price"));
-					auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
+					auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(TimezoneHelper.getCustomTimezoneID()).toLocalDateTime());
 					auction.setOpen(rs.getBoolean("open"));
 					auction.setItem(item);
 					auction.addBid(bid);
@@ -274,7 +275,7 @@ public class AuctionDAO {
 					auction.setId(rs.getInt("id_auction"));			
 					auction.setStartingPrice(rs.getFloat("starting_price"));
 					auction.setMinimumRise(rs.getFloat("minimum_rise"));
-					auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
+					auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(TimezoneHelper.getCustomTimezoneID()).toLocalDateTime());
 					auction.setOpen(rs.getBoolean("open"));
 					auction.calculateTimeLeft(timeReference);
 					auction.setItem(item);
@@ -287,7 +288,7 @@ public class AuctionDAO {
 						bid.setId(rs.getInt("id_bid"));
 						bid.setBidderId(rs.getInt("id_bidder"));
 						bid.setPrice(rs.getFloat("price"));
-						bid.setTimestamp(rs.getTimestamp("bid_time").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
+						bid.setTimestamp(rs.getTimestamp("bid_time").toInstant().atZone(TimezoneHelper.getCustomTimezoneID()).toLocalDateTime());
 						bids.add(bid);
 						// parse next bids
 						while (rs.next()) {
@@ -295,7 +296,7 @@ public class AuctionDAO {
 							bid.setId(rs.getInt("id_bid"));
 							bid.setBidderId(rs.getInt("id_bidder"));
 							bid.setPrice(rs.getFloat("price"));
-							bid.setTimestamp(rs.getTimestamp("bid_time").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
+							bid.setTimestamp(rs.getTimestamp("bid_time").toInstant().atZone(TimezoneHelper.getCustomTimezoneID()).toLocalDateTime());
 							bids.add(bid);
 						}
 						auction.setBids(bids);
