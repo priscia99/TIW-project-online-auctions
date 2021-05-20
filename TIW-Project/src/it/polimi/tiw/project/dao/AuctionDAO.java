@@ -7,10 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import it.polimi.tiw.project.beans.Item;
 import it.polimi.tiw.project.beans.Auction;
@@ -42,7 +45,7 @@ public class AuctionDAO {
 					auction.setId(rs.getInt("id_auction"));			
 					auction.setStartingPrice(rs.getFloat("starting_price"));
 					auction.setMinimumRise(rs.getFloat("minimum_rise"));
-					auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+					auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
 					auction.setOpen(rs.getBoolean("open"));
 					auction.setItem(item);
 					auction.setSellerId(rs.getInt("id_seller"));
@@ -124,7 +127,7 @@ public class AuctionDAO {
 					Auction auction = new Auction();
 					auction.setId(rs.getInt("id_auction"));			
 					auction.setStartingPrice(rs.getFloat("starting_price"));
-					auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+					auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
 					auction.setOpen(rs.getBoolean("open"));
 					auction.setItem(item);
 					auction.addBid(bid);
@@ -154,7 +157,7 @@ public class AuctionDAO {
 						Auction auction = new Auction();
 						auction.setId(rs.getInt("id_auction"));			
 						auction.setStartingPrice(rs.getFloat("starting_price"));
-						auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+						auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
 						auction.setOpen(rs.getBoolean("open"));
 						auction.setItem(item);
 						auction.calculateTimeLeft(timeReference);
@@ -166,7 +169,7 @@ public class AuctionDAO {
 						Auction auction = new Auction();
 						auction.setId(rs.getInt("id_auction"));			
 						auction.setStartingPrice(rs.getFloat("starting_price"));
-						auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+						auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
 						auction.setOpen(rs.getBoolean("open"));
 						auction.setItem(item);
 						auction.addBid(bid);
@@ -190,6 +193,7 @@ public class AuctionDAO {
 			statement.setInt(1, userId);
 
 			try (ResultSet rs = statement.executeQuery();) {
+	
 				ArrayList<Auction> toReturn = new ArrayList<>();
 				while (rs.next()) {
 					Item item = new Item();
@@ -200,7 +204,7 @@ public class AuctionDAO {
 						Auction auction = new Auction();
 						auction.setId(rs.getInt("id_auction"));			
 						auction.setStartingPrice(rs.getFloat("starting_price"));
-						auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+						auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
 						auction.setOpen(rs.getBoolean("open"));
 						auction.setItem(item);
 						auction.calculateTimeLeft(timeReference);
@@ -211,7 +215,7 @@ public class AuctionDAO {
 						Auction auction = new Auction();
 						auction.setId(rs.getInt("id_auction"));			
 						auction.setStartingPrice(rs.getFloat("starting_price"));
-						auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+						auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
 						auction.setOpen(rs.getBoolean("open"));
 						auction.setItem(item);
 						auction.addBid(bid);
@@ -242,7 +246,7 @@ public class AuctionDAO {
 					Auction auction = new Auction();
 					auction.setId(rs.getInt("id_auction"));			
 					auction.setStartingPrice(rs.getFloat("starting_price"));
-					auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+					auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
 					auction.setOpen(rs.getBoolean("open"));
 					auction.setItem(item);
 					auction.addBid(bid);
@@ -270,7 +274,7 @@ public class AuctionDAO {
 					auction.setId(rs.getInt("id_auction"));			
 					auction.setStartingPrice(rs.getFloat("starting_price"));
 					auction.setMinimumRise(rs.getFloat("minimum_rise"));
-					auction.setEndTimestamp(rs.getTimestamp("end").toLocalDateTime());
+					auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
 					auction.setOpen(rs.getBoolean("open"));
 					auction.calculateTimeLeft(timeReference);
 					auction.setItem(item);
@@ -283,7 +287,7 @@ public class AuctionDAO {
 						bid.setId(rs.getInt("id_bid"));
 						bid.setBidderId(rs.getInt("id_bidder"));
 						bid.setPrice(rs.getFloat("price"));
-						bid.setTimestamp(rs.getTimestamp("bid_time").toLocalDateTime());
+						bid.setTimestamp(rs.getTimestamp("bid_time").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
 						bids.add(bid);
 						// parse next bids
 						while (rs.next()) {
@@ -291,7 +295,7 @@ public class AuctionDAO {
 							bid.setId(rs.getInt("id_bid"));
 							bid.setBidderId(rs.getInt("id_bidder"));
 							bid.setPrice(rs.getFloat("price"));
-							bid.setTimestamp(rs.getTimestamp("bid_time").toLocalDateTime());
+							bid.setTimestamp(rs.getTimestamp("bid_time").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
 							bids.add(bid);
 						}
 						auction.setBids(bids);
