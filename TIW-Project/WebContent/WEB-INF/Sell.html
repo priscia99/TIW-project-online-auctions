@@ -145,6 +145,9 @@
                                     <span class="mh20"></span>
                                     <p style="margin: 0; padding: 0;" th:text="'Hours left: ' + ${auction.timeLeftFormatted}" class="ph0">time left</p>
                                 </div>
+                                <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
+                                    <p style="margin: 0; padding: 0"th:if="${auction.getMaxBid()!=null}" th:text="'Max bid done:'+${auction.getMaxBid.getPrice} " class="ph0">maxbid</p>
+                                </div>
                                 <h4 style="margin: 0; padding: 0" th:text="'EUR ' + ${auction.currentPrice}">current price</h4>
                             </div>
                         </li>
@@ -172,6 +175,9 @@
                                 </a>
                                 <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
                                     <p style="margin: 0; padding: 0" th:text="'Item ID: ' + ${auction.item.id}" class="ph0">item id</p>
+                                </div>
+                                <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
+                                    <p style="margin: 0; padding: 0" th:if="${auction.getMaxBid()!=null}" th:text="'Max bid done:'+${auction.getMaxBid.getPrice}  " class="ph0">maxbid</p>
                                 </div>
                                 <h4 style="margin: 0; padding: 0" th:text="'EUR ' + ${auction.currentPrice}">current price</h4>
                             </div>
