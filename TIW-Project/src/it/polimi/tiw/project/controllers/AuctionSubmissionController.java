@@ -90,7 +90,7 @@ public class AuctionSubmissionController extends HttpServlet {
 
 			badRequest = itemName == null || itemName.isEmpty() || itemDescription == null || itemDescription.isEmpty()
 					|| imageStream == null || (imageStream.available() == 0) || !mimeType.startsWith("image/")
-					|| auctionStartingPrice.isEmpty() || auctionMinimumRise.isEmpty() || auctionEndTimestamp.isEmpty();
+					|| auctionStartingPrice.isEmpty() || auctionMinimumRise.isEmpty() || auctionMinimumRise.contains(".") ||  auctionEndTimestamp.isEmpty();
 		} catch (Exception e) {
 			badRequest = true;
 			e.printStackTrace();
@@ -99,6 +99,7 @@ public class AuctionSubmissionController extends HttpServlet {
 		// Respond to bad request
 		if (badRequest) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing or unexpected parameters.");
+			return;
 		}
 
 		// Create user in DB using UserDAO
