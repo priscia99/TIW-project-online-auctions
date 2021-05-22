@@ -86,7 +86,7 @@
                 <p>Minimum rise: <span th:text="'EUR ' + ${auction.minimumRise}" style="font-weight: bold;"></span></p>
                 <p>Starting price: <span th:text="'EUR ' + ${auction.startingPrice}" style="font-weight: bold;"></span></p>
                 <p>Ends on <span th:text="${auction.endTimestamp.toString().replace('T', ' ')}" style="font-weight: bold;"></span></p>
-                <p>Time left: <span th:text="${auction.timeLeftFormatted}" style="font-weight: bold;"></span> hours</p>
+                <p>Time left: <span th:text="${auction.timeLeftFormatted}" style="font-weight: bold;"></span></p>
                 <p th:if="${auction.open}">Status: <span style="font-weight: bold;">Open</span></p>
                 <p th:if="${not auction.open}">Status: <span style="font-weight: bold;">Closed</span></p>
             </div>
@@ -100,6 +100,7 @@
         		<tr>
 		        	<th>Bid ID</th>
 		        	<th>Bidder ID</th>
+                    <th>Bidder Name</th>
 		        	<th>Price</th>
 		        	<th>Time</th>
 		        </tr>
@@ -120,6 +121,7 @@
         		<tr th:each="bid : ${auction.bids}">
 		        	<td th:text="${bid.id}">Bid ID</td>
 		        	<td th:text="${bid.bidderId}">Bidder ID</td>
+                    <td th:text="${bid.bidderName}">Bidder ID</td>
 		        	<td th:text="${bid.price}">Price</td>
 		        	<td th:text="${bid.timestamp.toString().replace('T', ' ')}">Time</td>
 		        </tr>
@@ -131,6 +133,7 @@
 		        <tr th:if="${not auction.getMaxBid() == null}">
 		        	<td th:text="${auction.getMaxBid().id}">Bid ID</td>
 		        	<td th:text="${auction.getMaxBid().bidderId}">Bidder ID</td>
+                    <td th:text="${auction.getMaxBid().bidderName}">Bidder ID</td>
 		        	<td th:text="${auction.getMaxBid().price}">Price</td>
 		        	<td th:text="${auction.getMaxBid().timestamp.toString().replace('T', ' ')}">Time</td>
 		        </tr>

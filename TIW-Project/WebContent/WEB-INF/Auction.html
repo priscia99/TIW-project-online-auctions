@@ -165,7 +165,8 @@
               <div id="price">
                 <p style="font-weight: bold; font-size: 20px;"> EUR <span th:text="${auctionDetail.currentPrice}"></span> </p>
               </div>
-              Create offer:
+              Create offer:<br>
+              Minimum step is: <span th:text="${auctionDetail.minimumRise}"></span>
               <form action="submit-bid" id="place-offer" method="post">
                 <div id="field">
                   <input type="text" class="text-field round inner-shadow" name="price">

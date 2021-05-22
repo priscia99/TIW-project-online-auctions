@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -29,11 +30,13 @@ public class AuctionDAO {
 		this.connection = connection;
 	}
 
-	public ArrayList<Auction> filterByArticleName(String query) throws SQLException {
+	public ArrayList<Auction> filterByArticleName(String query, LocalDateTime datetime) throws SQLException {
 		String sqlStatement = "SELECT id_item, name, description, image, id_auction, starting_price, minimum_rise, end, open, id_seller "
-				+ "FROM auction_item WHERE name LIKE CONCAT( '%',?,'%')";
+				+ "FROM auction_item WHERE (name LIKE CONCAT( '%',?,'%') OR description LIKE CONCAT('%', ?, '%')) AND end > ? AND open = 1";
 		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);) {
 			statement.setString(1, query);
+			statement.setString(2, query);
+			statement.setTimestamp(3, Timestamp.valueOf(datetime));
 			try (ResultSet rs = statement.executeQuery();) {
 				ArrayList<Auction> toReturn = new ArrayList<>();
 				while (rs.next()) {
@@ -48,6 +51,7 @@ public class AuctionDAO {
 					auction.setMinimumRise(rs.getFloat("minimum_rise"));
 					auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
 					auction.setOpen(rs.getBoolean("open"));
+					auction.calculateTimeLeft(datetime);
 					auction.setItem(item);
 					auction.setSellerId(rs.getInt("id_seller"));
 					toReturn.add(auction);
@@ -287,6 +291,7 @@ public class AuctionDAO {
 						Bid bid = new Bid();
 						bid.setId(rs.getInt("id_bid"));
 						bid.setBidderId(rs.getInt("id_bidder"));
+						bid.setBidderName(rs.getString("bidder_name"));
 						bid.setPrice(rs.getFloat("price"));
 						bid.setTimestamp(rs.getTimestamp("bid_time").toInstant().atZone(TimezoneHelper.getCustomTimezoneID()).toLocalDateTime());
 						bids.add(bid);

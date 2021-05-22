@@ -95,7 +95,7 @@ public class BuyController extends HttpServlet{
 			return;
 		}
 		try {
-			openAuctions = actionDao.filterByArticleName(query);
+			openAuctions = actionDao.filterByArticleName(query, LocalDateTime.now());
 		}catch(Exception e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Cannot filter auctions");

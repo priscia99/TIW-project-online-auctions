@@ -157,7 +157,7 @@
             			<div>
               			<div>
                 			<p>Is open: <span style="font-weight: bold;" th:text="${openAuction.open}"></span></p>
-                			<p>Expires on <span style="font-weight: bold;" th:text="${openAuction.endTimestamp}"></span></p>
+                      <p style="margin: 0; padding: 0;" th:text="'Remaining time: ' + ${openAuction.timeLeftFormatted}" class="ph0">time left</p>
               			</div>
               			<div class="auction-price-wrap">
                 			<p>Minimum rise: <span style="font-weight: bold;" th:text="|EUR ${openAuction.minimumRise}|"></span></p>
