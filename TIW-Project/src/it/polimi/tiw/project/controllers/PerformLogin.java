@@ -18,6 +18,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.UserDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
+import it.polimi.tiw.project.utils.ErrorHandler;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -65,7 +66,8 @@ public class PerformLogin extends HttpServlet {
 				throw new Exception("Missing or empty credentials");
 			}
 		} catch (Exception e) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credential value");
+			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Missing credendials value, try again.");
 			return;
 		}
 		
@@ -75,9 +77,10 @@ public class PerformLogin extends HttpServlet {
 		try {
 			user = userDao.performUserLogin(username, password);
 		}catch (SQLException e) {
-			//  "Not Possible to check credentials : " + e.getMessage()
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Not Possible to check credentials");
+			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while checking credentials, try again.");
 			return;
+		
 		}
 		
 		// Check if user exists

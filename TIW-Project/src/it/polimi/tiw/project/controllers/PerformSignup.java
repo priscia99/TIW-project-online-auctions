@@ -19,6 +19,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.tiw.project.dao.UserDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
+import it.polimi.tiw.project.utils.ErrorHandler;
 
 /**
  * Servlet implementation class PerformSignup
@@ -43,10 +44,6 @@ public class PerformSignup extends HttpServlet {
 		templateResolver.setSuffix(".html");
     }
     
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "GET is not allowed");
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext servletContext = getServletContext();
 		boolean badRequest = false;
@@ -100,15 +97,19 @@ public class PerformSignup extends HttpServlet {
 				return;
 			}
 		}catch(SQLException e) {
-			// for further details : "Internal error while trying to create a new user: " + e.getMessage()
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to create a new user");
+			e.printStackTrace();
+			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while creating user, try again.");
+			return;
 		}
 		
 		// Create user in DB using UserDAO
 		try {
 			dao.createUser(username, password, name,  surname, email, addressTown, addressStreet);
 		}catch(SQLException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to create a new user");
+			e.printStackTrace();
+			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while creating user, try again.");
 			return;
 		}
 		

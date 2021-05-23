@@ -19,6 +19,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
+import it.polimi.tiw.project.utils.ErrorHandler;
 
 @WebServlet("/close-auction")
 public class CloseAuctionController extends HttpServlet {
@@ -41,13 +42,8 @@ public class CloseAuctionController extends HttpServlet {
 		templateResolver.setSuffix(".html");
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "GET is not allowed here");
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		boolean badRequest = false;
 		ServletContext servletContext = getServletContext();
 		HttpSession session = request.getSession();
 		if (session.isNew() || session.getAttribute("user") == null) {
@@ -55,22 +51,15 @@ public class CloseAuctionController extends HttpServlet {
 			return;
 		}
 
-		// Respond to bad request
-		if (badRequest) {
-			final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
-			context.setVariable("signupInfoMsg", "Missing or empty parameters");
-			templateEngine.process("/signup.html", context, response.getWriter());
-			return;
-		}
 
 		// Update auctionin DB using UserDAO
 		try {
 			AuctionDAO dao = new AuctionDAO(connection);
 			dao.closeAuction(Integer.parseInt(request.getParameter("id")));
 		} catch (SQLException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-					"Internal error while trying to create a new auction: SQL error ");
 			e.printStackTrace();
+			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while closing the auction, try again.");
 			return;
 		}
 

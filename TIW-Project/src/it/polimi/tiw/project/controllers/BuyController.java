@@ -24,6 +24,7 @@ import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
+import it.polimi.tiw.project.utils.ErrorHandler;
 
 @WebServlet("/buy")
 public class BuyController extends HttpServlet{
@@ -61,7 +62,8 @@ public class BuyController extends HttpServlet{
 			wonAuctions = actionDao.getUserWonAuctionsList(user.getId(), LocalDateTime.now());
 		}catch(Exception e) {
 			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Cannot get won auctions");
+			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while retrieving won auctions, try again.");
 			return;
 		}
 		
@@ -91,14 +93,16 @@ public class BuyController extends HttpServlet{
 			wonAuctions = actionDao.getUserWonAuctionsList(user.getId(), LocalDateTime.now());
 		}catch(Exception e) {
 			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Cannot get won auctions");
+			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while retrieving won auctions, try again.");
 			return;
 		}
 		try {
 			openAuctions = actionDao.filterByArticleName(query, LocalDateTime.now());
 		}catch(Exception e) {
 			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Cannot filter auctions");
+			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while filtering auctions, try again.");
 			return;
 		}
 		

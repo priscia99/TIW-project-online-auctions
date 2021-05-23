@@ -23,6 +23,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
+import it.polimi.tiw.project.utils.ErrorHandler;
 
 @WebServlet("/submit-bid")
 public class BidSubmissionController extends HttpServlet {
@@ -43,11 +44,6 @@ public class BidSubmissionController extends HttpServlet {
 		this.templateEngine = new TemplateEngine();
 		this.templateEngine.setTemplateResolver(templateResolver);
 		templateResolver.setSuffix(".html");
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "GET is not allowed");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -80,9 +76,8 @@ public class BidSubmissionController extends HttpServlet {
 
 		// Respond to bad request
 		if (badRequest) {
-			final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
-			context.setVariable("signupInfoMsg", "Missing or empty parameters");
-			templateEngine.process("/signup.html", context, response.getWriter());
+			final WebContext webContext = new WebContext(request, response, servletContext, request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Missing or wrong paramethers, try again.");
 			return;
 		}
 
@@ -92,9 +87,9 @@ public class BidSubmissionController extends HttpServlet {
 			dao.addBidToAuction(auctionId, bidderId, price);
 
 		} catch (SQLException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-					"Internal error while trying to create a new bid: SQL error ");
 			e.printStackTrace();
+			final WebContext webContext = new WebContext(request, response, servletContext, request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while creating the bid, try again.");
 			return;
 		}
 

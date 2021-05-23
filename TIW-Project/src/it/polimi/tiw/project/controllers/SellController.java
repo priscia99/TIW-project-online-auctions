@@ -23,6 +23,7 @@ import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
+import it.polimi.tiw.project.utils.ErrorHandler;
 
 /**
  * Servlet implementation class GoToSellPage
@@ -72,8 +73,10 @@ public class SellController extends HttpServlet {
 			openAuctions = dao.getUserOpenAuctions(user.getId(), LocalDateTime.now());
 			closeAuctions = dao.getUserCloseAuctions(user.getId(), LocalDateTime.now());
 		} catch (SQLException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal error while trying to retrieve user's open auctions");
-			e.printStackTrace();	// REMOVE BEFORE FLIGHT
+			e.printStackTrace();
+			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while retrieving auctions try again.");
+			return;// REMOVE BEFORE FLIGHT
 		}
 		
 		// Redirect to the Sell page and add auctions to the parameters
@@ -87,12 +90,7 @@ public class SellController extends HttpServlet {
 		// Do redirect
 		templateEngine.process(path, context, response.getWriter());
 	}
-	
-	// Servlet only allow get requests
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "POST is not allowed");
-	}
-	
+
 	public void destroy() {
 		try {
 			ConnectionHandler.closeConnection(connection);

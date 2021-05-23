@@ -22,6 +22,7 @@ import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
+import it.polimi.tiw.project.utils.ErrorHandler;
 
 @WebServlet("/auctions")
 public class AuctionController extends HttpServlet{
@@ -58,6 +59,9 @@ public class AuctionController extends HttpServlet{
 			auctionDetail = auctionDao.getAuctionDetails(auctionId, LocalDateTime.now());
 		} catch (SQLException e) {
 			e.printStackTrace();
+			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while retrieving the auction, try again.");
+			return;
 		}
 		
 		

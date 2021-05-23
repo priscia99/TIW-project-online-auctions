@@ -60,10 +60,6 @@ public class GoToHomePage extends HttpServlet {
 		templateEngine.process(path, context, response.getWriter());
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "POST is not allowed");
-	}
 
 	public void destroy() {
 		try {

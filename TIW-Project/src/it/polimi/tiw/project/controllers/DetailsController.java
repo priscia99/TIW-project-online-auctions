@@ -22,6 +22,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
+import it.polimi.tiw.project.utils.ErrorHandler;
 
 @WebServlet("/details")
 public class DetailsController extends HttpServlet {
@@ -65,14 +66,12 @@ public class DetailsController extends HttpServlet {
 			path = "/WEB-INF/Details.html";
 			templateEngine.process(path, context, response.getWriter());
 		} catch (SQLException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error while retrieving auction's details: SQL exception");
 			e.printStackTrace();
+			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while retrieving auction details, try again.");
+			return;
 		}
 		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "POST is not allowed here");
 	}
 
 }
