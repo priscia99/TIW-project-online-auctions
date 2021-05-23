@@ -64,6 +64,12 @@ public class AuctionController extends HttpServlet{
 			return;
 		}
 		
+		if(auctionDetail.isEnded()) {
+			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "The searched auction is ended.");
+			return;
+		}
+		
 		
 		String path = "/WEB-INF/Auction.html";
 		ServletContext servletContext = getServletContext();

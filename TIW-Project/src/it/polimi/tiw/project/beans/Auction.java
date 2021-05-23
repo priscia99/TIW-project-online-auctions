@@ -100,6 +100,7 @@ public class Auction extends  DBObject {
     
     public void addBid(Bid bid) {
     	this.bids.add(bid);
+    	this.calculateCurrentPrice();
     }
     
     public float getCurrentPrice() {

@@ -86,7 +86,7 @@ public class AuctionSubmissionController extends HttpServlet {
 
 			badRequest = itemName == null || itemName.isEmpty() || itemDescription == null || itemDescription.isEmpty()
 					|| imageStream == null || (imageStream.available() == 0) || !mimeType.startsWith("image/")
-					|| auctionStartingPrice.isEmpty() || auctionMinimumRise.isEmpty() || auctionMinimumRise.contains(".") ||  auctionEndTimestamp.isEmpty();
+					|| auctionStartingPrice.isEmpty() || Float.parseFloat(auctionStartingPrice)<0 || Float.parseFloat(auctionMinimumRise) < 0 || auctionMinimumRise.isEmpty() || auctionMinimumRise.contains(".") ||  auctionEndTimestamp.isEmpty();
 		} catch (Exception e) {
 			badRequest = true;
 			e.printStackTrace();

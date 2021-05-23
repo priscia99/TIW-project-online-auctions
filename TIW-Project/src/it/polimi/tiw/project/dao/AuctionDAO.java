@@ -32,11 +32,10 @@ public class AuctionDAO {
 
 	public ArrayList<Auction> filterByArticleName(String query, LocalDateTime datetime) throws SQLException {
 		String sqlStatement = "SELECT id_item, name, description, image, id_auction, starting_price, minimum_rise, end, open, id_seller "
-				+ "FROM auction_item WHERE (name LIKE CONCAT( '%',?,'%') OR description LIKE CONCAT('%', ?, '%')) AND end > ? AND open = 1";
+				+ "FROM auction_item WHERE (name LIKE CONCAT( '%',?,'%') OR description LIKE CONCAT('%', ?, '%')) AND end > CURRENT_TIMESTAMP AND open = 1";
 		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);) {
 			statement.setString(1, query);
 			statement.setString(2, query);
-			statement.setTimestamp(3, Timestamp.valueOf(datetime));
 			try (ResultSet rs = statement.executeQuery();) {
 				ArrayList<Auction> toReturn = new ArrayList<>();
 				while (rs.next()) {
@@ -301,6 +300,7 @@ public class AuctionDAO {
 							bid.setId(rs.getInt("id_bid"));
 							bid.setBidderId(rs.getInt("id_bidder"));
 							bid.setPrice(rs.getFloat("price"));
+							bid.setBidderName(rs.getString("bidder_name"));
 							bid.setTimestamp(rs.getTimestamp("bid_time").toInstant().atZone(TimezoneHelper.getCustomTimezoneID()).toLocalDateTime());
 							bids.add(bid);
 						}

@@ -112,13 +112,12 @@
         				<li class="auction" th:each="wonAuction : ${wonAuctions}">
           				<img th:src="${'data:image/png;base64,'+wonAuction.item.image}" alt="" class="auction-img">
           				<div class="auction-details">
-           					 <a th:href="@{/auctions(id=${wonAuction.id})}">
              				 	<h3 th:text="${wonAuction.item.name}"></h3>
-           					</a>
             			<div>
               			<div>
-                			<p>Is open: <span style="font-weight: bold;" th:text="${wonAuction.open}"></span></p>
-                			<p>Expires on <span style="font-weight: bold;" th:text="${wonAuction.endTimestamp}"></span></p>
+                			<p>Expiration date<span style="font-weight: bold;" th:text="${wonAuction.endTimestamp}"></span></p>
+                			<p>Final price<span style="font-weight: bold;" th:text="${wonAuction.currentPrice}"></span></p>
+                		
               			</div>
               			<div class="auction-price-wrap">
                 			<p>Minimum rise: <span style="font-weight: bold;" th:text="|EUR ${wonAuction.minimumRise}|"></span></p>

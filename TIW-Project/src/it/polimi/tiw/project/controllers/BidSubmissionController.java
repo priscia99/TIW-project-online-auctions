@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import it.polimi.tiw.project.beans.Auction;
 import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.AuctionDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
@@ -84,12 +86,17 @@ public class BidSubmissionController extends HttpServlet {
 		// Create bid in DB using bidDAO
 		try {
 			AuctionDAO dao = new AuctionDAO(connection);
+			Auction auction = dao.getAuctionDetails(auctionId, LocalDateTime.now());
+			if(auction.getMaxBid() != null && auction.getMaxBid().getPrice() + auction.getMinimumRise() > price 
+					|| auction.getStartingPrice() > price) {
+				throw new Exception("Bid price does not pass validation");
+			}
 			dao.addBidToAuction(auctionId, bidderId, price);
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			final WebContext webContext = new WebContext(request, response, servletContext, request.getLocale());
-			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while creating the bid, try again.");
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while creating the bid, check your price and try again.");
 			return;
 		}
 
