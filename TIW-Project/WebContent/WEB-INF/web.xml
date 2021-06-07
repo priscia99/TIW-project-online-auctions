@@ -7,11 +7,11 @@
 	</context-param>
 	<context-param>
 		<param-name>dbUser</param-name>
-		<param-value>webapp</param-value>
+		<param-value>workbench</param-value>
 	</context-param>
 	<context-param>
 		<param-name>dbPassword</param-name>
-		<param-value>ppabew</param-value>
+		<param-value>password</param-value>
 	</context-param>
 	<context-param>
 		<param-name>dbDriver</param-name>
