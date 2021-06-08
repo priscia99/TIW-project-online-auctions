@@ -88,7 +88,7 @@ public class BidSubmissionController extends HttpServlet {
 			AuctionDAO dao = new AuctionDAO(connection);
 			Auction auction = dao.getAuctionDetails(auctionId, LocalDateTime.now());
 			if(auction.getMaxBid() != null && auction.getMaxBid().getPrice() + auction.getMinimumRise() > price 
-					|| auction.getStartingPrice() > price) {
+					|| auction.getStartingPrice() + auction.getMinimumRise()  > price ) {
 				throw new Exception("Bid price does not pass validation");
 			}
 			dao.addBidToAuction(auctionId, bidderId, price);
