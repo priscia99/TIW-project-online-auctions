@@ -76,7 +76,7 @@ public class SellController extends HttpServlet {
 			e.printStackTrace();
 			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
 			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while retrieving auctions try again.");
-			return;// REMOVE BEFORE FLIGHT
+			return;
 		}
 		
 		// Redirect to the Sell page and add auctions to the parameters

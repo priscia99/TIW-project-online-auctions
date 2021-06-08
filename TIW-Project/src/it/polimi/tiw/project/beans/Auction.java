@@ -132,10 +132,10 @@ public class Auction extends  DBObject {
         int minutes = (int) Math.floor((this.secondsLeft % 3600) / 60);;
         int seconds = (int) Math.floor(this.secondsLeft % 60);
         String message = "";
-        if(days>0) message = message.concat(String.format("Days: %d, ", days));
-        if(hours>0) message = message.concat(String.format("Hours: %d, ", hours));
-        if(minutes>0) message = message.concat(String.format("Minutes: %d, ", minutes));
-        if(seconds > 0) message = message.concat(String.format("Seconds: %d", seconds));
+        if(days>0) message = message.concat(String.format("%dg ", days));
+        if(hours>0) message = message.concat(String.format(" %dh ", hours));
+        if(minutes>0) message = message.concat(String.format(" %dm ", minutes));
+        if(seconds > 0) message = message.concat(String.format(" %ds", seconds));
         if(message.equals("")) message = "Expire date has passed.";
 		this.timeLeftFormatted = message;
     }
