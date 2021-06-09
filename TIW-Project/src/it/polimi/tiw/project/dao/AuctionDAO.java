@@ -30,7 +30,7 @@ public class AuctionDAO {
 		this.connection = connection;
 	}
 
-	public ArrayList<Auction> filterByArticleName(String query, LocalDateTime datetime) throws SQLException {
+	public ArrayList<Auction> filter(String query, LocalDateTime datetime) throws SQLException {
 		String sqlStatement = "SELECT id_item, name, description, image, id_auction, starting_price, minimum_rise, end, open, id_seller "
 				+ "FROM auction_item WHERE (name LIKE CONCAT( '%',?,'%') OR description LIKE CONCAT('%', ?, '%')) AND end > CURRENT_TIMESTAMP AND open = 1";
 		try (PreparedStatement statement = connection.prepareStatement(sqlStatement);) {

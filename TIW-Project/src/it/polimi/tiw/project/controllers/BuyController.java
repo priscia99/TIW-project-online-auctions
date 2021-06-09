@@ -98,7 +98,7 @@ public class BuyController extends HttpServlet{
 			return;
 		}
 		try {
-			openAuctions = actionDao.filterByArticleName(query, LocalDateTime.now());
+			openAuctions = actionDao.filter(query, LocalDateTime.now());
 		}catch(Exception e) {
 			e.printStackTrace();
 			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
