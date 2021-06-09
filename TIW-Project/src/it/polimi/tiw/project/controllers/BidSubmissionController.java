@@ -70,12 +70,13 @@ public class BidSubmissionController extends HttpServlet {
 		try {
 			price = Float.parseFloat(request.getParameter("price"));
 			auctionId = Integer.parseInt(request.getParameter("auctionId"));
-			badRequest = price == -1 ; 
+			badRequest = price == -1 ;
 		} catch (Exception e) {
 			badRequest = true;
 			e.printStackTrace();
 		}
-
+		
+		
 		// Respond to bad request
 		if (badRequest) {
 			final WebContext webContext = new WebContext(request, response, servletContext, request.getLocale());

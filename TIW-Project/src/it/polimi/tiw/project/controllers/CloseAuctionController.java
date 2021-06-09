@@ -50,12 +50,13 @@ public class CloseAuctionController extends HttpServlet {
 			response.sendRedirect(getServletContext().getContextPath() + "/index.html");
 			return;
 		}
-
+		
+		int auctionId = Integer.parseInt(request.getParameter("id"));
 
 		// Update auctionin DB using UserDAO
 		try {
 			AuctionDAO dao = new AuctionDAO(connection);
-			dao.closeAuction(Integer.parseInt(request.getParameter("id")));
+			dao.closeAuction(auctionId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
@@ -65,6 +66,7 @@ public class CloseAuctionController extends HttpServlet {
 
 		// If everything is correct redirect to the sell page
 		response.sendRedirect(request.getContextPath() + "/sell");
+		// response.sendRedirect(request.getContextPath() + "/details?id=" + auctionId);
 	}
 
 }
