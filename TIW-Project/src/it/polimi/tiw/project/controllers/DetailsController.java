@@ -65,10 +65,10 @@ public class DetailsController extends HttpServlet {
 			context.setVariable("auction", auction);
 			path = "/WEB-INF/Details.html";
 			templateEngine.process(path, context, response.getWriter());
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
-			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Error while retrieving auction details, try again.");
+			ErrorHandler.displayErrorPage(webContext, response.getWriter(), templateEngine, "Cannot retrieve auction details.");
 			return;
 		}
 		
