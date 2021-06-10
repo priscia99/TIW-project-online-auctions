@@ -7,188 +7,197 @@
    <link rel="stylesheet" type="text/css" media="all" href="/TIW-Project/css/style.css"/>
   <title>Online Auction - Auction</title>
   <style>
-    #logoff-btn {
-      font-size: 12px;
-      padding: 5px 10px;
-    }
+        #logoff-btn {
+            font-size: 12px;
+            padding: 5px 10px;
+        }
 
-    #content-wrap {
-      display: flex;
-      justify-content: center;
-    }
-    #content {
-      margin: 50px 0;
-      min-width: 720px;
-      width: 60%;
-      max-width: 1080px;
-      display: flex;
-      flex-direction: column;
-    }
-    #cover {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-    }
-    #auction-img-wrapper {
-      /*background-color: red;*/
-      grid-area: img;
-      display: flex;
-      align-items: end;
-      justify-content: end;
-      text-align: end;
-      align-content: end;
-      flex-direction: column;
-      margin-right: 20px;
-    }
-    .auction-img {
-      width: 300px;
-      height: 300px;
-      object-fit: cover;
-    }
-    #auction-title {
-      grid-area: title;
-      justify-content: start;
-      align-items: start;
-      align-content: start;
-    }
-    #auction-title h4 {
-      padding: 0;
-      margin: 10px;
-    }
-    #status {
-      grid-area: status;
-      padding-left: 10px;
-    }
-    #status p {
-      padding: 0;
-      margin: 0;
-    }
-    #offer {
-      margin-top: 20px;
-      margin-left: 10px;
-      grid-area: offer;
-      width: 400px;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: var(--solid);
-      /*background-color: red;*/
-    }
-    #offer p {
-      padding: 0;
-      margin: 0;
-    }
-    #price {
-      width: 100%;
-      /*background-color: blue;*/
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-    }
-    #place-offer {
-      margin: 0;
-      width: 60%;
-      /*background-color: yellow;*/
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-    }
-    #place-offer .text-field {
-      height: 30px;
-      width: 200px;
-      margin: 20px 0;
-    }
-    #place-offer button {
-      width: 100px;
-      height: 30px;
-    }
-    #field {
-      display: flex;
-      justify-content: center;
-    }
+        #details {
+            padding: 0 10px;
+            width: 400px;
+        }
 
-    #description {
-      margin-top: 30px;
-      width: 100%;
-    }
-    #description p {
-      padding: 0;
-      margin: 0;
-      text-align: justify;
-    }
-  </style>
+        #details>div>h2 {
+            margin: 0;
+        }
+        #details>div>p {
+            margin: 0;
+        }
+
+        #details h3 {
+            margin: 10px 0;
+        }
+
+        #details p {
+            margin: 5px 0;
+        }
+        
+        .auction-img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        table {
+        	margin: 20px 0;
+	  		border-collapse: collapse;
+		}
+		
+		td, th {
+		  	text-align: left;
+		  	padding: 8px;
+		}
+        
+        tr:nth-child(even) {
+		  	background-color: #dddddd;
+		}
+		
+		#offer p {
+	      padding: 0;
+	      margin: 0;
+	    }
+	    
+	    #price {
+	      width: 100%;
+	      /*background-color: blue;*/
+	      display: flex;
+	      flex-direction: row;
+	      justify-content: space-evenly;
+	    }
+	    
+	    #place-offer {
+	      margin: 0;
+	      width: 60%;
+	      /*background-color: yellow;*/
+	      display: flex;
+	      flex-direction: column;
+	      justify-content: space-evenly;
+	    }
+	    
+	    #place-offer .text-field {
+	      height: 30px;
+	      width: 200px;
+	      margin: 20px 0;
+	    }
+	    
+	    #place-offer button {
+	      width: 100px;
+	      height: 30px;
+	    }
+	    
+	    #field {
+	      display: flex;
+	      justify-content: center;
+	    }
+	    
+	    #offer {
+	      margin-left: auto;
+   		  margin-right: auto;
+	      margin-top: 20px;
+	      margin-bottom: 20px;
+	      grid-area: offer;
+	      width: 400px;
+	      padding: 10px;
+	      display: flex;
+	      flex-direction: column;
+	      align-items: center;
+	      background-color: var(--solid);
+	      /*background-color: red;*/
+	    }
+	   
+    </style>
 </head>
 <body>
 
     <!-- NAVBAR -->
     <div class="container navbar outer-shadow columns centered-flex">
-        <div class="nav-logo">
-            <img src="/TIW-Project/img/logo.svg" alt="" class="small-logo">
-        </div>
-        <div class="nav-links">
-            <a href="home" class="text-primary-accent">Home</a>
-            <a href="buy" class="active text-primary-accent">Buy</a>
-            <a href="sell" class="text-primary-accent">Sell</a>
-        </div>
-        <a href="PerformLogout">
+      <div class="nav-logo"><img src="/TIW-Project/img/logo.svg" alt="" class="small-logo"></div>
+      <div class="nav-links">
+          <a href="home" class="text-primary-accent">Home</a>
+          <a href="buy" class="text-primary-accent">Buy</a>
+          <a href="sell" class="text-primary-accent">Sell</a>
+      </div>
+      <div class="nav-opt">
+      	<a href="PerformLogout">
           <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
         </a>
+      </div>
     </div>
 
-  <div class="p-nav" id="content-wrap">
-    <div id="content">
-      <div id="cover">
-
-        <img th:src="${'data:image/png;base64,' + auctionDetail.item.image}" alt="" class="auction-img">
-        <div id="auction-overview">
-          <div id="auction-title">
-            <h4 th:text="${auctionDetail.item.name}"></h4>
-          </div>
-          <div id="status">
-            <p style=" margin-bottom: 5px;">Status: <span style="font-weight: bold;">Open</span></p>
-            <p style=" margin-bottom: 5px;">Expires on <span style="font-weight: bold" th:text="${auctionDetail.endTimestamp}"></span></p>
-            <p>Time before expiration: <span style="font-weight: bold" th:text="${auctionDetail.timeLeftFormatted}"></span></p>
-          </div>
-          <div th:if="${auctionDetail.bids.size()>0}">
-          Offerte
-                    <ul >
-                	<li th:each="bid : ${auctionDetail.bids}">
-                		Bidder id: <span th:text="${bid.bidderId}"></span> amount: <span th:text="${bid.price}"></span> time: <span th:text="${bid.timestamp}"></span>
-                		
-                	</li>
-                </ul>
-          </div>
-
-          <div class="rows centered-flex">
-            <div id="offer" class="round">
-              <div id="price">
-                <p style="font-weight: bold; font-size: 20px;"> EUR <span th:text="${auctionDetail.currentPrice}"></span> </p>
-              </div>
-              Create offer:<br>
-              Minimum step is: <span th:text="${auctionDetail.minimumRise}"></span>
-              <form action="submit-bid" id="place-offer" method="post">
-                <div id="field">
-                  <input type="text" class="text-field round inner-shadow" name="price">
-                </div>
-                <input type="hidden" name="bidderId" th:value="${user.id}">
-                <input type="hidden" name="auctionId" th:value="${auctionDetail.id}">
-                <div class="columns spaced-evenly-flex">
-                  <button class="round" type="submit">Confirm</button>
-                  <button class="round color-background text-color-accent" type="reset">Cancel</button>
-                </div>
-              </form>
+    <!-- CONTENT -->
+    <div class="rows centered-flex">
+        <div class="columns" style="margin: 80px 0 0 0;">
+            <div class="columns centered-flex">
+                <img th:src="${'data:image/png;base64,' + auctionDetail.item.image}" alt="item image" class="auction-img">
             </div>
-          </div>
+            <div id="details">
+            	<div>
+	            	<h2 th:text="${auctionDetail.item.name}">name</h2>
+	                <p>Item code: <span th:text="${auctionDetail.item.id}"></span></p>
+            	</div>
+                <h3 th:text="'EUR ' + ${auctionDetail.currentPrice}">current price</h3>
+                <p>Minimum rise: <span th:text="'EUR ' + ${auctionDetail.minimumRise}" style="font-weight: bold;"></span></p>
+                <p>Starting price: <span th:text="'EUR ' + ${auctionDetail.startingPrice}" style="font-weight: bold;"></span></p>
+                <p>Ends on <span th:text="${auctionDetail.endTimestamp.toString().replace('T', ' ')}" style="font-weight: bold;"></span></p>
+                <p>Time left: <span th:text="${auctionDetail.timeLeftFormatted}" style="font-weight: bold;"></span></p>
+            </div>
         </div>
-
-
-
-      </div>
-      <div id="description" th:text="${auctionDetail.item.description}">
-       
-      </div>
+        
+        <div class="w80">
+	        <div id="offer" class="round">
+	          Current price<br>
+			  <div id="price">
+				<p style="font-weight: bold; font-size: 20px;"> EUR <span th:text="${auctionDetail.currentPrice}"></span> </p>
+			  </div>
+			  <br>Minumum rise<br>
+			  <div id="price">
+				<p style="font-weight: bold; font-size: 20px;"> EUR <span th:text="${auctionDetail.minimumRise}"></span> </p>
+			  </div>
+			  
+			  <form action="submit-bid" id="place-offer" method="post">
+				<div id="field">
+				  <input type="text" class="text-field round inner-shadow" name="price" placeholder="New offer">
+				</div>
+				<input type="hidden" name="bidderId" th:value="${user.id}">
+				<input type="hidden" name="auctionId" th:value="${auctionDetail.id}">
+				<div class="columns spaced-evenly-flex">
+				  <button class="round" type="submit">Confirm</button>
+				  <button class="round color-background text-color-accent" type="reset">Cancel</button>
+				</div>
+			  </form>
+			</div>
+		</div>
+		
+		<div class="w80">
+			<p th:text="${auctionDetail.item.description}"></p>
+        </div>
+		
+        <table>
+        	<thead th:if="${auctionDetail.open}">
+        		<tr>
+		        	<th>Bid ID</th>
+		        	<th>Bidder ID</th>
+                    <th>Bidder Name</th>
+		        	<th>Price</th>
+		        	<th>Time</th>
+		        </tr>
+        	</thead>
+        	
+        	<tbody th:if="${auctionDetail.open}">
+	        	<tr th:if="${#lists.isEmpty(auctionDetail.bids)}">
+		            <td colspan="4"> No Bids Available </td>
+		        </tr>
+        		<tr th:each="bid : ${auctionDetail.bids}">
+		        	<td th:text="${bid.id}">Bid ID</td>
+		        	<td th:text="${bid.bidderId}">Bidder ID</td>
+                    <td th:text="${bid.bidderName}">Bidder Name</td>
+		        	<td th:text="${bid.price}">Price</td>
+		        	<td th:text="${bid.timestamp.toString().replace('T', ' ')}">Time</td>
+		        </tr>
+        	</tbody>
+        </table>
+        
     </div>
-  </div>
-</body>
+
+   </body>
 </html>
