@@ -52,7 +52,7 @@
         padding: 0;
         color: var(--detail);
         background: linear-gradient(to top right, dodgerblue, cyan);
-        height: 100vh;
+        min-height: 100vh;
     }
 	
     input.text-field{
@@ -500,6 +500,7 @@
         position: fixed;
         width: 100vw;
         height: 50px;
+        z-index: 900;
     }
 
     .nav-links > a {
@@ -551,12 +552,27 @@
     
     /* GLASSMORPHISM */
     .glass {
-    	color: white;
-        background: rgba(42, 44, 46, 0.27);
-        backdrop-filter: blur(34px);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        z-index: 999;
-        box-shadow: 3px 3px 5px rgba(94, 104, 121, .288);
+    	color: white !important;
+        background: rgba(42, 44, 46, 0.27) !important;
+        backdrop-filter: blur(34px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+        z-index: 500;
+        box-shadow: 3px 3px 5px rgba(94, 104, 121, .288) !important;
+    }
+    
+    tr:nth-child(odd) {
+    	color: white !important;
+        background: rgba(42, 44, 46, 0.27) !important;
+        backdrop-filter: blur(34px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+        box-shadow: 3px 3px 5px rgba(94, 104, 121, .288) !important;
+    }
+    tr:nth-child(even) {
+    	color: white !important; 
+        background: rgba(84, 88, 92, 0.27) !important;
+        backdrop-filter: blur(34px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+        box-shadow: 3px 3px 5px rgba(94, 104, 121, .288) !important;
     }
     
     .circle1,
