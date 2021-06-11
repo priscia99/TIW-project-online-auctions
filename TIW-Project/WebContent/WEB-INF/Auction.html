@@ -101,7 +101,6 @@
 	      display: flex;
 	      flex-direction: column;
 	      align-items: center;
-	      background-color: var(--solid);
 	      /*background-color: red;*/
 	    }
 	   
@@ -110,8 +109,8 @@
 <body>
 
     <!-- NAVBAR -->
-    <div class="container navbar outer-shadow columns centered-flex">
-      <div class="nav-logo"><img src="/TIW-Project/img/logo.svg" alt="" class="small-logo"></div>
+    <div class="container navbar glass columns centered-flex">
+      <div class="nav-logo"><img src="/TIW-Project/img/hammer.svg" alt="" class="small-logo"></div>
       <div class="nav-links">
           <a href="home" class="text-primary-accent">Home</a>
           <a href="buy" class="text-primary-accent">Buy</a>
@@ -125,8 +124,8 @@
     </div>
 
     <!-- CONTENT -->
-    <div class="rows centered-flex">
-        <div class="columns" style="margin: 80px 0 0 0;">
+    <div class="rows centered-flex text-color-background">
+        <div class="columns glass" style="margin: 80px 0 0 0;">
             <div class="columns centered-flex">
                 <img th:src="${'data:image/png;base64,' + auctionDetail.item.image}" alt="item image" class="auction-img">
             </div>
@@ -144,7 +143,7 @@
         </div>
         
         <div class="w80">
-	        <div id="offer" class="round">
+	        <div id="offer" class="glass round">
 	          Current price<br>
 			  <div id="price">
 				<p style="font-weight: bold; font-size: 20px;"> EUR <span th:text="${auctionDetail.currentPrice}"></span> </p>

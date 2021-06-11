@@ -21,19 +21,27 @@
             font-size: 12px;
             padding: 0;
         }
+        .circle1 {
+            background: linear-gradient(to bottom left, dodgerblue, cyan);
+            bottom: 25rem;
+            left: 40rem;
+            height: 70rem;
+            width: 70rem;
+        }
     </style>
 </head>
 
 <body>
-    <div class="centered round container outer-shadow">
+    <div class="centered round container glass">
         <form action="login" method="post" id="login-form" class="rows centered-flex">
-            <img class="medium-logo" src="img/logo.svg" alt="logo">
+            <img class="medium-logo" src="img/hammer.svg" alt="logo">
             <p th:class="@{login-info-text}" th:text=${loginInfoMsg}></p>
             <input type="text" class="round text-field inner-shadow w75" name="username" placeholder="Enter username" required="required"/><br>
             <input type="password" class="round text-field inner-shadow w75" name="password" placeholder="Enter password" required="required"/><br>
-            <button id="login-button" class="round outer-shadow" type="submit">Log In</button>
-            <p id="signup-msg">Not registered yet? <a class="text-primary-accent" href="signup.html">Sign up!</a></p>
+            <button id="login-button" class="round glass text-color-accent" type="submit">Log In</button>
+            <p id="signup-msg">Not registered yet? <a style="color: cyan;" href="signup.html">Sign up!</a></p>
         </form>
     </div>
+    <span class="circle1"></span>
 </body>
 </html>

@@ -45,7 +45,7 @@ public class UserDAO {
 	
 	// Create a new user into database 
 	public void createUser(String username, String password, String name, String surname, String email, String addressTown, String addressStreet)  throws SQLException {
-		// String query = "INSERT INTO user (username, password, name, surname, email, address_town, address_street) VALUES (?, sha2(?, 256), ?, ?, ?, ?, ?);";
+		// String query = "INSERT INTO user (username, password, name, surname, email, address_street, address_town) VALUES (?, sha2(?, 256), ?, ?, ?, ?, ?);";
 		String query = "CALL signup(?, ?, ?, ?, ?, ?, ?);";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setString(1, username);
@@ -70,6 +70,23 @@ public class UserDAO {
 		}
 	}
 	
-	
-	
+	public User getUser(int userId) throws SQLException {
+		String query = "SELECT * FROM user WHERE id_user = ?;";
+		try (PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setInt(1, userId);
+			try (ResultSet rs = statement.executeQuery();) {
+				User toReturn = new User();
+				while (rs.next()) {
+					toReturn.setId(userId);
+					toReturn.setUsername(rs.getString("username"));
+					toReturn.setName(rs.getString("name"));
+					toReturn.setSurname(rs.getString("surname"));
+					toReturn.setEmail(rs.getString("email"));
+					toReturn.setAddress_street(rs.getString("address_street"));
+					toReturn.setAddress_town(rs.getString("address_town"));
+				}
+				return toReturn;
+			}
+		}
+	}
 }

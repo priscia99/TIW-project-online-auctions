@@ -57,7 +57,7 @@
 <body>
 
     <!-- NAVBAR -->
-    <div class="container navbar outer-shadow columns centered-flex">
+    <div class="container navbar glass columns centered-flex">
       <div class="nav-logo"><img src="/TIW-Project/img/logo.svg" alt="" class="small-logo"></div>
       <div class="nav-links">
           <a href="home" class="text-primary-accent">Home</a>
@@ -72,8 +72,8 @@
     </div>
 
     <!-- CONTENT -->
-    <div class="rows centered-flex">
-        <div class="columns" style="margin: 80px 0 0 0;">
+    <div class="rows centered-flex text-color-background">
+        <div class="columns glass" style="margin: 80px 0 0 0;">
             <div class="columns centered-flex">
                 <img th:src="${'data:image/png;base64,' + auction.item.image}" alt="item image" class="auction-img">
             </div>
@@ -95,8 +95,8 @@
         	<input type="hidden" name="id" th:value="${auction.id}" />
         	<button type="submit" class="round ph20 pv10">Close auction</button>
         </form>
-        <table>
-        	<thead th:if="${auction.open}">
+        <table th:if="${auction.open}">
+        	<thead>
         		<tr>
 		        	<th>Bid ID</th>
 		        	<th>Bidder ID</th>
@@ -105,16 +105,6 @@
 		        	<th>Time</th>
 		        </tr>
         	</thead>
-        	<thead th:if="${not auction.open}">
-		        <tr>
-		        	<th>Bid ID</th>
-		        	<th>Winner ID</th>
-		        	<th>Bidder Name</th>
-		        	<th>Final Price</th>
-		        	<th>Time</th>
-		        </tr>
-        	</thead>
-        	
         	<tbody th:if="${auction.open}">
 	        	<tr th:if="${#lists.isEmpty(auction.bids)}">
 		            <td colspan="4"> No Bids Available </td>
@@ -127,19 +117,9 @@
 		        	<td th:text="${bid.timestamp.toString().replace('T', ' ')}">Time</td>
 		        </tr>
         	</tbody>
-        	<tbody th:if="${not auction.open}">
-	        	<tr th:if="${auction.getMaxBid() == null}">
-		            <td colspan="4"> No Bids Available </td>
-		        </tr>
-		        <tr th:if="${auction.getMaxBid() != null}">
-		        <td th:text="${auction.getMaxBid().id}"></td>
-		        	<td th:text="${auction.getMaxBid().bidderId}"></td>
-                    <td th:text="${auction.getMaxBid().bidderName}"></td>
-		        	<td th:text="${auction.getMaxBid().price}"></td>
-		        	<td th:text="${auction.getMaxBid().timestamp.toString().replace('T', ' ')}"></td>
-		        </tr>
-        	</tbody>
         </table>
+        <p th:if="${winner == null && not auction.open}">None won this auction.</p>
+        <p th:if="${winner != null && not auction.open}" th:text="'This auction was won by' + ${winner.username} + ', ' + ${winner.address_street} + ', ' + ${winner.address_town}"></p>
         <div class="w80">
 			<p th:text="${auction.item.description}"></p>
         </div>

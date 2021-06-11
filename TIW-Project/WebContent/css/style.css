@@ -50,8 +50,9 @@
         font-family: Roboto, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: var(--background);
         color: var(--detail);
+        background: linear-gradient(to top right, dodgerblue, cyan);
+        height: 100vh;
     }
 	
     input.text-field{
@@ -78,8 +79,8 @@
     }
 
     button{
-        background-color: var(--accent);
-        color: var(--background);
+        /*background-color: var(--accent);
+        color: var(--background);*/
         border: none;
         outline: none;
         cursor: pointer;
@@ -121,12 +122,12 @@
     }
 
     .small-logo {
-        filter: invert(18%) sepia(11%) saturate(1360%) hue-rotate(179deg) brightness(92%) contrast(93%);
+        /*filter: invert(18%) sepia(11%) saturate(1360%) hue-rotate(179deg) brightness(92%) contrast(93%);*/
         width: 2em;
         height: 2em;
     }
     .medium-logo {
-        filter: invert(18%) sepia(11%) saturate(1360%) hue-rotate(179deg) brightness(92%) contrast(93%);
+        /*filter: invert(18%) sepia(11%) saturate(1360%) hue-rotate(179deg) brightness(92%) contrast(93%);*/
         width: 3em;
         height: 3em;
     }
@@ -502,6 +503,7 @@
     }
 
     .nav-links > a {
+    	color: white;
         text-decoration: none;
         font-weight: normal;
         font-size: 20px;
@@ -510,7 +512,7 @@
         text-decoration: overline;
     }
     .nav-links > a.active {
-        color: var(--accent);
+        color: cyan;
         font-weight: bold;
     }
 
@@ -537,3 +539,33 @@
             margin: 0 10px;
         }
     }
+    
+    .ico-primary {
+    	fill: cyan;
+    }
+    .ico-secondary {
+    	fill: lightcyan;
+    }
+    
+    
+    
+    /* GLASSMORPHISM */
+    .glass {
+    	color: white;
+        background: rgba(42, 44, 46, 0.27);
+        backdrop-filter: blur(34px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        z-index: 999;
+        box-shadow: 3px 3px 5px rgba(94, 104, 121, .288);
+    }
+    
+    .circle1,
+	.circle2,
+	.circle3 {
+	  position: absolute;
+	  border-radius: 50%;
+	  z-index: -1;
+	}
+	
+	
+	

@@ -20,7 +20,10 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.tiw.project.beans.Auction;
+import it.polimi.tiw.project.beans.Bid;
+import it.polimi.tiw.project.beans.User;
 import it.polimi.tiw.project.dao.AuctionDAO;
+import it.polimi.tiw.project.dao.UserDAO;
 import it.polimi.tiw.project.utils.ConnectionHandler;
 import it.polimi.tiw.project.utils.ErrorHandler;
 
@@ -55,14 +58,26 @@ public class DetailsController extends HttpServlet {
 			return;
 		}
 				
-		AuctionDAO dao = new AuctionDAO(connection);
+		AuctionDAO auctionDao = new AuctionDAO(connection);
 		
 		try {
-			Auction auction = dao.getAuctionDetails(Integer.parseInt(request.getParameter("id")), LocalDateTime.now());
+			Auction auction = auctionDao.getAuctionDetails(Integer.parseInt(request.getParameter("id")), LocalDateTime.now());
 			
 			final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 			auction.calculateTimeLeft(LocalDateTime.now());
 			context.setVariable("auction", auction);
+			
+			if (!auction.isOpen()) {
+				Bid maxBid = auction.getMaxBid();
+				User winner = null;
+				if (maxBid != null) {
+					int winnerId = maxBid.getBidderId();
+					UserDAO userDao = new UserDAO(connection);
+					winner = userDao.getUser(winnerId);
+				}
+				context.setVariable("winner", winner);
+			}
+			
 			path = "/WEB-INF/Details.html";
 			templateEngine.process(path, context, response.getWriter());
 		} catch (Exception e) {

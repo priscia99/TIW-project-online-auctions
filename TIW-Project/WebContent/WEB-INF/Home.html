@@ -16,12 +16,35 @@
             width: 300px;
             height: 200px;
         }
+        .circle1 {
+            background: linear-gradient(to bottom left, dodgerblue, cyan);
+            bottom: 5rem;
+            left: 10rem;
+            height: 30rem;
+            width: 30rem;
+        }
+        .circle2 {
+            background: linear-gradient(to bottom right, cyan, dodgerblue);
+            top: 5rem;
+            right: 15rem;
+            height: 20rem;
+            width: 20rem;
+        }
+        .circle3 {
+            background: linear-gradient(to top left, dodgerblue, cyan);
+            top: 2.5rem;
+            right: 35rem;
+            height: 5rem;
+            width: 5rem;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container navbar outer-shadow columns centered-flex">
-      <div class="nav-logo"><img src="/TIW-Project/img/logo.svg" alt="" class="small-logo"></div>
+    <div class="container navbar glass columns centered-flex">
+      <div class="nav-logo">
+      	<img src="/TIW-Project/img/hammer.svg" alt="" class="small-logo">
+      </div>
       <div class="nav-links">
           <a href="home" class="active text-primary-accent">Home</a>
           <a href="buy" class="text-primary-accent">Buy</a>
@@ -35,25 +58,27 @@
     </div>
 
     <div class="centered rows centered-flex">
-        <h1 id="title"><span class="text-color-accent">AuctiOn</span><span class="text-secondary">line</span></h1>
-        <p class="mv0" th:text="${'Welcome back, ' + session.user.name + ' ' + session.user.surname + '!'}"></p>
+        <h1 id="title"><span style="color: cyan;">AuctiOn</span><span style="color: white;">line</span></h1>
+        <p class="mv0" style="color: white;" th:text="${'Welcome back, ' + session.user.name + ' ' + session.user.surname + '!'}"></p>
         <div class="columns spaced-flex mv10" style="flex-flow: row wrap;">
             <a href="buy" style="text-decoration:none!important;">
-            	<button id="buy-btn" class="round outer-shadow rows centered-flex color-solid text-color-detail">
+            	<button id="buy-btn" class="round rows centered-flex glass">
                 	<p class="full-width text-primary-accent" style="font-size: 24px; font-weight: bold;">BUY</p>
-                    <img src="/TIW-Project/img/shopping-cart-solid.svg" alt="" class="medium-logo mv0 mh50">
+                    <img src="/TIW-Project/img/cart.svg" alt="" class="medium-logo mv0 mh50">
                     <p class="text-primary-accent">Search trough a variety of items on sale</p>
                 </button>
             </a>
             <a href="sell" style="text-decoration:none!important;">
-            	<button id="sell-btn" class="round outer-shadow rows centered-flex color-solid text-color-detail">
+            	<button id="sell-btn" class="round rows centered-flex glass">
 	                <p class="full-width text-primary-accent" style="font-size: 24px; font-weight: bold;">SELL</p>
-	                <img src="/TIW-Project/img/hand-holding-usd-solid.svg" alt="" class="medium-logo mv0 mh50 ">
+	                <img src="/TIW-Project/img/hand-money.svg" alt="" class="medium-logo mv0 mh50 ">
                 	<p class="text-primary-accent">Start or manage an auction</p>
             	</button>
             </a>
         </div>
     </div>
-
+    <span class="circle1"></span>
+	<span class="circle2"></span>
+	<span class="circle3"></span>
 </body>
 </html>
