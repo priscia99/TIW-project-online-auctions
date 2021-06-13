@@ -46,13 +46,13 @@ public class AuctionDAO {
 					item.setImage(Base64.getEncoder().encodeToString(rs.getBytes("image")));
 					Auction auction = new Auction();
 					auction.setId(rs.getInt("id_auction"));			
-					auction.setStartingPrice(rs.getFloat("starting_price"));
 					auction.setMinimumRise(rs.getFloat("minimum_rise"));
 					auction.setEndTimestamp(rs.getTimestamp("end").toInstant().atZone(ZoneId.of("Etc/GMT+0")).toLocalDateTime());
 					auction.setOpen(rs.getBoolean("open"));
 					auction.calculateTimeLeft(datetime);
 					auction.setItem(item);
 					auction.setSellerId(rs.getInt("id_seller"));
+					auction.setStartingPrice(rs.getFloat("starting_price"));
 					toReturn.add(auction);
 					}
 				return toReturn;

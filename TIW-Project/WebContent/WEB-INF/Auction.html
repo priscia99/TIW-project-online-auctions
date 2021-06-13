@@ -184,7 +184,7 @@
         	
         	<tbody th:if="${auctionDetail.open}">
 	        	<tr th:if="${#lists.isEmpty(auctionDetail.bids)}">
-		            <td colspan="4"> No Bids Available </td>
+		            <td colspan="5"> No Bids Available </td>
 		        </tr>
         		<tr th:each="bid : ${auctionDetail.bids}">
 		        	<td th:text="${bid.id}">Bid ID</td>

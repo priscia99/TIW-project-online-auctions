@@ -14,8 +14,10 @@
     }
 
     #search-bar {
-      max-width: 550px;
+      margin-bottom:20px;
+      margin-top:50px;
     }
+    
     #search-button {
       height: 40px;
       width: 40px;
@@ -26,7 +28,10 @@
       width: calc(100% - 50px);
       margin-right: 10px;
     }
-
+    .filter-bar {
+	     height: 30px;
+	     align-items: center;
+ 	}
     .auction-list {
       list-style: none;
       padding: 0;
@@ -47,10 +52,10 @@
       border: none;
     }
     .auction-img {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-    }
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+   	}
     .auction-details {
       padding: 10px 10px 10px 30px;
       display: flex;
@@ -83,26 +88,162 @@
       padding-right: 50px;
       flex-grow: 1;
     }
+    .auction-list {
+	    list-style: none;
+	    padding: 0;
+	    margin: 0;
+	    width: 100%;
+	}
+	.auction {
+	    border-top: 1px solid var(--detail);
+	    padding: 10px;
+	    display: flex;
+	    flex-direction: row;
+	    align-items: center;
+	}
+    .auction-list-wrapper {
+       height: calc(100vh - 250px);
+       align-items: center;
+       scrollbar-width: none; /* Firefox */
+       -ms-overflow-style: none; /* IE 10+ */
+   }
+
+   .auction-list-wrapper::-webkit-scrollbar {
+       display: none; /* Chromium */
+   }
+    .circle1 {
+        background: linear-gradient(to bottom left, dodgerblue, cyan);
+        bottom: 5rem;
+        left: 10rem;
+        height: 30rem;
+        width: 30rem;
+    }
+    .circle2 {
+        background: linear-gradient(to bottom right, cyan, dodgerblue);
+        top: 5rem;
+        right: 15rem;
+        height: 20rem;
+        width: 20rem;
+    }
+    .circle3 {
+        background: linear-gradient(to top left, dodgerblue, cyan);
+        top: 2.5rem;
+        right: 35rem;
+        height: 5rem;
+        width: 5rem;
+    }
   </style>
 </head>
 <body>
 	
 	<!-- NAVBAR -->
-  <div class="container navbar glass columns centered-flex">
-      <div class="nav-logo"><img src="/TIW-Project/img/hammer.svg" alt="" class="small-logo"></div>
-      <div class="nav-links">
-          <a href="home" class="text-primary-accent">Home</a>
-          <a href="buy" class="active text-primary-accent">Buy</a>
-          <a href="sell" class="text-primary-accent">Sell</a>
-      </div>
-      <div class="nav-opt">
-      	<a href="PerformLogout">
-          <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
-        </a>
-      </div>
+ 	<div class="container navbar glass columns centered-flex">
+	    <div class="nav-logo"><img src="/TIW-Project/img/hammer.svg" alt="" class="small-logo"></div>
+	    <div class="nav-links">
+	        <a href="home" class="text-primary-accent">Home</a>
+	        <a href="buy" class="active text-primary-accent">Buy</a>
+	        <a href="sell" class="text-primary-accent">Sell</a>
+	    </div>
+	    <div class="nav-opt">
+	    	<a href="PerformLogout">
+	        <button class="round primary-accent text-secondary" id="logoff-btn">Log Off</button>
+	      </a>
+	    </div>
+	</div>
+	
+	<div class="rows centered-flex w100" id="header">
+        <div class="columns m-nav spaced-between-flex w80">
+            <form action="buy" method="POST" class="columns spaced-evenly-flex w100" id="search-bar">
+		        <input type="text" name="query" placeholder="Enter keywords to search auctions" class="round text-field inner-shadow color-solid" id="search-field">
+		        <button type="submit" class="round outer-shadow" id="search-button">
+		        	<img src="/TIW-Project/img/search-solid.svg" alt="#search-result" class="small-logo" style="z-index: -2;">
+		        </button>
+	        </form>
+        </div>
     </div>
-  
-  <div class=columns>
+    
+	<div class="columns spaced-evenly h100" style="flex-flow: row wrap; height:80%;">
+		<!--  WON AUCTIONS LIST -->
+        <div class="rows w40 h80" id="won-auctions-list">
+        	<h2 style="color: white;">Won auctions</h2>
+            <div th:if="${wonAuctions.size == 0}" th:text="|You have not won any auction yet!|" style="color: white;"></div>
+			<div th:if="${wonAuctions.size > 0}">
+				<div class="columns w100 glass filter-bar" style="z-index: 0">
+	                <div class="ph20">
+	            		Won auctions
+	                </div>
+            	</div>
+	            <div class="rows w100 scrollable auction-list-wrapper">
+	                <div class="w100 h100">
+	                    <ul class="auction-list glass" style="z-index: -1;" th:each="auction : ${wonAuctions}">
+	                        <li class="auction">
+	                            <img th:src="${'data:image/png;base64,' + auction.item.image}" alt="" class="auction-img">
+	                            <div class="rows" style="margin-left: 10px;">
+	                                <h3 style="color: cyan; max-height: 95px; overflow: hidden; margin:0; padding:0;" th:text="${auction.item.name}">item name</h3>
+	                                <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
+	                                    <p style="margin:0; padding: 0;" th:text="'Item ID: ' + ${auction.item.id}" class="ph0">item id</p>
+	                                </div>
+	                                <h4 style="margin: 0; padding: 0" th:text="'EUR ' + ${auction.currentPrice}">current price</h4>
+	                            </div>
+	                        </li>
+	                    </ul>
+	                    <p th:if="${#lists.isEmpty(wonAuctions)}" class="ph20">Nothing to show</p>
+	                </div>
+	            </div>
+            </div>
+        </div>
+
+        <!-- SEARCHED AUCTIONS AUCTIONS LIST -->
+        <div class="rows w40 h80" id="searched-list">
+        	<!--  SEARCH AUCTIONS FORM -->
+	        <div th:if="${query != null}" >
+	        	<h2 style="color: white;">Search results</h2>
+	        	<div th:if="${openAuctions.size == 0}" th:text="|Nessun risultato trovato per '${query}'|" style="color: white;"></div>
+				<div th:if="${openAuctions.size > 0}">
+		            <div class="columns w100 glass filter-bar" style="z-index: 0">
+		                <div class="ph20">
+		                    Search results for your query
+		                </div>
+		            </div>
+	            	<div class="rows w100 scrollable auction-list-wrapper">
+		                <div class="w100 h100">
+		                    <ul class="auction-list" style="z-index: -1;" th:each="auction : ${openAuctions}">
+		                        <li class="auction glass">
+		                            <img th:src="${'data:image/png;base64,' + auction.item.image}" alt="" class="auction-img">
+		                            <div class="rows" style="margin-left: 10px;">
+		                                <a th:href="@{/auctions(id=${auction.id})}">
+		                                    <h3 style="color: cyan; max-height: 95px; overflow: hidden; margin:0; padding:0;" th:text="${auction.item.name}">item name</h3>
+		                                </a>
+		                                <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
+		                                    <p style="margin: 0; padding: 0" th:text="'Item ID: ' + ${auction.id}" class="ph0">Initial Price</p>
+		                                    <span class="mh20"></span>
+		                                    <p style="margin: 0; padding: 0" th:text="'Status: ' + ${auction.open ? 'Open' : 'Closed'}" class="ph0">Minimum rise</p>
+		                                </div>
+		                                <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
+		                                    <p style="margin: 0; padding: 0" th:text="'Remaining time: ' + ${auction.timeLeftFormatted}" class="ph0">Remaining time</p>
+		                                </div>
+		                                <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
+		                                    <p style="margin: 0; padding: 0" th:text="'Initial price: ' + ${auction.startingPrice}" class="ph0">Initial Price</p>
+		                                    <span class="mh20"></span>
+		                                    <p style="margin: 0; padding: 0" th:text="'Minimum rise: ' + ${auction.minimumRise}" class="ph0">Minimum rise</p>
+		                                </div>
+		                                <h4 style="margin: 0; padding: 0" th:text="'EUR ' + ${auction.currentPrice}">current price</h4>
+		                            </div>
+		                        </li>
+		                    </ul>
+		                    <p th:if="${openAuctions.size == 0}" th:text="|Nessun risultato trovato per '${query}'|"></p>
+		                </div>
+	        		</div>
+        		</div>
+        	</div>
+    	</div>
+    	
+    </div>
+  	<span class="circle1"></span>
+    <span class="circle2"></span>
+    <span class="circle3"></span>
+  <!-- 
+  <div class="columns">
    <div class="rows centered-flex w50 mv50">
       <h1>Won auctions</h1>
       		<div th:if="${wonAuctions.size == 0}" th:text="|You have not won any auction yet!|"></div>
@@ -141,8 +282,37 @@
 	        </button>
         </form>
 
-    </div>
 	<div th:if="${query != null}" >
+		<div th:if="${openAuctions.size > 0}">
+		<div class="rows w100" id="search-list">
+	            <div class="columns w100 glass filter-bar" style="z-index: 0">
+	                <div class="ph20">
+	                    Search results for your query
+	                </div>
+	            </div>
+	            <div class="rows w100 scrollable auction-list-wrapper">
+	                <div class="w100 h100">
+	                    <ul class="auction-list" style="z-index: -1;" th:each="auction : ${openAuctions}">
+	                        <li class="auction glass">
+	                            <img th:src="${'data:image/png;base64,' + auction.item.image}" alt="" class="auction-img">
+	                            <div class="rows" style="margin-left: 10px;">
+	                                <a th:href="@{/details(id=${auction.id})}">
+	                                    <h3 style="color: cyan; max-height: 95px; overflow: hidden; margin:0; padding:0;" th:text="${auction.item.name}">item name</h3>
+	                                </a>
+	                                <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
+	                                    <p style="margin: 0; padding: 0" th:text="'Item ID: ' + ${auction.item.id}" class="ph0">item id</p>
+	                                </div>
+	                                <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
+	                                    <p style="margin: 0; padding: 0" th:if="${auction.getMaxBid()!=null}" th:text="'Max bid done:'+${auction.getMaxBid.getPrice}  " class="ph0">maxbid</p>
+	                                </div>
+	                                <h4 style="margin: 0; padding: 0" th:text="'EUR ' + ${auction.currentPrice}">current price</h4>
+	                            </div>
+	                        </li>
+	                    </ul>
+	                </div>
+	        </div>
+	        </div>
+			<!-- 
 			<div th:if="${openAuctions.size > 0}">
 				<div  th:text="|Ecco i risultati per ${query}|" ></div>
     			<div class="w100 rows centered-flex">
@@ -168,11 +338,13 @@
       				</ul>
     			</div>
 		</div>
+		</div>
 		<div th:if="${openAuctions.size == 0}" th:text="|Nessun risultato trovato per '${query}'|"></div>
+  	
   	</div>
   	
   	</div>
-
+	-->
   </div>
 </body>
 </html>

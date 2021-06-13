@@ -91,19 +91,26 @@
         #price, #rise {
             width: 80px;
         }
-        .circle1 {
+		.circle1 {
             background: linear-gradient(to bottom left, dodgerblue, cyan);
-            bottom: 50rem;
-            left: 50rem;
-            height: 40rem;
-            width: 40rem;
+            bottom: 5rem;
+            left: 10rem;
+            height: 30rem;
+            width: 30rem;
         }
         .circle2 {
             background: linear-gradient(to bottom right, cyan, dodgerblue);
-            top: 40rem;
-            right: 30rem;
+            top: 5rem;
+            right: 15rem;
             height: 20rem;
             width: 20rem;
+        }
+        .circle3 {
+            background: linear-gradient(to top left, dodgerblue, cyan);
+            top: 2.5rem;
+            right: 35rem;
+            height: 5rem;
+            width: 5rem;
         }
     </style>
 </head>
@@ -128,7 +135,7 @@
     <div class="rows centered-flex w100" id="header">
         <div class="columns m-nav spaced-between-flex w80">
             <div>
-                <h2 th:text="${session.user.username}" style="color: white;">Username</h2>
+                <h2 th:text="${'Welcome back, ' + session.user.name + ' ' + session.user.surname + '!'}" style="color: white;">Username</h2>
                 <p style="color: white;">Manage your auctions</p>
             </div>
             <a href="#create-popup">
@@ -160,7 +167,7 @@
                                     <p style="margin: 0; padding: 0;" th:text="'Remaining time: ' + ${auction.timeLeftFormatted}" class="ph0">time left</p>
                                 </div>
                                 <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
-                                    <p style="margin: 0; padding: 0"th:if="${auction.getMaxBid()!=null}" th:text="'Max bid done:'+${auction.getMaxBid.getPrice} " class="ph0">maxbid</p>
+                                    <p style="margin: 0; padding: 0"th:if="${auction.getMaxBid()!=null}" th:text="'Max bid done: '+${auction.getMaxBid.getPrice} " class="ph0">maxbid</p>
                                 </div>
                                 <h4 style="margin: 0; padding: 0" th:text="'EUR ' + ${auction.currentPrice}">current price</h4>
                             </div>
@@ -191,7 +198,7 @@
                                     <p style="margin: 0; padding: 0" th:text="'Item ID: ' + ${auction.item.id}" class="ph0">item id</p>
                                 </div>
                                 <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
-                                    <p style="margin: 0; padding: 0" th:if="${auction.getMaxBid()!=null}" th:text="'Max bid done:'+${auction.getMaxBid.getPrice}  " class="ph0">maxbid</p>
+                                    <p style="margin: 0; padding: 0" th:if="${auction.getMaxBid()!=null}" th:text="'Max bid done: '+${auction.getMaxBid.getPrice}  " class="ph0">maxbid</p>
                                 </div>
                                 <h4 style="margin: 0; padding: 0" th:text="'EUR ' + ${auction.currentPrice}">current price</h4>
                             </div>
@@ -263,5 +270,6 @@
     </div>
     <span class="circle1"></span>
     <span class="circle2"></span>
+    <span class="circle3"></span>
 </body>
 </html>

@@ -107,7 +107,7 @@
         	</thead>
         	<tbody th:if="${auction.open}">
 	        	<tr th:if="${#lists.isEmpty(auction.bids)}">
-		            <td colspan="4"> No Bids Available </td>
+		            <td colspan="5"> No Bids Available </td>
 		        </tr>
         		<tr th:each="bid : ${auction.bids}">
 		        	<td th:text="${bid.id}">Bid ID</td>
@@ -119,7 +119,7 @@
         	</tbody>
         </table>
         <p th:if="${winner == null && not auction.open}">None won this auction.</p>
-        <p th:if="${winner != null && not auction.open}" th:text="'This auction was won by' + ${winner.username} + ', ' + ${winner.address_street} + ', ' + ${winner.address_town}"></p>
+        <p th:if="${winner != null && not auction.open}" th:text="'This auction was won by ' + ${winner.username} + ', ' + ${winner.address_street} + ', ' + ${winner.address_town}"></p>
         <div class="w80">
 			<p th:text="${auction.item.description}"></p>
         </div>
