@@ -537,4 +537,11 @@ tr:nth-child(even) {
 }
 	
 	
-	
+/* BONUS */
+ .easter-egg {
+     transform: rotate(0deg);
+     transition: transform 600ms;
+ }
+.easter-egg:hover {
+    transform: rotate(-360deg);
+}
