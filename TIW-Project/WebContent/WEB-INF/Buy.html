@@ -156,7 +156,7 @@
             <form action="buy" method="POST" class="columns spaced-evenly-flex w100" id="search-bar">
 		        <input type="text" name="query" placeholder="Enter keywords to search auctions" class="round text-field inner-shadow color-solid" id="search-field">
 		        <button type="submit" class="round outer-shadow" id="search-button">
-		        	<img src="/TIW-Project/img/search-solid.svg" alt="#search-result" class="small-logo" style="z-index: -2;">
+		        	<img src="/TIW-Project/img/search.svg" alt="#search-result" class="small-logo" style="z-index: -2;">
 		        </button>
 	        </form>
         </div>
@@ -242,109 +242,6 @@
   	<span class="circle1"></span>
     <span class="circle2"></span>
     <span class="circle3"></span>
-  <!-- 
-  <div class="columns">
-   <div class="rows centered-flex w50 mv50">
-      <h1>Won auctions</h1>
-      		<div th:if="${wonAuctions.size == 0}" th:text="|You have not won any auction yet!|"></div>
-			<div th:if="${wonAuctions.size > 0}">
-    			<div class="w100 rows centered-flex">
-      				<ul class="auction-list">
-        				<li class="auction" th:each="wonAuction : ${wonAuctions}">
-          				<img th:src="${'data:image/png;base64,'+wonAuction.item.image}" alt="" class="auction-img">
-          				<div class="auction-details">
-             				 	<h3 th:text="${wonAuction.item.name}"></h3>
-            			<div>
-              			<div>
-                			<p>Expiration date<span style="font-weight: bold;" th:text="${wonAuction.endTimestamp}"></span></p>
-                			<p>Final price<span style="font-weight: bold;" th:text="${wonAuction.currentPrice}"></span></p>
-                		
-              			</div>
-              			<div class="auction-price-wrap">
-                			<p>Minimum rise: <span style="font-weight: bold;" th:text="|EUR ${wonAuction.minimumRise}|"></span></p>
-                			<p class="auction-price" th:text="|Initial price: EUR ${wonAuction.startingPrice}|"></p>
-              			</div>
-            			</div>
-          				</div>
-        				</li>
-      				</ul>
-    			</div>
-		</div>
-    </div>
-  	<div class="w50">
-
-    <div class="rows centered-flex mv50">
-          <h1>Search Auctions</h1>
-      	<form action="buy" method="POST" class="columns spaced-evenly-flex w80" id="search-bar">
-	        <input type="text" name="query" placeholder="Enter keywords to search" class="round text-field inner-shadow color-solid" id="search-field">
-	        <button type="submit" class="round outer-shadow" id="search-button">
-	        	<img src="/TIW-Project/img/search-solid.svg" alt="#search-result" class="small-logo" style="z-index: -2;">
-	        </button>
-        </form>
-
-	<div th:if="${query != null}" >
-		<div th:if="${openAuctions.size > 0}">
-		<div class="rows w100" id="search-list">
-	            <div class="columns w100 glass filter-bar" style="z-index: 0">
-	                <div class="ph20">
-	                    Search results for your query
-	                </div>
-	            </div>
-	            <div class="rows w100 scrollable auction-list-wrapper">
-	                <div class="w100 h100">
-	                    <ul class="auction-list" style="z-index: -1;" th:each="auction : ${openAuctions}">
-	                        <li class="auction glass">
-	                            <img th:src="${'data:image/png;base64,' + auction.item.image}" alt="" class="auction-img">
-	                            <div class="rows" style="margin-left: 10px;">
-	                                <a th:href="@{/details(id=${auction.id})}">
-	                                    <h3 style="color: cyan; max-height: 95px; overflow: hidden; margin:0; padding:0;" th:text="${auction.item.name}">item name</h3>
-	                                </a>
-	                                <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
-	                                    <p style="margin: 0; padding: 0" th:text="'Item ID: ' + ${auction.item.id}" class="ph0">item id</p>
-	                                </div>
-	                                <div style="margin: 5px 0; padding: 0;" class="auction-attr columns">
-	                                    <p style="margin: 0; padding: 0" th:if="${auction.getMaxBid()!=null}" th:text="'Max bid done:'+${auction.getMaxBid.getPrice}  " class="ph0">maxbid</p>
-	                                </div>
-	                                <h4 style="margin: 0; padding: 0" th:text="'EUR ' + ${auction.currentPrice}">current price</h4>
-	                            </div>
-	                        </li>
-	                    </ul>
-	                </div>
-	        </div>
-	        </div>
-			<!-- 
-			<div th:if="${openAuctions.size > 0}">
-				<div  th:text="|Ecco i risultati per ${query}|" ></div>
-    			<div class="w100 rows centered-flex">
-      				<ul class="auction-list">
-        				<li class="auction" th:each="openAuction : ${openAuctions}">
-          				<img th:src="${'data:image/png;base64,'+openAuction.item.image}" alt="" class="auction-img">
-          				<div class="auction-details">
-           					 <a th:href="@{/auctions(id=${openAuction.id})}">
-             				 	<h3 th:text="${openAuction.item.name}"></h3>
-           					</a>
-            			<div>
-              			<div>
-                			<p>Is open: <span style="font-weight: bold;" th:text="${openAuction.open}"></span></p>
-                      <p style="margin: 0; padding: 0;" th:text="'Remaining time: ' + ${openAuction.timeLeftFormatted}" class="ph0">time left</p>
-              			</div>
-              			<div class="auction-price-wrap">
-                			<p>Minimum rise: <span style="font-weight: bold;" th:text="|EUR ${openAuction.minimumRise}|"></span></p>
-                			<p class="auction-price" th:text="|Initial price: EUR ${openAuction.startingPrice}|"></p>
-              			</div>
-            			</div>
-          				</div>
-        				</li>
-      				</ul>
-    			</div>
-		</div>
-		</div>
-		<div th:if="${openAuctions.size == 0}" th:text="|Nessun risultato trovato per '${query}'|"></div>
-  	
-  	</div>
-  	
-  	</div>
-	-->
   </div>
 </body>
 </html>
