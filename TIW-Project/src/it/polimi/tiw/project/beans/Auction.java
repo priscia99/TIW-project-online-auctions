@@ -89,7 +89,7 @@ public class Auction extends  DBObject {
     	if (this.bids.isEmpty()) {
     		return null;
     	} else {
-    		return this.bids.get(0);
+    		return this.bids.get(this.bids.size()-1);
     	}
     }
     
