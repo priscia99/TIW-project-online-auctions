@@ -99,7 +99,7 @@ public class AuctionSubmissionController extends HttpServlet {
 			return;
 		}
 
-		// Create user in DB using UserDAO
+		// Create auction in DB using AuctionDAO
 		try {
 			AuctionDAO dao = new AuctionDAO(connection);
 			dao.createAuctionItem(itemName, itemDescription, imageStream, user.getId(), Float.parseFloat(auctionMinimumRise),
