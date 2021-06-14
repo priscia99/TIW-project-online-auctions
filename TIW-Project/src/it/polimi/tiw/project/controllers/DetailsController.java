@@ -49,6 +49,9 @@ public class DetailsController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// set request encoding to match the project character encoding (utf-8)
+		request.setCharacterEncoding("UTF-8");
+		
 		ServletContext servletContext = getServletContext();
 		String path = null; // Path to the right next page
 		HttpSession session = request.getSession();

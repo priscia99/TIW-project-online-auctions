@@ -53,14 +53,16 @@ public class PerformLogin extends HttpServlet {
     }
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// set request encoding to match the project character encoding (utf-8)
+		request.setCharacterEncoding("UTF-8");
 		
 		// Parameters declaration before reading them from the request
 		String username = null;
 		String password = null;
 		
 		try {
-			username = StringEscapeUtils.escapeJava(request.getParameter("username"));
-			password = StringEscapeUtils.escapeJava(request.getParameter("password"));
+			username = request.getParameter("username");
+			password = request.getParameter("password");
 			// Check if some fields are missing or empty
 			if(username==null || username.isEmpty() || password==null || password.isEmpty()) {
 				throw new Exception("Missing or empty credentials");

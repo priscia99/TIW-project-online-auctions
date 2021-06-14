@@ -22,7 +22,7 @@ public class UserDAO {
 						+ "WHERE username = ? AND password = sha2(?, 256)";
 		try (PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setString(1, username);
-			statement.setBytes(2, password.getBytes());
+			statement.setString(2, password);
 			try (ResultSet result = statement.executeQuery();) {
 				if (!result.isBeforeFirst()) // no results, credential check failed
 					return null;

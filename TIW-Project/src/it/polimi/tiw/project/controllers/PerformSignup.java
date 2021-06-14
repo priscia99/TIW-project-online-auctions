@@ -45,6 +45,9 @@ public class PerformSignup extends HttpServlet {
     }
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// set request encoding to match the project character encoding (utf-8)
+		request.setCharacterEncoding("UTF-8");
+	
 		ServletContext servletContext = getServletContext();
 		boolean badRequest = false;
 		String path = null;	// Path to the right next page
@@ -60,13 +63,13 @@ public class PerformSignup extends HttpServlet {
 
 		try {
 			// Parsing parameters from user request
-			username = StringEscapeUtils.escapeJava(request.getParameter("username"));
-			password = StringEscapeUtils.escapeJava(request.getParameter("password"));
-			name = StringEscapeUtils.escapeJava(request.getParameter("name"));
-			surname = StringEscapeUtils.escapeJava(request.getParameter("surname"));
-			email = StringEscapeUtils.escapeJava(request.getParameter("email"));		
-			addressTown = StringEscapeUtils.escapeJava(request.getParameter("address-town"));
-			addressStreet = StringEscapeUtils.escapeJava(request.getParameter("address-street"));
+			username = request.getParameter("username");
+			password = request.getParameter("password");
+			name = request.getParameter("name");
+			surname = request.getParameter("surname");
+			email = request.getParameter("email");		
+			addressTown = request.getParameter("address-town");
+			addressStreet = request.getParameter("address-street");
 			
 			badRequest = username.isEmpty() || password.isEmpty() || name.isEmpty() || surname.isEmpty() || email.isEmpty() || addressTown.isEmpty() || addressStreet.isEmpty();			
 		}

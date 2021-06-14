@@ -38,11 +38,15 @@ public class HomeController extends HttpServlet {
 		this.templateEngine = new TemplateEngine();																// get template engine
 		this.templateEngine.setTemplateResolver(templateResolver);
 		templateResolver.setSuffix(".html");
+		templateResolver.setCharacterEncoding("UTF-8");
 		connection = ConnectionHandler.getConnection(getServletContext());
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// set request encoding to match the project character encoding (utf-8)
+		request.setCharacterEncoding("UTF-8");
+		
 		// If the user is not logged in (not present in session) redirect to the login
 		String loginpath = getServletContext().getContextPath() + "/index.html";
 		HttpSession session = request.getSession();
@@ -50,6 +54,7 @@ public class HomeController extends HttpServlet {
 			response.sendRedirect(loginpath);
 			return;
 		}
+		
 		User user = (User) session.getAttribute("user");
 
 		// Redirect to the Home page and add missions to the parameters
@@ -57,6 +62,8 @@ public class HomeController extends HttpServlet {
 		ServletContext servletContext = getServletContext();
 		final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 		context.setVariable("user", user);
+		System.out.println(user.getName());
+		System.out.println(user.getSurname());
 		templateEngine.process(path, context, response.getWriter());
 	}
 
