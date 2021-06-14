@@ -8,130 +8,132 @@
   <link rel="stylesheet" type="text/css" media="all" href="/TIW-Project/css/auction.css"/>
   <title>Online Auction - Buy</title>
   <style>
-    #logoff-btn {
-      font-size: 12px;
-      padding: 5px 10px;
-    }
-
-    #search-bar {
-      margin-bottom:20px;
-      margin-top:50px;
-    }
-    
-    #search-button {
-      height: 40px;
-      width: 40px;
-      font-size: 10px;
-    }
-    #search-field {
-      background-color: whitesmoke;
-      width: calc(100% - 50px);
-      margin-right: 10px;
-    }
-    .filter-bar {
-	     height: 30px;
-	     align-items: center;
- 	}
-    .auction-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      min-width: 650px;
-    }
-
-
-    .auction {
-      /*background-color: green;*/
-      border-bottom: 1px solid var(--detail);
-      display: flex;
-      flex-direction: row;
-      padding: 5px;
-      max-width: 1080px;
-    }
-    .auction:last-child {
-      border: none;
-    }
-    .auction-img {
-            width: 140px;
-            height: 140px;
-            object-fit: cover;
-   	}
-    .auction-details {
-      padding: 10px 10px 10px 30px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-    .auction-details a {
-      text-decoration: none;
-    }
-    .auction-details h3 {
-      max-height: 90px;
-      overflow: hidden;
-      margin: 0 0 10px 0;
-    }
-    .auction-details p {
-      margin: 5px 0;
-    }
-    .auction-details .auction-price {
-      font-size: 20px;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    .auction-details>div {
-      display: flex;
-      flex-direction: row;
-    }
-    .auction-details>div>div {
-      display: flex;
-      flex-direction: column;
-      padding-right: 50px;
-      flex-grow: 1;
-    }
-    .auction-list {
-	    list-style: none;
-	    padding: 0;
-	    margin: 0;
-	    width: 100%;
-	}
-	.auction {
-	    border-top: 1px solid var(--detail);
-	    padding: 10px;
-	    display: flex;
-	    flex-direction: row;
-	    align-items: center;
-	}
-    .auction-list-wrapper {
-       height: calc(100vh - 250px);
-       align-items: center;
-       scrollbar-width: none; /* Firefox */
-       -ms-overflow-style: none; /* IE 10+ */
-   }
-
-   .auction-list-wrapper::-webkit-scrollbar {
-       display: none; /* Chromium */
-   }
-    .circle1 {
-        background: linear-gradient(to bottom left, dodgerblue, cyan);
-        bottom: 5rem;
-        left: 10rem;
-        height: 30rem;
-        width: 30rem;
-    }
-    .circle2 {
-        background: linear-gradient(to bottom right, cyan, dodgerblue);
-        top: 5rem;
-        right: 15rem;
-        height: 20rem;
-        width: 20rem;
-    }
-    .circle3 {
-        background: linear-gradient(to top left, dodgerblue, cyan);
-        top: 2.5rem;
-        right: 35rem;
-        height: 5rem;
-        width: 5rem;
-    }
+	    #logoff-btn {
+	      font-size: 12px;
+	      padding: 5px 10px;
+	    }
+	
+	    #search-bar {
+	      margin-bottom:20px;
+	      margin-top:50px;
+	    }
+	    
+	    #search-button {
+	      height: 40px;
+	      width: 40px;
+	      font-size: 10px;
+	    }
+	    #search-field {
+	      background-color: whitesmoke;
+	      width: calc(100% - 50px);
+	      margin-right: 10px;
+	    }
+	    .filter-bar {
+		     height: 30px;
+		     align-items: center;
+	 	}
+	    .auction-list {
+	      list-style: none;
+	      padding: 0;
+	      margin: 0;
+	      min-width: 650px;
+	    }
+	
+	
+	    .auction {
+	      /*background-color: green;*/
+	      border-bottom: 1px solid var(--detail);
+	      display: flex;
+	      flex-direction: row;
+	      padding: 5px;
+	      max-width: 1080px;
+	    }
+	    .auction:last-child {
+	      border: none;
+	    }
+	    .auction-img {
+	            width: 140px;
+	            height: 140px;
+	            object-fit: cover;
+	   	}
+	    .auction-details {
+	      padding: 10px 10px 10px 30px;
+	      display: flex;
+	      flex-direction: column;
+	      flex-grow: 1;
+	    }
+	    .auction-details a {
+	      text-decoration: none;
+	    }
+	    .auction-details h3 {
+	      max-height: 90px;
+	      overflow: hidden;
+	      margin: 0 0 10px 0;
+	    }
+	    .auction-details p {
+	      margin: 5px 0;
+	    }
+	    .auction-details .auction-price {
+	      font-size: 20px;
+	      font-weight: bold;
+	      text-transform: uppercase;
+	    }
+	    .auction-details>div {
+	      display: flex;
+	      flex-direction: row;
+	    }
+	    .auction-details>div>div {
+	      display: flex;
+	      flex-direction: column;
+	      padding-right: 50px;
+	      flex-grow: 1;
+	    }
+	    .auction-list {
+		    list-style: none;
+		    padding: 0;
+		    margin: 0;
+		    width: 100%;
+		}
+		.auction {
+		    border-top: 1px solid var(--detail);
+		    padding: 10px;
+		    display: flex;
+		    flex-direction: row;
+		    align-items: center;
+		}
+	    .auction-list-wrapper {
+	       height: calc(100vh - 250px);
+	       align-items: center;
+	       scrollbar-width: none; /* Firefox */
+	       -ms-overflow-style: none; /* IE 10+ */
+	   }
+	
+	   .auction-list-wrapper::-webkit-scrollbar {
+	       display: none; /* Chromium */
+	   }
+	   
+	   /* BG SCENE */
+       #circle1 {
+           background: linear-gradient(to bottom left, dodgerblue, cyan);
+           bottom: 5rem;
+           left: 10rem;
+           height: 30rem;
+           width: 30rem;
+       }
+       #circle2 {
+           background: linear-gradient(to bottom right, cyan, dodgerblue);
+           top: 5rem;
+           right: 15rem;
+           height: 20rem;
+           width: 20rem;
+       }
+       #circle3 {
+           background: linear-gradient(to top left, dodgerblue, cyan);
+           top: 2.5rem;
+           right: 35rem;
+           height: 5rem;
+           width: 5rem;
+       }
   </style>
 </head>
 <body>
@@ -239,9 +241,9 @@
     	</div>
     	
     </div>
-  	<span class="circle1"></span>
-    <span class="circle2"></span>
-    <span class="circle3"></span>
+    <span class="bg-circle" id="circle1"></span>
+    <span class="bg-circle" id="circle2"></span>
+    <span class="bg-circle" id="circle3"></span>
   </div>
 </body>
 </html>
