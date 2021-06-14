@@ -84,7 +84,7 @@ public class BidSubmissionController extends HttpServlet {
 			return;
 		}
 
-		// Create bid in DB using bidDAO
+		// Create bid in DB using AuctionDAO
 		try {
 			AuctionDAO dao = new AuctionDAO(connection);
 			Auction auction = dao.getAuctionDetails(auctionId, LocalDateTime.now());
