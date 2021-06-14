@@ -377,6 +377,10 @@ a.button:active{
     align-items: center;
     align-content: center;
 }
+.spaced-evenly {
+    justify-content: space-evenly;
+    align-content: center;
+}
 .spaced-evenly-flex {
     justify-content: space-evenly;
     align-items: center;
