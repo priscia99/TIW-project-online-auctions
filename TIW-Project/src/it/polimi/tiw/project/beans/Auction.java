@@ -18,10 +18,11 @@ public class Auction extends  DBObject {
     private String timeLeftFormatted = null;
     
     private void calculateCurrentPrice() {
-    	if (this.bids.size() == 0) {
+    	Bid maxBid = this.getMaxBid();
+    	if (maxBid == null) {
     		this.currentPrice = this.startingPrice;
     	} else {
-    		this.currentPrice = this.bids.get(0).getPrice();
+    		this.currentPrice = maxBid.getPrice();
     	}
     }
     

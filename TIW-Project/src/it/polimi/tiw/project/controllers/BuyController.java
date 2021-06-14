@@ -60,6 +60,7 @@ public class BuyController extends HttpServlet{
 		ArrayList<Auction> wonAuctions = new ArrayList<>();
 		try {
 			wonAuctions = actionDao.getUserWonAuctionsList(user.getId(), user.getLoginTime());
+			System.out.println(wonAuctions.get(0).getCurrentPrice());
 		}catch(Exception e) {
 			e.printStackTrace();
 			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());

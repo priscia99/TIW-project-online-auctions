@@ -66,6 +66,7 @@ public class DetailsController extends HttpServlet {
 			
 			final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 			auction.calculateTimeLeft(user.getLoginTime());
+			System.out.println(auction.getCurrentPrice());
 			context.setVariable("auction", auction);
 			
 			if (!auction.isOpen()) {

@@ -177,7 +177,7 @@
 			  
 			  <form action="submit-bid" id="place-offer" method="post">
 				<div id="field">
-				  <input type="text" class="text-field round inner-shadow" name="price" placeholder="New offer">
+				  <input type="text" class="text-field round inner-shadow" name="price" placeholder="New offer" required="required">
 				</div>
 				<input type="hidden" name="bidderId" th:value="${user.id}">
 				<input type="hidden" name="auctionId" th:value="${auctionDetail.id}">
@@ -208,7 +208,7 @@
 	        	<tr th:if="${#lists.isEmpty(auctionDetail.bids)}">
 		            <td colspan="5"> No Bids Available </td>
 		        </tr>
-        		<tr th:each="bid : ${auctionDetail.bids}">
+		        <tr th:each="i : ${#numbers.sequence(auctionDetail.bids.size() - 1, 0, -1)}" th:with="bid=${auctionDetail.bids[i]}">
 		        	<td th:text="${bid.id}">Bid ID</td>
 		        	<td th:text="${bid.bidderId}">Bidder ID</td>
                     <td th:text="${bid.bidderName}">Bidder Name</td>
