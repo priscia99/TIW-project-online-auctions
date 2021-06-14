@@ -70,8 +70,8 @@ public class SellController extends HttpServlet {
 		ArrayList<Auction> openAuctions = new ArrayList<>();
 		ArrayList<Auction> closeAuctions = new ArrayList<>();
 		try {
-			openAuctions = dao.getUserOpenAuctions(user.getId(), LocalDateTime.now());
-			closeAuctions = dao.getUserCloseAuctions(user.getId(), LocalDateTime.now());
+			openAuctions = dao.getUserOpenAuctions(user.getId(), user.getLoginTime());
+			closeAuctions = dao.getUserCloseAuctions(user.getId(), user.getLoginTime());
 		} catch (SQLException e) {
 			e.printStackTrace();
 			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());

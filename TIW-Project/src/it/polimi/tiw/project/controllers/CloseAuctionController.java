@@ -60,7 +60,8 @@ public class CloseAuctionController extends HttpServlet {
 		// Update auctionin DB using UserDAO
 		try {
 			AuctionDAO dao = new AuctionDAO(connection);
-			Auction auction = dao.getAuctionDetails(auctionId, LocalDateTime.now());
+			Auction auction = dao.getAuctionDetails(auctionId,user.getLoginTime());
+			// check if seller and user IDs match
 			if (auction.getSellerId() != user.getId()) {
 				throw new Exception("User is not the seller.");
 			}

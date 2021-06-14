@@ -57,14 +57,15 @@ public class DetailsController extends HttpServlet {
 			response.sendRedirect(loginpath);
 			return;
 		}
-				
+		
+		User user = (User) session.getAttribute("user");
 		AuctionDAO auctionDao = new AuctionDAO(connection);
 		
 		try {
-			Auction auction = auctionDao.getAuctionDetails(Integer.parseInt(request.getParameter("id")), LocalDateTime.now());
+			Auction auction = auctionDao.getAuctionDetails(Integer.parseInt(request.getParameter("id")), user.getLoginTime());
 			
 			final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
-			auction.calculateTimeLeft(LocalDateTime.now());
+			auction.calculateTimeLeft(user.getLoginTime());
 			context.setVariable("auction", auction);
 			
 			if (!auction.isOpen()) {
