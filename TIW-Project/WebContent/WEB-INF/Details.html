@@ -142,7 +142,7 @@
         	</tbody>
         </table>
         <p th:if="${winner == null && not auction.open}">None won this auction.</p>
-        <p th:if="${winner != null && not auction.open}" th:text="'This auction was won by ' + ${winner.username} + ', ' + ${winner.address_street} + ', ' + ${winner.address_town}"></p>
+        <p th:if="${winner != null && not auction.open}" th:text="'This auction was won by ' + ${winner.name} + ${winner.surname}', ' + ${winner.address_street} + ', ' + ${winner.address_town}"></p>
         <div class="w80">
 			<p th:text="${auction.item.description}"></p>
         </div>
