@@ -57,6 +57,9 @@ public class AuctionDAO {
 					Bid bid = new Bid();
 					bid.setPrice(rs.getFloat("max_price"));
 					auction.addBid(bid);
+					if(auction.getCurrentPrice() <= 0.0) {
+						auction.setCurrentPrice(auction.getStartingPrice());
+					}
 					toReturn.add(auction);
 					}
 				return toReturn;

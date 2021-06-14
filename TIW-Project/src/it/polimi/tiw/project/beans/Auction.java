@@ -26,6 +26,10 @@ public class Auction extends  DBObject {
     	}
     }
     
+    public void setCurrentPrice(float price) {
+    	this.currentPrice = price;
+    }
+    
     public Auction() {
     }
     

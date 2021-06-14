@@ -60,7 +60,6 @@ public class BuyController extends HttpServlet{
 		ArrayList<Auction> wonAuctions = new ArrayList<>();
 		try {
 			wonAuctions = actionDao.getUserWonAuctionsList(user.getId(), user.getLoginTime());
-			System.out.println(wonAuctions.get(0).getCurrentPrice());
 		}catch(Exception e) {
 			e.printStackTrace();
 			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
@@ -101,6 +100,9 @@ public class BuyController extends HttpServlet{
 		try {
 			// the expiration date is later than the time of sending
 			openAuctions = actionDao.filter(query,LocalDateTime.now());	
+			for(Auction auction : openAuctions) {
+				System.out.println("Price: " + auction.getCurrentPrice());
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			final WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
