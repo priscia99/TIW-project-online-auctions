@@ -19,4 +19,4 @@ To develop this project, we used **Java servlets** to handle users' requests and
   - [Home Page](https://github.com/priscia99/TIW-project-online-auctions/blob/master/Schemi/relazione/home_html.png)
   - [Bid submission](https://github.com/priscia99/TIW-project-online-auctions/blob/master/Schemi/relazione/bid_submission_html.png)
   - [Auction creation](https://github.com/priscia99/TIW-project-online-auctions/blob/master/Schemi/relazione/create_auction_html.png)
-- [Final report](https://github.com/priscia99/TIW-project-online-auctions/blob/master/Schemi/relazione/TIW_Project_Aste_Online_Group_17.pdf) (with functional analysis, architectural choices, ER, schemas, views, IFML and sequence diagrams)
+- [Final report](https://github.com/priscia99/TIW-project-online-auctions/blob/master/Schemi/relazione/TIW_Project_Aste_Online_Group_17.pdf) (with functional analysis, architectural choices, ER, schemas, views, IFML and sequence diagrams) 🇮🇹
